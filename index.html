@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Devlab Blog – Центр передових розробок</title>
+  <title>DevLab Blog – Open-Source ERP, Low-Code & Automation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Громадська Організація “Центр передових розробок” – блог про low-code, автоматизацію та інновації." />
+  <meta name="description" content="DevLab Blog covers open-source ERP, lsFusion, low-code platforms and business automation. Articles, case studies and ideas for companies building modern digital systems." />
+  <meta name="keywords" content="open-source ERP, ERP system, lsFusion, low-code ERP, business automation, DevLab Blog, MyCompany" />
+
   <style>
     :root {
       --bg: #070b14;
@@ -113,6 +115,21 @@
       border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
+    .nav-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .nav-meta-title {
+      font-size: 0.88rem;
+    }
+
+    .nav-meta-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -150,6 +167,7 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
+      font-size: 0.82rem;
     }
 
     .btn {
@@ -219,13 +237,13 @@
     /* HERO */
 
     .hero {
-      padding: 3.5rem 0 2rem;
+      padding: 3.2rem 0 1.8rem;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 2.5rem;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1.1fr);
+      gap: 2.2rem;
       align-items: center;
     }
 
@@ -236,18 +254,18 @@
     }
 
     .hero-kicker {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: var(--accent);
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
     }
 
     .hero-title {
-      font-size: clamp(2.1rem, 3vw + 1.2rem, 2.8rem);
+      font-size: clamp(2.05rem, 3vw + 1.1rem, 2.7rem);
       font-weight: 700;
       line-height: 1.15;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.7rem;
     }
 
     .hero-title span {
@@ -260,15 +278,15 @@
     .hero-text {
       color: var(--text-muted);
       font-size: 0.98rem;
-      max-width: 32rem;
-      margin-bottom: 1.1rem;
+      max-width: 34rem;
+      margin-bottom: 1rem;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.9rem;
-      margin-bottom: 1.1rem;
+      gap: 0.8rem;
+      margin-bottom: 0.9rem;
     }
 
     .hero-meta {
@@ -281,7 +299,7 @@
 
     .hero-card {
       border-radius: var(--radius-xl);
-      padding: 1.2rem 1.3rem;
+      padding: 1.15rem 1.25rem;
       background:
         radial-gradient(circle at top left, rgba(72, 207, 255, 0.14), transparent 55%),
         radial-gradient(circle at bottom right, rgba(84, 229, 74, 0.12), transparent 55%),
@@ -317,7 +335,7 @@
       border-radius: 999px;
       background: rgba(15, 23, 42, 0.8);
       border: 1px solid rgba(148, 163, 184, 0.4);
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.75rem;
     }
 
     .hero-pill-dot {
@@ -329,33 +347,33 @@
     }
 
     .hero-card-title {
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
 
     .hero-card-text {
       color: var(--text-muted);
       font-size: 0.85rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.65rem;
     }
 
-    .hero-card-tags {
+    .hero-card-links {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
+      font-size: 0.8rem;
     }
 
-    .tag {
+    .hero-link {
       padding: 0.18rem 0.6rem;
       border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.45);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      background: rgba(15, 23, 42, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--accent);
     }
 
-    /* MAIN GRID: BLOG + SIDEBAR */
+    /* MAIN */
 
     main {
       flex: 1;
@@ -364,8 +382,8 @@
 
     .main-grid {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-      gap: 2.2rem;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.1fr);
+      gap: 2.1rem;
     }
 
     @media (max-width: 900px) {
@@ -375,9 +393,9 @@
     }
 
     .section-title {
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       font-weight: 600;
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.7rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -390,24 +408,83 @@
       font-weight: 400;
     }
 
+    /* Search & filters */
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      margin-bottom: 0.9rem;
+    }
+
+    .search {
+      flex: 1;
+      min-width: 190px;
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 0.4rem 0.9rem 0.4rem 2.1rem;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font-size: 0.85rem;
+    }
+
+    .search input::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      color: rgba(148, 163, 184, 0.9);
+    }
+
     .pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      margin-bottom: 0.9rem;
     }
 
-    /* POST CARD LIST */
+    .tag {
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.8);
+      cursor: pointer;
+      transition:
+        border-color 0.12s ease-out,
+        background 0.12s ease-out,
+        color 0.12s ease-out;
+    }
+
+    .tag.active,
+    .tag:hover {
+      border-color: var(--accent);
+      color: var(--text-main);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    /* POST LIST */
 
     .post-list {
       display: flex;
       flex-direction: column;
-      gap: 1.1rem;
+      gap: 1.05rem;
     }
 
     .post-card {
       display: grid;
-      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
       gap: 1rem;
       border-radius: var(--radius-lg);
       background: rgba(15, 23, 42, 0.9);
@@ -482,13 +559,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .post-image span {
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.18em;
       color: rgba(226, 232, 240, 0.8);
+      text-align: center;
+      padding: 0.6rem;
     }
 
     .post-tag {
@@ -509,7 +585,7 @@
     .sidebar {
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1.15rem;
     }
 
     .sidebar-block {
@@ -523,7 +599,7 @@
     .sidebar-title {
       font-size: 0.9rem;
       font-weight: 600;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.55rem;
     }
 
     .sidebar-text {
@@ -535,7 +611,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
-      margin-top: 0.6rem;
+      margin-top: 0.55rem;
     }
 
     .badge {
@@ -567,70 +643,18 @@
       color: rgba(148, 163, 184, 0.7);
     }
 
-    /* CONTACT */
-
-    .contact {
-      margin-top: 3rem;
-    }
-
-    .contact-card {
-      border-radius: var(--radius-xl);
-      background: radial-gradient(circle at top, rgba(72, 207, 255, 0.16), transparent 60%),
-                  rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      padding: 1.3rem 1.3rem 1.4rem;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 1.4rem;
-    }
-
-    @media (max-width: 900px) {
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .contact-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .contact-text {
-      font-size: 0.85rem;
+    .newsletter-note {
+      font-size: 0.76rem;
       color: var(--text-muted);
-      margin-bottom: 0.7rem;
-    }
-
-    .contact-form {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 0.7rem;
-    }
-
-    .contact-form textarea {
-      grid-column: 1 / -1;
-      resize: vertical;
-      min-height: 90px;
-      border-radius: 14px;
-    }
-
-    @media (max-width: 720px) {
-      .contact-form {
-        grid-template-columns: 1fr;
-      }
+      margin-top: 0.2rem;
     }
 
     /* FOOTER */
 
     footer {
       border-top: 1px solid rgba(148, 163, 184, 0.24);
-      margin-top: 3rem;
-      padding: 1.6rem 0 2rem;
+      margin-top: 2.6rem;
+      padding: 1.4rem 0 1.8rem;
       font-size: 0.78rem;
       color: var(--text-muted);
     }
@@ -671,56 +695,50 @@
     <header>
       <div class="wrapper">
         <nav class="nav">
-          <a href="#top" class="nav-brand">
+          <a href="/" class="nav-brand">
             <div class="nav-logo" aria-hidden="true"></div>
-            <div>
-              <div style="font-size:0.88rem;">Центр передових розробок</div>
-              <div style="font-size:0.7rem; color:var(--text-muted);">
-                Devlab Blog
-              </div>
+            <div class="nav-meta">
+              <div class="nav-meta-title">DevLab Blog</div>
+              <div class="nav-meta-sub">Open-source ERP & low-code notes</div>
             </div>
           </a>
           <div class="nav-links">
-            <a href="#top">Головна</a>
-            <a href="#mission">Місія</a>
-            <a href="#about">Про ГО</a>
-            <a href="#documents">Документи</a>
-            <a href="#blog">Блог</a>
-            <a href="#contact">Зв’язатися з нами</a>
+            <a href="#posts">Posts</a>
+            <a href="#categories">Categories</a>
+            <a href="#about">About</a>
+            <a href="https://devlab.blog" target="_blank" rel="noopener">Main site</a>
           </div>
           <div class="nav-cta">
-            <a href="#contact" class="btn btn-outline">Підтримати</a>
-            <a href="#blog" class="btn btn-primary">Читати блог</a>
+            <a href="https://lsfusion.org" class="btn btn-outline" target="_blank" rel="noopener">lsFusion.org</a>
+            <!-- TODO: поменяй ссылку на реальный сайт MyCompany -->
+            <a href="#" class="btn btn-primary">Try MyCompany ERP</a>
           </div>
-          <button class="nav-toggle" aria-label="Меню">
-            ☰
-          </button>
+          <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
         </nav>
       </div>
     </header>
 
     <!-- HERO -->
-    <section id="top" class="hero">
+    <section class="hero">
       <div class="wrapper hero-grid">
         <div>
-          <div class="hero-kicker">Low-code · Інновації · Освіта</div>
+          <div class="hero-kicker">Blog · Open-source ERP · Low-code</div>
           <h1 class="hero-title">
-            Ласкаво просимо до
-            <span>“Центру передових розробок”</span>
+            Insights on <span>open-source ERP, lsFusion</span> and real-world automation.
           </h1>
           <p class="hero-text">
-            Ми допомагаємо бізнесу, стартапам та державному сектору
-            прискорювати автоматизацію бізнес-процесів за допомогою технологій
-            розробки з низьким рівнем кодування (low-code).
-            <!-- TODO: при бажанні заміни цей абзац більш точним текстом -->
+            DevLab Blog is a space where we experiment with open-source ERP stacks,
+            low-code tools, and practical automation patterns for growing companies.
+            We write about <strong>lsFusion</strong>, <strong>MyCompany ERP</strong>,
+            integrations, and everything around digital operations.
           </p>
           <div class="hero-actions">
-            <a href="#blog" class="btn btn-primary">Перейти до блогу</a>
-            <a href="#contact" class="btn btn-outline">Приєднатися до ГО</a>
+            <a href="#posts" class="btn btn-primary">Browse latest posts</a>
+            <a href="#about" class="btn btn-outline">What is this blog?</a>
           </div>
           <div class="hero-meta">
-            <span>Блог про low-code, цифрові трансформації та освітні проєкти.</span>
-            <span>База знань для бізнесу, розробників та експертів.</span>
+            <span>Focus: open-source ERP, low-code development, real implementation stories.</span>
+            <span>Audience: product teams, integrators, ERP consultants and tech-curious founders.</span>
           </div>
         </div>
 
@@ -728,246 +746,214 @@
           <div class="hero-card-inner">
             <div class="hero-pill">
               <span class="hero-pill-dot"></span>
-              <span>Наші напрямки</span>
+              <span>Stack highlights</span>
             </div>
             <div class="hero-card-title">
-              Консалтинг, освітні програми та експерименти з прототипами
+              lsFusion + open-source ecosystem as a modern ERP backbone
             </div>
             <p class="hero-card-text">
-              Допомагаємо компаніям перевіряти гіпотези, будувати цифрові
-              рішення та готувати фахівців до роботи з low-code інструментами.
+              We explore how lsFusion, PostgreSQL, messaging queues and other open-source
+              components can form a flexible ERP core instead of expensive legacy suites.
             </p>
-            <div class="hero-card-tags">
-              <span class="tag">Інноваційна лабораторія прототипів</span>
-              <span class="tag">Освітні програми</span>
-              <span class="tag">Автоматизація для малого бізнесу</span>
+            <div class="hero-card-links">
+              <a class="hero-link" href="https://lsfusion.org" target="_blank" rel="noopener">Explore lsFusion.org →</a>
+              <!-- TODO: поставь реальный URL MyCompany -->
+              <a class="hero-link" href="#" target="_blank" rel="noopener">See MyCompany ERP demo →</a>
             </div>
           </div>
         </aside>
       </div>
     </section>
 
+    <!-- MAIN -->
     <main>
       <div class="wrapper main-grid">
         <!-- BLOG COLUMN -->
-        <section id="blog">
+        <section id="posts">
           <div class="section-title">
-            <span>Блог</span>
-            <small>Останні пости про low-code, автоматизацію та тренди</small>
+            <span>Latest articles</span>
+            <small>Placeholders – replace with your own posts</small>
           </div>
 
-          <div class="pill-row">
-            <span class="tag">Low-code</span>
-            <span class="tag">Прогнози</span>
-            <span class="tag">Освіта</span>
-            <span class="tag">Автоматизація</span>
+          <div class="toolbar">
+            <div class="search">
+              <span class="search-icon">🔎</span>
+              <input id="searchInput" type="search" placeholder="Search posts (ERP, lsFusion, low-code...)" />
+            </div>
+            <div id="categories" class="pill-row">
+              <button class="tag active" data-tag="all">All</button>
+              <button class="tag" data-tag="erp">Open-source ERP</button>
+              <button class="tag" data-tag="lsfusion">lsFusion</button>
+              <button class="tag" data-tag="lowcode">Low-code</button>
+              <button class="tag" data-tag="integration">Integrations</button>
+              <button class="tag" data-tag="education">Education</button>
+            </div>
           </div>
 
-          <div class="post-list">
+          <div class="post-list" id="postList">
             <!-- POST 1 -->
-            <article class="post-card">
-              <div class="post-body">
+            <article class="post-card" data-tags="erp lsfusion">
+              <a href="post.html" class="post-body">
                 <div class="post-meta">
-                  <span>Без категорії</span>
+                  <span>Open-source ERP</span>
                   <span>&middot;</span>
-                  <span>Хвилин на читання: ~7</span>
+                  <span>Approx. 8 min read</span>
                 </div>
                 <h2 class="post-title">
-                  Розробка з низьким рівнем кодування: тренди та прогнози на 2026 рік
+                  Why open-source ERP with lsFusion is a real alternative to monolithic suites
                 </h2>
                 <p class="post-excerpt">
-                  Платформи low-code вже перестали бути нішовими інструментами.
-                  У 2026 році очікується ще глибша інтеграція зі штучним інтелектом,
-                  розширення функцій автоматизації та нові підходи до безпеки...
-                  <!-- TODO: заміни на фактичний текст статті -->
+                  A high-level look at how lsFusion, PostgreSQL and other open-source components
+                  can be combined into a flexible ERP core, and when this stack makes more sense
+                  than heavy proprietary systems...
                 </p>
                 <div class="post-footer">
                   <div class="post-meta">
-                    <span class="post-tag">Аналітика</span>
-                    <span class="post-tag">AI + low-code</span>
+                    <span class="post-tag">ERP</span>
+                    <span class="post-tag">lsFusion</span>
                   </div>
-                  <a href="#" class="post-read">
-                    Читати статтю →
-                  </a>
+                  <span class="post-read">Read article →</span>
                 </div>
-              </div>
+              </a>
               <div class="post-image">
-                <!-- Тут можна поставити реальне зображення прев’ю -->
-                <span>2026 · Low-code</span>
+                Open-source ERP · lsFusion
               </div>
             </article>
 
             <!-- POST 2 -->
-            <article class="post-card">
-              <div class="post-body">
+            <article class="post-card" data-tags="lowcode erp">
+              <a href="post.html" class="post-body">
                 <div class="post-meta">
-                  <span>Без категорії</span>
+                  <span>Low-code & ERP</span>
                   <span>&middot;</span>
-                  <span>Хвилин на читання: ~6</span>
+                  <span>Approx. 6 min read</span>
                 </div>
                 <h2 class="post-title">
-                  Розробка з низьким рівнем кодування: спрощення технологічного шляху
+                  Low-code patterns for extending your ERP without breaking everything
                 </h2>
                 <p class="post-excerpt">
-                  Світ розробки програмного забезпечення змінюється — low-code
-                  дає змогу створювати корпоративні рішення швидше, залучаючи
-                  бізнес-експертів без глибоких технічних знань...
-                  <!-- TODO: заміни на фактичний текст статті -->
+                  We walk through a few practical patterns for adding low-code modules on top of
+                  an existing ERP – from simple workflows to side-car apps that keep the core
+                  clean but still deliver what business needs...
                 </p>
                 <div class="post-footer">
                   <div class="post-meta">
-                    <span class="post-tag">Практика</span>
-                    <span class="post-tag">Цифрова трансформація</span>
+                    <span class="post-tag">Low-code</span>
+                    <span class="post-tag">Architecture</span>
                   </div>
-                  <a href="#" class="post-read">
-                    Читати статтю →
-                  </a>
+                  <span class="post-read">Read article →</span>
                 </div>
-              </div>
+              </a>
               <div class="post-image">
-                <span>Low-code · Roadmap</span>
+                Low-code · Extensions
               </div>
             </article>
 
             <!-- POST 3 -->
-            <article class="post-card">
-              <div class="post-body">
+            <article class="post-card" data-tags="lsfusion integration">
+              <a href="post.html" class="post-body">
                 <div class="post-meta">
-                  <span>Без рубрики</span>
+                  <span>lsFusion</span>
                   <span>&middot;</span>
-                  <span>Хвилин на читання: ~8</span>
+                  <span>Approx. 7 min read</span>
                 </div>
                 <h2 class="post-title">
-                  Розробка з низьким рівнем кодування (low-code): тренди та прогнози на 2025 рік
+                  Integrating open-source ERP with external services: APIs, queues, and common traps
                 </h2>
                 <p class="post-excerpt">
-                  Попит на швидшу розробку та дефіцит інженерів підштовхують
-                  організації до low-/no-code рішень. Аналітики прогнозують, що
-                  частка таких платформ у корпоративних проєктах лише зростатиме...
-                  <!-- TODO: заміни на фактичний текст статті -->
+                  A practical checklist for connecting an lsFusion-based ERP with payments, CRM,
+                  WMS or custom services using REST APIs and message queues – with a focus on
+                  stability and observability...
                 </p>
                 <div class="post-footer">
                   <div class="post-meta">
-                    <span class="post-tag">Тренди</span>
-                    <span class="post-tag">Бізнес-ефективність</span>
+                    <span class="post-tag">Integrations</span>
+                    <span class="post-tag">lsFusion</span>
                   </div>
-                  <a href="#" class="post-read">
-                    Читати статтю →
-                  </a>
+                  <span class="post-read">Read article →</span>
                 </div>
-              </div>
+              </a>
               <div class="post-image">
-                <span>2025 · Overview</span>
+                APIs · Queues · ERP
               </div>
             </article>
 
-            <!-- TODO: Додай більше карток або окремі сторінки постів -->
+            <!-- POST 4 -->
+            <article class="post-card" data-tags="education lowcode">
+              <a href="post.html" class="post-body">
+                <div class="post-meta">
+                  <span>Education</span>
+                  <span>&middot;</span>
+                  <span>Approx. 5 min read</span>
+                </div>
+                <h2 class="post-title">
+                  Teaching open-source ERP and low-code concepts to non-developers
+                </h2>
+                <p class="post-excerpt">
+                  Drafting a simple curriculum for people who are close to operations but far from
+                  pure coding – analysts, domain experts and future citizen developers...
+                </p>
+                <div class="post-footer">
+                  <div class="post-meta">
+                    <span class="post-tag">Education</span>
+                    <span class="post-tag">Workshops</span>
+                  </div>
+                  <span class="post-read">Read article →</span>
+                </div>
+              </a>
+              <div class="post-image">
+                Training · Workshops
+              </div>
+            </article>
           </div>
         </section>
 
-        <!-- SIDEBAR COLUMN -->
+        <!-- SIDEBAR -->
         <aside class="sidebar">
-          <section id="mission" class="sidebar-block">
-            <h3 class="sidebar-title">Місія ГО</h3>
+          <section id="about" class="sidebar-block">
+            <h3 class="sidebar-title">About this blog</h3>
             <p class="sidebar-text">
-              Забезпечити розвиток і впровадження сучасних технологій
-              автоматизації бізнес-процесів на основі low-code підходів,
-              підвищуючи ефективність і швидкість створення цифрових систем.
-              <!-- TODO: при необхідності встав свій повний текст місії -->
+              DevLab Blog is a lightweight publication about
+              <strong>open-source ERP</strong>, <strong>lsFusion</strong>, low-code
+              tools and the messy, practical reality of automating businesses.
+              We write for teams who’d rather understand the stack than buy a black box.
             </p>
             <div class="badge-row">
-              <span class="badge">Low-code / No-code</span>
-              <span class="badge">Освіта</span>
-              <span class="badge">Консалтинг</span>
+              <span class="badge">Open-source ERP</span>
+              <span class="badge">lsFusion</span>
+              <span class="badge">Low-code</span>
+              <span class="badge">Architecture</span>
             </div>
-          </section>
-
-          <section id="about" class="sidebar-block">
-            <h3 class="sidebar-title">Про ГО “Центр передових розробок”</h3>
-            <p class="sidebar-text">
-              Некомерційна організація, що підтримує інновації, відкритий
-              програмний код та міжнародну технічну співпрацю у сфері
-              автоматизації та low-code розробки.
-              <!-- TODO: заміни на повний текст з WordPress -->
-            </p>
-          </section>
-
-          <section id="documents" class="sidebar-block">
-            <h3 class="sidebar-title">Документи та звітність</h3>
-            <p class="sidebar-text">
-              Тут можна розмістити статут, реєстраційні документи та іншу
-              офіційну інформацію ГО.
-            </p>
-            <ul style="margin-top:0.5rem; font-size:0.8rem; color:var(--text-muted); padding-left:1.1rem;">
-              <li><a href="#">Статут ГО (PDF)</a></li>
-              <li><a href="#">Реєстраційні документи</a></li>
-              <li><a href="#">Звіт про діяльність</a></li>
-            </ul>
           </section>
 
           <section class="sidebar-block">
-            <h3 class="sidebar-title">Підписка на оновлення</h3>
+            <h3 class="sidebar-title">Newsletter</h3>
             <p class="sidebar-text">
-              Отримуйте нові матеріали про low-code, кейси та освітні програми.
+              No spam, just occasional notes on ERP design, lsFusion experiments and new posts.
             </p>
             <form class="newsletter-form">
-              <input
-                type="email"
-                class="field"
-                placeholder="Ваш email"
-              />
-              <button class="btn btn-primary" type="button">
-                Підписатися
-              </button>
+              <input type="email" class="field" placeholder="Your email address" />
+              <button class="btn btn-primary" type="button">Subscribe</button>
+              <p class="newsletter-note">
+                TODO: connect to your email provider (Button currently does nothing).
+              </p>
             </form>
-            <!-- TODO: підключи свій сервіс email-розсилки, якщо потрібно -->
+          </section>
+
+          <section class="sidebar-block">
+            <h3 class="sidebar-title">Featured resources</h3>
+            <p class="sidebar-text">
+              A few starting points if you want to dive deeper into open-source ERP stacks:
+            </p>
+            <ul style="margin-top:0.5rem; font-size:0.8rem; color:var(--text-muted); padding-left:1.1rem; list-style:disc;">
+              <li><a href="https://lsfusion.org" target="_blank" rel="noopener">lsFusion official site</a></li>
+              <!-- TODO: поменяй ссылку на настоящий сайт MyCompany -->
+              <li><a href="#" target="_blank" rel="noopener">MyCompany ERP overview</a></li>
+              <li><a href="https://devlab.blog" target="_blank" rel="noopener">DevLab main site</a></li>
+            </ul>
           </section>
         </aside>
       </div>
-
-      <!-- CONTACT SECTION -->
-      <section id="contact" class="contact">
-        <div class="wrapper">
-          <div class="contact-card">
-            <div class="contact-grid">
-              <div>
-                <h2 class="contact-title">Зв’язатися з нами</h2>
-                <p class="contact-text">
-                  Маєте ідею проєкту, запит на консультацію або хочете долучитися
-                  до діяльності ГО? Напишіть нам – ми відкриті до співпраці.
-                </p>
-                <p class="contact-text">
-                  Email: <a href="mailto:info@devlab.blog">info@devlab.blog</a><br />
-                  Адреса: Україна, 49044, Дніпропетровська обл., місто Дніпро,
-                  вул. Барикадна, буд. 15А, корп. 1, офіс 428
-                </p>
-              </div>
-              <form class="contact-form">
-                <input
-                  type="text"
-                  class="field"
-                  placeholder="Ваше ім’я"
-                  name="name"
-                />
-                <input
-                  type="email"
-                  class="field"
-                  placeholder="Ваш email"
-                  name="email"
-                />
-                <textarea
-                  class="field"
-                  placeholder="Ваше повідомлення"
-                  name="message"
-                ></textarea>
-                <button class="btn btn-primary" type="button">
-                  Надіслати
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
 
     <!-- FOOTER -->
@@ -975,36 +961,59 @@
       <div class="wrapper footer-grid">
         <div>
           <div class="footer-links">
-            <a href="#top">Головна</a>
-            <a href="#mission">Місія</a>
-            <a href="#about">Про ГО</a>
-            <a href="#documents">Документи</a>
-            <a href="#blog">Блог</a>
-            <a href="#contact">Зв’язатися з нами</a>
-            <a href="#">Політика конфіденційності</a>
+            <a href="#posts">Posts</a>
+            <a href="#categories">Categories</a>
+            <a href="#about">About</a>
+            <a href="https://devlab.blog" target="_blank" rel="noopener">Main site</a>
+            <a href="https://lsfusion.org" target="_blank" rel="noopener">lsFusion.org</a>
           </div>
           <p class="footer-meta">
-            ГО “Центр передових розробок” є зареєстрованою некомерційною
-            організацією в Україні. Всі внески підтримують нашу місію
-            забезпечити прискорення автоматизації бізнес-процесів шляхом
-            розвитку технологій розробки з низьким рівнем кодування.
+            DevLab Blog experiments with open-source ERP, lsFusion and low-code approaches.
+            Content is opinionated, practical and sometimes rough around the edges – just like
+            real implementations.
           </p>
         </div>
         <div class="footer-meta">
-          <p>Код ЄДРПОУ: 45939590</p>
-          <p>КВЕД 94.99 Діяльність інших громадських організацій, н.в.і.у.</p>
-          <p>Керівник: Колотова Тетяна</p>
-          <p style="margin-top:0.4rem;">
-            &copy; <span id="year"></span> Devlab Blog · Центр передових розробок
-          </p>
+          <p>Made by DevLab. Hosted on GitHub Pages.</p>
+          <p>&copy; <span id="year"></span> DevLab Blog</p>
         </div>
       </div>
     </footer>
   </div>
 
   <script>
-    // Текущий год в подвале
+    // Year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Simple in-page search + tag filter
+    const searchInput = document.getElementById("searchInput");
+    const posts = Array.from(document.querySelectorAll(".post-card"));
+    const tagButtons = Array.from(document.querySelectorAll(".tag"));
+
+    let activeTag = "all";
+
+    function applyFilters() {
+      const query = (searchInput.value || "").toLowerCase().trim();
+
+      posts.forEach(post => {
+        const text = post.textContent.toLowerCase();
+        const tags = (post.getAttribute("data-tags") || "").split(" ");
+        const matchesText = !query || text.includes(query);
+        const matchesTag = activeTag === "all" || tags.includes(activeTag);
+        post.style.display = (matchesText && matchesTag) ? "" : "none";
+      });
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+
+    tagButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        tagButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeTag = btn.getAttribute("data-tag");
+        applyFilters();
+      });
+    });
   </script>
 </body>
 </html>
