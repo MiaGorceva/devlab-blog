@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Devlab Blog – Центр передових розробок</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Громадська Організація “Центр передових розробок” – блог про low-code, автоматизацію та інновації." />
+  <style>
+    :root {
+      --bg: #070b14;
+      --bg-alt: #0d1422;
+      --accent: #48cfff;
+      --accent-soft: rgba(72, 207, 255, 0.15);
+      --accent-2: #54e54a;
+      --text-main: #f5f7ff;
+      --text-muted: #9ca3c4;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --max-width: 1080px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #141b2f 0, #050812 55%, #020308 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* HEADER / NAV */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(2, 6, 23, 0.9),
+        rgba(2, 6, 23, 0.65),
+        transparent
+      );
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      gap: 1.25rem;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 30%, #ffffff 0, transparent 40%),
+        radial-gradient(circle at 70% 70%, var(--accent-2) 0, transparent 55%),
+        radial-gradient(circle at 30% 70%, var(--accent) 0, transparent 55%);
+      box-shadow:
+        0 0 15px rgba(72, 207, 255, 0.8),
+        0 0 30px rgba(84, 229, 74, 0.7);
+      position: relative;
+    }
+
+    .nav-logo::after {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 0.2rem;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition:
+        background 0.18s ease-out,
+        border-color 0.18s ease-out,
+        transform 0.12s ease-out,
+        box-shadow 0.12s ease-out;
+      white-space: nowrap;
+      background: transparent;
+      color: var(--text-main);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-color: transparent;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.65);
+    }
+
+    .btn-outline {
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      color: var(--text-main);
+      font-size: 1.35rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 3.5rem 0 2rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-kicker {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3vw + 1.2rem, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      max-width: 32rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .hero-card {
+      border-radius: var(--radius-xl);
+      padding: 1.2rem 1.3rem;
+      background:
+        radial-gradient(circle at top left, rgba(72, 207, 255, 0.14), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(84, 229, 74, 0.12), transparent 55%),
+        rgba(5, 10, 25, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 20% 0, rgba(72, 207, 255, 0.08), transparent 40%),
+        radial-gradient(circle at 80% 100%, rgba(84, 229, 74, 0.09), transparent 40%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-2);
+      box-shadow: 0 0 10px rgba(84, 229, 74, 0.9);
+    }
+
+    .hero-card-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-card-text {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    /* MAIN GRID: BLOG + SIDEBAR */
+
+    main {
+      flex: 1;
+      padding-bottom: 3rem;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 2.2rem;
+    }
+
+    @media (max-width: 900px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .section-title small {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.9rem;
+    }
+
+    /* POST CARD LIST */
+
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .post-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+      gap: 1rem;
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      padding: 0.95rem;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+      transition:
+        transform 0.12s ease-out,
+        box-shadow 0.12s ease-out,
+        border-color 0.12s ease-out,
+        background 0.12s ease-out;
+      cursor: pointer;
+    }
+
+    .post-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(72, 207, 255, 0.65);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+      background: radial-gradient(circle at top, rgba(72, 207, 255, 0.09), transparent 55%), rgba(15, 23, 42, 0.96);
+    }
+
+    .post-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .post-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .post-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .post-excerpt {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .post-footer {
+      margin-top: 0.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .post-read {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+
+    .post-image {
+      border-radius: 16px;
+      background: radial-gradient(circle at 20% 0, rgba(72, 207, 255, 0.4), transparent 65%),
+                  radial-gradient(circle at 80% 100%, rgba(84, 229, 74, 0.4), transparent 65%),
+                  #020617;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .post-image span {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(226, 232, 240, 0.8);
+    }
+
+    .post-tag {
+      padding: 0.16rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 720px) {
+      .post-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .sidebar-block {
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      padding: 0.9rem 1rem;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .sidebar-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .sidebar-text {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.16rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--text-muted);
+    }
+
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .field {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 0.45rem 0.85rem;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font-size: 0.83rem;
+    }
+
+    .field::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    /* CONTACT */
+
+    .contact {
+      margin-top: 3rem;
+    }
+
+    .contact-card {
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top, rgba(72, 207, 255, 0.16), transparent 60%),
+                  rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 1.3rem 1.3rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contact-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .contact-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0.7rem;
+    }
+
+    .contact-form textarea {
+      grid-column: 1 / -1;
+      resize: vertical;
+      min-height: 90px;
+      border-radius: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .contact-form {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.24);
+      margin-top: 3rem;
+      padding: 1.6rem 0 2rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: 1.1rem;
+    }
+
+    @media (max-width: 900px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: rgba(148, 163, 184, 0.7);
+    }
+
+    .footer-meta {
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- HEADER -->
+    <header>
+      <div class="wrapper">
+        <nav class="nav">
+          <a href="#top" class="nav-brand">
+            <div class="nav-logo" aria-hidden="true"></div>
+            <div>
+              <div style="font-size:0.88rem;">Центр передових розробок</div>
+              <div style="font-size:0.7rem; color:var(--text-muted);">
+                Devlab Blog
+              </div>
+            </div>
+          </a>
+          <div class="nav-links">
+            <a href="#top">Головна</a>
+            <a href="#mission">Місія</a>
+            <a href="#about">Про ГО</a>
+            <a href="#documents">Документи</a>
+            <a href="#blog">Блог</a>
+            <a href="#contact">Зв’язатися з нами</a>
+          </div>
+          <div class="nav-cta">
+            <a href="#contact" class="btn btn-outline">Підтримати</a>
+            <a href="#blog" class="btn btn-primary">Читати блог</a>
+          </div>
+          <button class="nav-toggle" aria-label="Меню">
+            ☰
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="top" class="hero">
+      <div class="wrapper hero-grid">
+        <div>
+          <div class="hero-kicker">Low-code · Інновації · Освіта</div>
+          <h1 class="hero-title">
+            Ласкаво просимо до
+            <span>“Центру передових розробок”</span>
+          </h1>
+          <p class="hero-text">
+            Ми допомагаємо бізнесу, стартапам та державному сектору
+            прискорювати автоматизацію бізнес-процесів за допомогою технологій
+            розробки з низьким рівнем кодування (low-code).
+            <!-- TODO: при бажанні заміни цей абзац більш точним текстом -->
+          </p>
+          <div class="hero-actions">
+            <a href="#blog" class="btn btn-primary">Перейти до блогу</a>
+            <a href="#contact" class="btn btn-outline">Приєднатися до ГО</a>
+          </div>
+          <div class="hero-meta">
+            <span>Блог про low-code, цифрові трансформації та освітні проєкти.</span>
+            <span>База знань для бізнесу, розробників та експертів.</span>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="hero-card-inner">
+            <div class="hero-pill">
+              <span class="hero-pill-dot"></span>
+              <span>Наші напрямки</span>
+            </div>
+            <div class="hero-card-title">
+              Консалтинг, освітні програми та експерименти з прототипами
+            </div>
+            <p class="hero-card-text">
+              Допомагаємо компаніям перевіряти гіпотези, будувати цифрові
+              рішення та готувати фахівців до роботи з low-code інструментами.
+            </p>
+            <div class="hero-card-tags">
+              <span class="tag">Інноваційна лабораторія прототипів</span>
+              <span class="tag">Освітні програми</span>
+              <span class="tag">Автоматизація для малого бізнесу</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <main>
+      <div class="wrapper main-grid">
+        <!-- BLOG COLUMN -->
+        <section id="blog">
+          <div class="section-title">
+            <span>Блог</span>
+            <small>Останні пости про low-code, автоматизацію та тренди</small>
+          </div>
+
+          <div class="pill-row">
+            <span class="tag">Low-code</span>
+            <span class="tag">Прогнози</span>
+            <span class="tag">Освіта</span>
+            <span class="tag">Автоматизація</span>
+          </div>
+
+          <div class="post-list">
+            <!-- POST 1 -->
+            <article class="post-card">
+              <div class="post-body">
+                <div class="post-meta">
+                  <span>Без категорії</span>
+                  <span>&middot;</span>
+                  <span>Хвилин на читання: ~7</span>
+                </div>
+                <h2 class="post-title">
+                  Розробка з низьким рівнем кодування: тренди та прогнози на 2026 рік
+                </h2>
+                <p class="post-excerpt">
+                  Платформи low-code вже перестали бути нішовими інструментами.
+                  У 2026 році очікується ще глибша інтеграція зі штучним інтелектом,
+                  розширення функцій автоматизації та нові підходи до безпеки...
+                  <!-- TODO: заміни на фактичний текст статті -->
+                </p>
+                <div class="post-footer">
+                  <div class="post-meta">
+                    <span class="post-tag">Аналітика</span>
+                    <span class="post-tag">AI + low-code</span>
+                  </div>
+                  <a href="#" class="post-read">
+                    Читати статтю →
+                  </a>
+                </div>
+              </div>
+              <div class="post-image">
+                <!-- Тут можна поставити реальне зображення прев’ю -->
+                <span>2026 · Low-code</span>
+              </div>
+            </article>
+
+            <!-- POST 2 -->
+            <article class="post-card">
+              <div class="post-body">
+                <div class="post-meta">
+                  <span>Без категорії</span>
+                  <span>&middot;</span>
+                  <span>Хвилин на читання: ~6</span>
+                </div>
+                <h2 class="post-title">
+                  Розробка з низьким рівнем кодування: спрощення технологічного шляху
+                </h2>
+                <p class="post-excerpt">
+                  Світ розробки програмного забезпечення змінюється — low-code
+                  дає змогу створювати корпоративні рішення швидше, залучаючи
+                  бізнес-експертів без глибоких технічних знань...
+                  <!-- TODO: заміни на фактичний текст статті -->
+                </p>
+                <div class="post-footer">
+                  <div class="post-meta">
+                    <span class="post-tag">Практика</span>
+                    <span class="post-tag">Цифрова трансформація</span>
+                  </div>
+                  <a href="#" class="post-read">
+                    Читати статтю →
+                  </a>
+                </div>
+              </div>
+              <div class="post-image">
+                <span>Low-code · Roadmap</span>
+              </div>
+            </article>
+
+            <!-- POST 3 -->
+            <article class="post-card">
+              <div class="post-body">
+                <div class="post-meta">
+                  <span>Без рубрики</span>
+                  <span>&middot;</span>
+                  <span>Хвилин на читання: ~8</span>
+                </div>
+                <h2 class="post-title">
+                  Розробка з низьким рівнем кодування (low-code): тренди та прогнози на 2025 рік
+                </h2>
+                <p class="post-excerpt">
+                  Попит на швидшу розробку та дефіцит інженерів підштовхують
+                  організації до low-/no-code рішень. Аналітики прогнозують, що
+                  частка таких платформ у корпоративних проєктах лише зростатиме...
+                  <!-- TODO: заміни на фактичний текст статті -->
+                </p>
+                <div class="post-footer">
+                  <div class="post-meta">
+                    <span class="post-tag">Тренди</span>
+                    <span class="post-tag">Бізнес-ефективність</span>
+                  </div>
+                  <a href="#" class="post-read">
+                    Читати статтю →
+                  </a>
+                </div>
+              </div>
+              <div class="post-image">
+                <span>2025 · Overview</span>
+              </div>
+            </article>
+
+            <!-- TODO: Додай більше карток або окремі сторінки постів -->
+          </div>
+        </section>
+
+        <!-- SIDEBAR COLUMN -->
+        <aside class="sidebar">
+          <section id="mission" class="sidebar-block">
+            <h3 class="sidebar-title">Місія ГО</h3>
+            <p class="sidebar-text">
+              Забезпечити розвиток і впровадження сучасних технологій
+              автоматизації бізнес-процесів на основі low-code підходів,
+              підвищуючи ефективність і швидкість створення цифрових систем.
+              <!-- TODO: при необхідності встав свій повний текст місії -->
+            </p>
+            <div class="badge-row">
+              <span class="badge">Low-code / No-code</span>
+              <span class="badge">Освіта</span>
+              <span class="badge">Консалтинг</span>
+            </div>
+          </section>
+
+          <section id="about" class="sidebar-block">
+            <h3 class="sidebar-title">Про ГО “Центр передових розробок”</h3>
+            <p class="sidebar-text">
+              Некомерційна організація, що підтримує інновації, відкритий
+              програмний код та міжнародну технічну співпрацю у сфері
+              автоматизації та low-code розробки.
+              <!-- TODO: заміни на повний текст з WordPress -->
+            </p>
+          </section>
+
+          <section id="documents" class="sidebar-block">
+            <h3 class="sidebar-title">Документи та звітність</h3>
+            <p class="sidebar-text">
+              Тут можна розмістити статут, реєстраційні документи та іншу
+              офіційну інформацію ГО.
+            </p>
+            <ul style="margin-top:0.5rem; font-size:0.8rem; color:var(--text-muted); padding-left:1.1rem;">
+              <li><a href="#">Статут ГО (PDF)</a></li>
+              <li><a href="#">Реєстраційні документи</a></li>
+              <li><a href="#">Звіт про діяльність</a></li>
+            </ul>
+          </section>
+
+          <section class="sidebar-block">
+            <h3 class="sidebar-title">Підписка на оновлення</h3>
+            <p class="sidebar-text">
+              Отримуйте нові матеріали про low-code, кейси та освітні програми.
+            </p>
+            <form class="newsletter-form">
+              <input
+                type="email"
+                class="field"
+                placeholder="Ваш email"
+              />
+              <button class="btn btn-primary" type="button">
+                Підписатися
+              </button>
+            </form>
+            <!-- TODO: підключи свій сервіс email-розсилки, якщо потрібно -->
+          </section>
+        </aside>
+      </div>
+
+      <!-- CONTACT SECTION -->
+      <section id="contact" class="contact">
+        <div class="wrapper">
+          <div class="contact-card">
+            <div class="contact-grid">
+              <div>
+                <h2 class="contact-title">Зв’язатися з нами</h2>
+                <p class="contact-text">
+                  Маєте ідею проєкту, запит на консультацію або хочете долучитися
+                  до діяльності ГО? Напишіть нам – ми відкриті до співпраці.
+                </p>
+                <p class="contact-text">
+                  Email: <a href="mailto:info@devlab.blog">info@devlab.blog</a><br />
+                  Адреса: Україна, 49044, Дніпропетровська обл., місто Дніпро,
+                  вул. Барикадна, буд. 15А, корп. 1, офіс 428
+                </p>
+              </div>
+              <form class="contact-form">
+                <input
+                  type="text"
+                  class="field"
+                  placeholder="Ваше ім’я"
+                  name="name"
+                />
+                <input
+                  type="email"
+                  class="field"
+                  placeholder="Ваш email"
+                  name="email"
+                />
+                <textarea
+                  class="field"
+                  placeholder="Ваше повідомлення"
+                  name="message"
+                ></textarea>
+                <button class="btn btn-primary" type="button">
+                  Надіслати
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="wrapper footer-grid">
+        <div>
+          <div class="footer-links">
+            <a href="#top">Головна</a>
+            <a href="#mission">Місія</a>
+            <a href="#about">Про ГО</a>
+            <a href="#documents">Документи</a>
+            <a href="#blog">Блог</a>
+            <a href="#contact">Зв’язатися з нами</a>
+            <a href="#">Політика конфіденційності</a>
+          </div>
+          <p class="footer-meta">
+            ГО “Центр передових розробок” є зареєстрованою некомерційною
+            організацією в Україні. Всі внески підтримують нашу місію
+            забезпечити прискорення автоматизації бізнес-процесів шляхом
+            розвитку технологій розробки з низьким рівнем кодування.
+          </p>
+        </div>
+        <div class="footer-meta">
+          <p>Код ЄДРПОУ: 45939590</p>
+          <p>КВЕД 94.99 Діяльність інших громадських організацій, н.в.і.у.</p>
+          <p>Керівник: Колотова Тетяна</p>
+          <p style="margin-top:0.4rem;">
+            &copy; <span id="year"></span> Devlab Blog · Центр передових розробок
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Текущий год в подвале
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
