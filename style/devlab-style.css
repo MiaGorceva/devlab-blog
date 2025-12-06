@@ -571,13 +571,21 @@
       font-size: 0.75rem;
     }
 
-    .post-hero img {
-      width: 100%;
-      max-width: 900px;
-      height: auto;
-      object-fit: contain;
-      border-radius: 18px;
-    }
+
+        .post-hero {
+          margin: 1.5rem 0 1.25rem;
+          text-align: center;
+        }
+        
+        .post-hero img {
+          width: 100%;
+          max-width: 780px;
+          max-height: 360px;      /* ограничиваем высоту */
+          object-fit: cover;      /* обрезает картинку по краям, если она слишком высокая */
+          border-radius: 18px;
+          display: inline-block;
+        }
+
 
 
     @media (max-width: 720px) {
@@ -657,15 +665,93 @@
 
     /* FOOTER */
 
-    footer {
-      border-top: 1px solid rgba(148, 163, 184, 0.24);
-      margin-top: 2.6rem;
-      padding: 1.4rem 0 1.8rem;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
+    .post-footer-extended {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+}
 
-    .footer-grid {
+.post-footer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.post-meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.post-meta-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  color: var(--text-muted);
+}
+
+.post-share {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.post-share a {
+  text-decoration: underline;
+}
+
+.post-comments {
+  padding-top: 0.5rem;
+}
+
+.post-comments-title {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.post-comments-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.comments-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 480px;
+}
+
+.comments-form .form-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.comments-form input,
+.comments-form textarea {
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 0.75rem;
+  background: var(--surface-elevated);
+  color: var(--text-main);
+  font: inherit;
+}
+
+.comments-form input:focus,
+.comments-form textarea:focus {
+  outline: 1px solid var(--accent);
+  border-color: var(--accent);
+}
+
       display: grid;
       grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
       gap: 1.1rem;
