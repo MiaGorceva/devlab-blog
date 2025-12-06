@@ -571,23 +571,6 @@
       font-size: 0.75rem;
     }
 
-
-        .post-hero {
-          margin: 1.5rem 0 1.25rem;
-          text-align: center;
-        }
-        
-        .post-hero img {
-          width: 100%;
-          max-width: 780px;
-          max-height: 360px;      /* ограничиваем высоту */
-          object-fit: cover;      /* обрезает картинку по краям, если она слишком высокая */
-          border-radius: 18px;
-          display: inline-block;
-        }
-
-
-
     @media (max-width: 720px) {
       .post-card {
         grid-template-columns: 1fr;
@@ -779,3 +762,39 @@
     .footer-meta {
       color: var(--text-muted);
     }
+
+
+/* ==== Post page overrides (no sticky hero over content) ==== */
+
+.post-page header {
+  position: static;        /* если где-то стоял sticky/fixed */
+}
+
+.post-page .post-hero {
+  position: static;
+  top: auto;
+  z-index: 0;
+  margin: 1.5rem 0 1.25rem;
+  text-align: center;
+}
+
+.post-page .post-hero img {
+  width: 100%;
+  max-width: 780px;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 18px;
+  display: inline-block;
+}
+
+/* убедимся, что контент не уезжает "под" картинку */
+.post-page article,
+.post-page .post-content {
+  position: relative;
+  z-index: 1;
+}
+
+.post-page main {
+  overflow: visible;
+}
+
