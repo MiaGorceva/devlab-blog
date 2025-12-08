@@ -5,7 +5,10 @@
       --accent-soft: rgba(72, 207, 255, 0.15);
       --accent-2: #54e54a;
       --text-main: #f5f7ff;
-      --text-muted: #9ca3c4;
+      --text-muted: #9ca3c4;back{
+    text-decoration:underline;
+}
+
       --border-subtle: rgba(255, 255, 255, 0.06);
       --radius-lg: 18px;
       --radius-xl: 26px;
@@ -285,9 +288,10 @@
       color: transparent;
     }
 
-    back{
-        text-decoration:underline;
+    .back {
+      text-decoration: underline;
     }
+
 
     .hero-text {
       color: var(--text-muted);
@@ -746,7 +750,7 @@
   border-radius: 8px;
   border: 1px solid var(--border-subtle);
   padding: 0.5rem 0.75rem;
-  background: var(--surface-elevated);
+  background: var(--bg-alt);
   color: var(--text-main);
   font: inherit;
 }
@@ -819,4 +823,49 @@
 .post-page main {
   overflow: visible;
 }
+
+/* --- Post content lists & bullets --- */
+
+.post-page article ul {
+  margin: 0.6rem 0 1rem 1.3rem;
+  padding-left: 0; /* убираем двойной отступ */
+}
+
+.post-page article li {
+  margin-bottom: 0.35rem;
+  line-height: 1.5;
+}
+
+/* аккуратные неоновые буллеты */
+.post-page article ul li {
+  list-style: none;
+  position: relative;
+  padding-left: 0.9rem;
+}
+
+.post-page article ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+/* --- Post views counter --- */
+
+.post-views {
+  margin-top: 0.9rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.post-views .label {
+  opacity: 0.75;
+}
+
+
 
