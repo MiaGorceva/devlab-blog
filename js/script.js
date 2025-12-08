@@ -32,3 +32,58 @@
         applyFilters();
       });
     });
+// js/scripts.js
+
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  if (!body.classList.contains("post-page")) return;
+
+  const article = document.querySelector("article");
+  if (!article) return;
+
+  // 1) Определяем / создаем id для статьи
+  let postId = article.id;
+  if (!postId) {
+    const path = window.location.pathname;
+    const filename = path.split("/").filter(Boolean).pop() || "";
+    postId = filename.replace(/\.html?$/i, "") || "post-unknown";
+    article.id = postId;
+  }
+
+  // 2) Добавляем блок просмотров под существующим footer статьи
+  let footer = article.querySelector("footer");
+  if (!footer) {
+    footer = document.createElement("footer");
+    footer.className = "post-footer";
+    article.appendChild(footer);
+  }
+
+  let viewsBlock = article.querySelector(".post-views");
+  if (!viewsBlock) {
+    viewsBlock = document.createElement("div");
+    viewsBlock.className = "post-views";
+    viewsBlock.dataset.key = postId;
+    viewsBlock.innerHTML = `
+      <span class="label">Views:</span>
+      <span class="count">—</span>
+    `;
+    footer.appendChild(viewsBlock);
+  }
+
+  const key = viewsBlock.dataset.key || postId;
+  const url = `https://api.countapi.xyz/hit/devlab.blog/${encodeURIComponent(
+    key
+  )}`;
+
+  // 3) Дергаем API для счетчика просмотров
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data || typeof data.value === "undefined") return;
+      viewsBlock.querySelector(".count").textContent = data.value;
+    })
+    .catch(() => {
+      // тихо падаем, ничего не ломаем
+    });
+});
+
