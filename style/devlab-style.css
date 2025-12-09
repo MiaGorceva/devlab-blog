@@ -672,9 +672,7 @@
       margin-top: 0.2rem;
     }
 
-    /* FOOTER */
-
- /* ==== SITE FOOTER ==== */
+    /* ==== SITE FOOTER ==== */
 
 .site-footer {
   margin-top: 3rem;
@@ -716,37 +714,24 @@
 }
 
 
-/* ==== POST FOOTER (внизу статьи) ==== */
+/* ==== FOOTER У СТАТЬИ (ТЕГИ) ==== */
 
-.post-footer-extended {
-  margin-top: 2.5rem;
+.post-footer-article {
+  margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--border-subtle);
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 1.5rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
-@media (max-width: 800px) {
-  .post-footer-extended {
-    grid-template-columns: 1fr;
-  }
-}
-
-.post-footer-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.post-meta-tags {
+.post-footer-article .post-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
 }
 
-/* маленький футер у карточек в списке постов */
+
+/* маленький футер у карточек на списке постов (оставляем как был) */
 .post-footer {
   margin-top: 0.4rem;
   display: flex;
@@ -756,6 +741,7 @@
   font-size: 0.78rem;
   color: var(--text-muted);
 }
+
 
 .post-meta-secondary {
   display: flex;
