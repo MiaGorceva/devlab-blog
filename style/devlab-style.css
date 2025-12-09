@@ -840,7 +840,6 @@
 /* --- Post views counter --- */
 
 .post-views {
-  margin-top: 0.9rem;
   font-size: 0.82rem;
   color: var(--text-muted);
   display: inline-flex;
