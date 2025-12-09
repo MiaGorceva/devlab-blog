@@ -1,123 +1,145 @@
 // uk.devlab.blog/js/scripts.js
 
-document.addEventListener('DOMContentLoaded', () => {
-  // ---- 1. Год в футере ----
-  const yearEl = document.getElementById('year');
+document.addEventListener("DOMContentLoaded", function () {
+  //
+  // === 0. Год в футере ===
+  //
+  var yearEl = document.getElementById("year");
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  // ---- 2. Поиск + фильтр по тегам (главная страница с постами) ----
-  const searchInput = document.getElementById('searchInput');
-  const postCards = Array.from(document.querySelectorAll('.post-card'));
-  const tagButtons = Array.from(document.querySelectorAll('#categories .tag'));
+  //
+  // === 1. Главная: поиск + фильтр по тегам ===
+  //
+  var searchInput = document.getElementById("searchInput");
+  var postCards = Array.prototype.slice.call(
+    document.querySelectorAll(".post-card")
+  );
+  var tagButtons = Array.prototype.slice.call(
+    document.querySelectorAll("#categories .tag")
+  );
 
-  if (searchInput && postCards.length) {
-    let activeTag = 'all';
+  var activeTag = "all";
 
-    function applyFilters() {
-      const query = (searchInput.value || '').toLowerCase().trim();
+  function applyFilters() {
+    if (!postCards.length) return;
 
-      postCards.forEach(post => {
-        const text = post.textContent.toLowerCase();
-        const tags = (post.getAttribute('data-tags') || '').toLowerCase().split(/\s+/);
+    var query =
+      (searchInput && searchInput.value ? searchInput.value : "")
+        .toLowerCase()
+        .trim();
 
-        const matchesText = !query || text.includes(query);
-        const matchesTag = activeTag === 'all' || tags.includes(activeTag);
+    postCards.forEach(function (post) {
+      var text = post.textContent.toLowerCase();
+      var tags = (post.getAttribute("data-tags") || "").toLowerCase();
 
-        post.style.display = (matchesText && matchesTag) ? '' : 'none';
-      });
-    }
+      var matchesText = !query || text.indexOf(query) !== -1;
+      var matchesTag =
+        activeTag === "all" || tags.indexOf(activeTag.toLowerCase()) !== -1;
 
-    // ввод в поиск
-    searchInput.addEventListener('input', applyFilters);
+      post.style.display = matchesText && matchesTag ? "" : "none";
+    });
+  }
 
-    // клики по тегам
-    tagButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tagButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeTag = (btn.getAttribute('data-tag') || 'all').toLowerCase();
+  // привязываем поиск, если он есть
+  if (searchInput) {
+    searchInput.addEventListener("input", applyFilters);
+  }
+
+  // клики по тегам-категориям, если они есть
+  if (tagButtons.length) {
+    tagButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        tagButtons.forEach(function (b) {
+          b.classList.remove("active");
+        });
+        btn.classList.add("active");
+        activeTag = btn.getAttribute("data-tag") || "all";
         applyFilters();
       });
     });
+  }
 
-    // стартовый вызов
+  // стартовая фильтрация при наличии постов
+  if (postCards.length) {
     applyFilters();
   }
 
-  // ---- 3. Счётчик просмотров для страниц поста ----
-  if (!document.body.classList.contains('post-page')) {
-    return; // если мы не на странице поста – дальше не идём
+  //
+  // === 2. Страница поста: счётчик просмотров через CounterAPI ===
+  //
+  if (!document.body.classList.contains("post-page")) {
+    return; // дальше только для страниц постов
   }
 
-  // 3.1 Определяем id поста
-  const article = document.querySelector('main article') || document.querySelector('article');
+  // берём article
+  var article = document.querySelector("main article");
   if (!article) return;
 
-  let postId = article.id;
-  if (!postId) {
-    const path = window.location.pathname;
-    const file = path.split('/').filter(Boolean).pop() || 'home';
-    postId = file.replace(/\.html?$/i, '');
-    article.id = postId;
+  // ключ поста: либо существующий id, либо имя файла
+  var key = article.id;
+  if (!key) {
+    var pathParts = window.location.pathname.split("/").filter(Boolean);
+    var file = pathParts.length ? pathParts[pathParts.length - 1] : "home";
+    key = file.replace(/\.html?$/i, "") || "post-unknown";
+    article.id = key;
   }
 
-  // 3.2 Находим контейнер для просмотров
-  let viewsContainer = document.querySelector('.post-meta-secondary .post-views');
-
-  // если его нет – создаём внизу footer статьи
-  if (!viewsContainer) {
-    let footer = article.querySelector('footer');
-    if (!footer) {
-      footer = document.createElement('footer');
-      footer.className = 'post-footer';
-      article.appendChild(footer);
+  // блок с просмотрами в футере статьи
+  // ожидаем разметку вида:
+  // <div class="post-meta-secondary">
+  //   ...
+  //   <span class="post-views">Views: <span class="count">—</span></span>
+  // </div>
+  var viewsWrapper = article.querySelector(
+    ".post-meta-secondary .post-views"
+  );
+  if (!viewsWrapper) {
+    // если вдруг забыли — создадим
+    var metaSecondary = article.querySelector(".post-meta-secondary");
+    if (!metaSecondary) {
+      return;
     }
-
-    viewsContainer = document.createElement('span');
-    viewsContainer.className = 'post-views';
-    footer.appendChild(viewsContainer);
+    viewsWrapper = document.createElement("span");
+    viewsWrapper.className = "post-views";
+    viewsWrapper.innerHTML = 'Views: <span class="count">—</span>';
+    metaSecondary.appendChild(document.createTextNode(" · "));
+    metaSecondary.appendChild(viewsWrapper);
   }
 
-  // 3.3 Ключ для счётчика
-  let key = viewsContainer.getAttribute('data-key') || postId;
-
-  // 3.4 Внутренний span с числом
-  let countSpan = viewsContainer.querySelector('.count');
+  var countSpan = viewsWrapper.querySelector(".count");
   if (!countSpan) {
-    // если в HTML уже есть текст "Views:", не трогаем его, только добавим число
-    if (!viewsContainer.textContent.trim()) {
-      viewsContainer.innerHTML = 'Views: <span class="count">—</span>';
-    } else {
-      const text = viewsContainer.textContent;
-      viewsContainer.textContent = text;
-      countSpan = document.createElement('span');
-      countSpan.className = 'count';
-      countSpan.textContent = '—';
-      viewsContainer.append(' ', countSpan);
-    }
-  }
-  if (!countSpan) {
-    countSpan = viewsContainer.querySelector('.count');
+    countSpan = document.createElement("span");
+    countSpan.className = "count";
+    countSpan.textContent = "—";
+    viewsWrapper.appendChild(document.createTextNode(" "));
+    viewsWrapper.appendChild(countSpan);
   }
 
-  // 3.5 Запрос к CountAPI
-  const namespace = 'devlab.blog';
-  const url =
-    'https://api.countapi.xyz/hit/' +
+  // namespace лучше зафиксировать руками
+  var namespace = "devlab.blog"; // можно поменять, если хочешь
+  var action = "view";
+
+  // CounterAPI (https://counterapi.com)
+  var url =
+    "https://counterapi.com/api/" +
     encodeURIComponent(namespace) +
-    '/' +
+    "/" +
+    encodeURIComponent(action) +
+    "/" +
     encodeURIComponent(key);
 
   fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      if (data && typeof data.value === 'number') {
-        countSpan.textContent = data.value.toLocaleString('en-US');
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      if (data && typeof data.value === "number") {
+        countSpan.textContent = data.value.toLocaleString("en-US");
       }
     })
-    .catch(() => {
-      // тихо игнорируем, просто оставляем "—"
+    .catch(function () {
+      // тихо игнорируем ошибку, просто оставляем "—"
     });
 });
