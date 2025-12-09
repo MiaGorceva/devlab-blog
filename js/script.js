@@ -1,4 +1,41 @@
-    // Year in footer
+document.addEventListener('DOMContentLoaded', function () {
+  const searchInput = document.getElementById('searchInput');
+  const categoryButtons = document.querySelectorAll('#categories .tag');
+  const posts = document.querySelectorAll('.post-card');
+
+  function filterPosts() {
+    const search = searchInput.value.trim().toLowerCase();
+    const activeBtn = document.querySelector('#categories .tag.active');
+    const activeTag = activeBtn ? activeBtn.dataset.tag : 'all';
+
+    posts.forEach(post => {
+      const tags = (post.dataset.tags || '').toLowerCase(); // "lowcode automation"
+      const text = post.innerText.toLowerCase();
+
+      const matchTag = activeTag === 'all' || tags.includes(activeTag);
+      const matchSearch = !search || text.includes(search);
+
+      post.style.display = (matchTag && matchSearch) ? '' : 'none';
+    });
+  }
+
+  // Клики по категориям
+  categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      categoryButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterPosts();
+    });
+  });
+
+  // Поиск
+  searchInput.addEventListener('input', filterPosts);
+
+  // Стартовая фильтрация
+  filterPosts();
+});
+
+// Year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // Simple in-page search + tag filter
