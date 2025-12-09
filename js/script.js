@@ -124,3 +124,61 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// uk.devlab.blog/js/scripts.js
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    // Только для страниц поста
+    if (!document.body.classList.contains('post-page')) return;
+
+    // --- 1. Определяем "ключ" поста по URL ---
+    // /posts/post6-low-code-platforms-principles-benefits.html -> post6-low-code-platforms-principles-benefits
+    var path = window.location.pathname;
+    var file = path.split('/').filter(Boolean).pop() || 'home';
+    var key = file.replace(/\.html$/i, '');
+
+    // --- 2. Проставляем id на <article>, если его нет ---
+    var article = document.querySelector('main article');
+    if (article && !article.id) {
+      article.id = key;
+    }
+
+    // --- 3. Находим контейнер для просмотров ---
+    var viewsContainer = document.querySelector('.post-meta-secondary .post-views');
+    if (!viewsContainer) return;
+
+    // если вдруг хочешь переопределить ключ вручную:
+    var manualKey = viewsContainer.getAttribute('data-key');
+    if (manualKey) {
+      key = manualKey;
+    }
+
+    var countSpan = viewsContainer.querySelector('.count');
+    if (!countSpan) {
+      countSpan = document.createElement('span');
+      countSpan.className = 'count';
+      countSpan.textContent = '—';
+      viewsContainer.append(' ', countSpan);
+    }
+
+    // --- 4. Дёргаем CountAPI и обновляем число ---
+    var namespace = 'devlab.blog';
+    var url =
+      'https://api.countapi.xyz/hit/' +
+      encodeURIComponent(namespace) +
+      '/' +
+      encodeURIComponent(key);
+
+    fetch(url)
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data && typeof data.value === 'number') {
+          countSpan.textContent = data.value.toLocaleString('en-US');
+        }
+      })
+      .catch(function () {
+        // в случае ошибки просто оставляем "—"
+      });
+  });
+})();
+
+
