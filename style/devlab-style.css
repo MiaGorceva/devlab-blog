@@ -606,7 +606,7 @@
       border-radius: var(--radius-lg);
       background: rgba(15, 23, 42, 0.9);
       border: 1px solid var(--border-subtle);
-      padding: 0.9rem 1rem;
+      padding: 1.5rem 1rem;
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
     }
 
@@ -715,52 +715,6 @@
 .post-share a {
   text-decoration: underline;
 }
-
-.post-comments {
-  padding-top: 0.5rem;
-}
-
-.post-comments-title {
-  font-size: 1rem;
-  margin-bottom: 0.25rem;
-}
-
-.post-comments-note {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-bottom: 0.75rem;
-}
-
-.comments-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-width: 480px;
-}
-
-.comments-form .form-row label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.85rem;
-}
-
-.comments-form input,
-.comments-form textarea {
-  border-radius: 8px;
-  border: 1px solid var(--border-subtle);
-  padding: 0.5rem 0.75rem;
-  background: var(--bg-alt);
-  color: var(--text-main);
-  font: inherit;
-}
-
-.comments-form input:focus,
-.comments-form textarea:focus {
-  outline: 1px solid var(--accent);
-  border-color: var(--accent);
-}
-
       display: grid;
       grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
       gap: 1.1rem;
