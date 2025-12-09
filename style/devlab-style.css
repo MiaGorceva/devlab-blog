@@ -545,6 +545,17 @@
       font-size: 0.75rem;
       color: var(--text-muted);
     }
+    
+    .post-meta-secondary .post-views {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .post-meta-secondary .post-views .count {
+      font-variant-numeric: tabular-nums;
+    }
+
 
     .post-title {
       font-size: 1rem;
