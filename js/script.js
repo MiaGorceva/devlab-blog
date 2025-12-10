@@ -130,7 +130,9 @@
       scriptId +
       "/exec?post=" +
       encodeURIComponent(postId);
+console.log("Views init", { postId });
 
+    
     fetch(url)
       .then(function (res) {
         return res.json();
