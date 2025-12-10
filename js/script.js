@@ -126,7 +126,7 @@
     //var scriptId =
    //   "https://script.google.com/macros/s/AKfycbw63ZiEXuv9Hw-0tHmUaa2fVvpee2Eluwc9O9_J7BKAQwICReHKcULyP3lb2dbHxbxYZg/exec";
     var url =
-      "https://script.google.com/macros/s/AKfycbx_U2_PCC4qZprp3HsrwSOEl2Kr_p-YMjjeD2JALTZqT9VhnMCrpuFAlO_gkkjOmH2Dtg/exec"
+      "https://script.google.com/macros/s/AKfycbysq7b54MsoEaeRilfxMmfqSoz6nb0iKwWvakSn2kDKJiSEopTzJWv2StS8Iv2v3vDJVQ/exec"
     + "?post=" + encodeURIComponent(postId);
     //  scriptId +
     //  "/exec?post=" +
