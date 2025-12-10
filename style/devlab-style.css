@@ -616,6 +616,16 @@
       gap: 1.15rem;
     }
 
+    /* sticky только на широких экранах */
+    @media (min-width: 900px) {
+      .sidebar {
+        position: sticky;
+        top: 1.5rem;          /* можно 2rem, если хочется ниже */
+        align-self: flex-start;
+      }
+    }
+
+
     .sidebar-block {
       border-radius: var(--radius-lg);
       background: rgba(15, 23, 42, 0.9);
@@ -820,7 +830,7 @@
 
 /* Доп. комфортная ширина текста на постах, без влияния на index */
 .post-page .post-content {
-  max-width: 78ch;       /* комфортная длина строки */
+  max-width: 85ch;       /* комфортная длина строки */
   margin-right: auto;    /* выравниваем по левому краю */
 }
 
