@@ -625,6 +625,14 @@
       }
     }
 
+    @media (min-width: 900px) {
+      /* только на страницах постов — чуть ниже относительно хедера */
+      .post-page .sidebar {
+        top: 5.5rem;      /* подбери комфортно: 5–6rem */
+        margin-top: 0;    /* можно обнулить, чтобы не дублировать смещение */
+      }
+    }
+
 
     .sidebar-block {
       border-radius: var(--radius-lg);
@@ -633,6 +641,21 @@
       padding: 1.5rem 1rem;
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
     }
+
+    
+    /* Списки в правой колонке (About, More to explore) */
+    .sidebar-block ul {
+      margin-top: 0.5rem;
+      padding-left: 1.1rem;
+      list-style: disc;
+      font-size: 0.83rem;
+      color: var(--text-muted);
+    }
+
+    .sidebar-block li {
+      margin-bottom: 0.25rem;
+    }
+
 
     .sidebar-title {
       font-size: 0.9rem;
@@ -645,14 +668,6 @@
       color: var(--text-muted);
         
     }
-
-.sidebar-text ul {
-    margin-top:0.5rem;
-                  font-size:0.8rem;
-                  color:var(--text-muted);
-                  padding-left:1.1rem;
-                  list-style:disc;
-}
 
     .badge-row {
       display: flex;
@@ -768,6 +783,7 @@
 
 .post-footer-extended {
   margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--border-subtle);
   display: grid;
@@ -775,6 +791,12 @@
   gap: 1.5rem;
   font-size: 0.9rem;
 }
+
+.post-footer-extended + .sidebar-block,
+.post-meta-secondary + .sidebar-block {
+  margin-top: 2rem;
+}
+
 
 
 .post-meta-secondary {
@@ -830,7 +852,7 @@
 
 /* Доп. комфортная ширина текста на постах, без влияния на index */
 .post-page .post-content {
-  max-width: 85ch;       /* комфортная длина строки */
+  max-width: 90ch;       /* комфортная длина строки */
   margin-right: auto;    /* выравниваем по левому краю */
 }
 
@@ -867,6 +889,8 @@
   font-size: 0.9rem;
   color: var(--accent);
 }
+
+
 
 /* --- Post views counter --- */
 
