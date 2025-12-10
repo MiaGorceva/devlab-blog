@@ -1,133 +1,155 @@
 // uk.devlab.blog/js/scripts.js
-
 (function () {
-  document.addEventListener('DOMContentLoaded', function () {
-    // === 0. Год в футере ===
-    var yearEl = document.getElementById('year');
+  document.addEventListener("DOMContentLoaded", function () {
+    // === 1. Год в футере ===
+    var yearEl = document.getElementById("year");
     if (yearEl) {
       yearEl.textContent = new Date().getFullYear();
     }
 
-    // === 1. Поиск и фильтрация по тегам (только на главной) ===
-    (function setupSearchAndTags() {
-      var searchInput = document.getElementById('searchInput');
-      var postList = document.getElementById('postList');
+    // === 2. Поиск + фильтр по тегам (главная страница) ===
+    var searchInput = document.getElementById("searchInput");
+    var postCards = Array.from(document.querySelectorAll(".post-card"));
+    var tagButtons = Array.from(document.querySelectorAll("#categories .tag"));
 
-      // Если это не главная (нет списка постов) — выходим.
-      if (!postList) return;
+    function applyFilters() {
+      if (!postCards.length) return;
 
-      var posts = Array.prototype.slice.call(
-        document.querySelectorAll('.post-card')
-      );
-      var tagButtons = Array.prototype.slice.call(
-        document.querySelectorAll('#categories .tag')
-      );
-
-      var activeTag = 'all';
-
-      function applyFilters() {
-        var query = (searchInput && searchInput.value ? searchInput.value : '')
+      var query =
+        (searchInput && searchInput.value ? searchInput.value : "")
           .toLowerCase()
           .trim();
 
-        posts.forEach(function (post) {
-          var text = post.textContent.toLowerCase();
-          var tags = (post.getAttribute('data-tags') || '').split(/\s+/);
+      // активный тег берём как раньше — из .tag.active
+      var activeBtn = document.querySelector("#categories .tag.active");
+      var activeTag = activeBtn ? (activeBtn.dataset.tag || "all") : "all";
 
-          var matchesText = !query || text.indexOf(query) !== -1;
-          var matchesTag = activeTag === 'all' || tags.indexOf(activeTag) !== -1;
+      postCards.forEach(function (card) {
+        var text = card.textContent.toLowerCase();
+        var tagsAttr = (card.dataset.tags || "").toLowerCase();
 
-          post.style.display = (matchesText && matchesTag) ? '' : 'none';
-        });
-      }
+        var tagsArr = tagsAttr.split(/\s+/).filter(Boolean);
 
-      if (searchInput) {
-        searchInput.addEventListener('input', applyFilters);
-      }
+        var matchesText = !query || text.indexOf(query) !== -1;
+        var matchesTag =
+          activeTag === "all" || tagsArr.indexOf(activeTag) !== -1;
 
+        card.style.display = matchesText && matchesTag ? "" : "none";
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("input", applyFilters);
+    }
+
+    if (tagButtons.length) {
       tagButtons.forEach(function (btn) {
-        btn.addEventListener('click', function () {
+        btn.addEventListener("click", function () {
           tagButtons.forEach(function (b) {
-            b.classList.remove('active');
+            b.classList.remove("active");
           });
-          btn.classList.add('active');
-          activeTag = btn.getAttribute('data-tag') || 'all';
+          btn.classList.add("active");
           applyFilters();
         });
       });
+    }
 
-      // начальная фильтрация
+    // Первая фильтрация при загрузке (если есть поиск или теги)
+    if (searchInput || tagButtons.length) {
       applyFilters();
-    })();
+    }
 
-    // === 2. Счётчик просмотров на страницах постов ===
-    (function setupPostViews() {
-      // проверяем, что это страница поста
-      if (!document.body.classList.contains('post-page')) return;
+    // === 3. Счётчик просмотров — только на страницах постов ===
+    if (!document.body.classList.contains("post-page")) {
+      return; // на главной ничего больше не делаем
+    }
 
-      // URL → ключ поста
+    var article =
+      document.querySelector("main article") ||
+      document.querySelector("article");
+    if (!article) return;
+
+    // 3.1. Определяем/задаём id статьи
+    var postId = article.id;
+    if (!postId) {
       var path = window.location.pathname;
-      var file = path.split('/').filter(Boolean).pop() || 'index';
-      // например: post6-low-code-platforms-principles-benefits
-      var postKey = file.replace(/\.html?$/i, '');
+      var file = path.split("/").filter(Boolean).pop() || "home";
+      postId = file.replace(/\.html?$/i, "");
+      article.id = postId;
+    }
 
-      // проставим id на <article>, если его нет
-      var article = document.querySelector('main article');
-      if (article && !article.id) {
-        article.id = postKey;
+    // 3.2. Ищем блок .post-meta-secondary и вставляем туда Views
+    var metaSecondary = article.querySelector(".post-meta-secondary");
+    var viewsSpan = null;
+
+    if (metaSecondary) {
+      viewsSpan = metaSecondary.querySelector(".post-views");
+
+      if (!viewsSpan) {
+        // ставим "· Views: —"
+        var dot = document.createElement("span");
+        dot.textContent = "·";
+        metaSecondary.appendChild(dot);
+
+        viewsSpan = document.createElement("span");
+        viewsSpan.className = "post-views";
+        viewsSpan.innerHTML = 'Views: <span class="count">—</span>';
+        metaSecondary.appendChild(viewsSpan);
       }
+    } else {
+      // запасной вариант — свой блок под статьёй
+      var footer =
+        article.querySelector("footer") || article.appendChild(document.createElement("footer"));
+      footer.classList.add("post-footer-extended");
 
-      // ищем контейнер для просмотров: <span class="post-views" ...>
-      var viewsContainer = document.querySelector('.post-meta-secondary .post-views');
-      if (!viewsContainer) {
-        // если его нет, создаём внутри .post-meta-secondary
-        var metaSecondary = document.querySelector('.post-meta-secondary');
-        if (!metaSecondary) return;
+      viewsSpan = document.createElement("span");
+      viewsSpan.className = "post-views";
+      viewsSpan.innerHTML = 'Views: <span class="count">—</span>';
+      footer.appendChild(viewsSpan);
+    }
 
-        viewsContainer = document.createElement('span');
-        viewsContainer.className = 'post-views';
-        metaSecondary.appendChild(document.createTextNode(' · '));
-        metaSecondary.appendChild(viewsContainer);
-      }
+    var countEl = viewsSpan.querySelector(".count");
+    if (!countEl) {
+      countEl = document.createElement("span");
+      countEl.className = "count";
+      countEl.textContent = "—";
+      viewsSpan.appendChild(countEl);
+    }
 
-      // если не задан data-key, используем наш постовый ключ
-      var manualKey = viewsContainer.getAttribute('data-key');
-      if (!manualKey) {
-        viewsContainer.setAttribute('data-key', postKey);
-      } else {
-        postKey = manualKey;
-      }
+    // 3.3. Позволяем руками переопределить ключ через data-key, если вдруг захочешь
+    var manualKey = viewsSpan.getAttribute("data-key");
+    if (manualKey) {
+      postId = manualKey;
+    }
 
-      // внутри span.post-views делаем "Views: <span class="count">—</span>"
-      var countSpan = viewsContainer.querySelector('.count');
-      if (!countSpan) {
-        viewsContainer.innerHTML = 'Views: <span class="count">—</span>';
-        countSpan = viewsContainer.querySelector('.count');
-      }
+    // 3.4. Вызов Google Apps Script (твой деплой)
+    var scriptId =
+      "12metv5oMmDT2hObrr1vpA_O7EgSOEjb1JE_LStP7C-3ylNCsWIx-m8hQ";
+    var url =
+      "https://script.google.com/macros/s/" +
+      scriptId +
+      "/exec?post=" +
+      encodeURIComponent(postId);
 
-      // === URL твоего Apps Script (Web App) ===
-      // ЗДЕСЬ ВСТАВЬ СВОЙ URL из Deploy → Web app → URL
-      var VIEWS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw63ZiEXuv9Hw-0tHmUaa2fVvpee2Eluwc9O9_J7BKAQwICReHKcULyP3lb2dbHxbxYZg/exec';
+    fetch(url)
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (data) {
+        // ожидаем что-то типа { views: 123 } или { count: 123 } или { value: 123 }
+        var value = null;
+        if (data) {
+          if (typeof data.views === "number") value = data.views;
+          else if (typeof data.count === "number") value = data.count;
+          else if (typeof data.value === "number") value = data.value;
+        }
 
-      var url =
-        VIEWS_ENDPOINT +
-        '?key=' +
-        encodeURIComponent(postKey);
-
-      fetch(url)
-        .then(function (res) {
-          return res.json();
-        })
-        .then(function (data) {
-          if (!data) return;
-          var value = data.views || data.value; // на всякий случай оба варианта
-          if (typeof value === 'number') {
-            countSpan.textContent = value.toLocaleString('en-US');
-          }
-        })
-        .catch(function () {
-          // если что-то пошло не так — просто оставляем "—"
-        });
-    })();
+        if (value !== null) {
+          countEl.textContent = value.toLocaleString("en-US");
+        }
+      })
+      .catch(function () {
+        // Если скрипт/интернет/Гугл легли — просто оставляем "—"
+      });
   });
 })();
