@@ -123,13 +123,14 @@
     }
 
     // 3.4. Вызов Google Apps Script (твой деплой)
-    var scriptId =
-      "12metv5oMmDT2hObrr1vpA_O7EgSOEjb1JE_LStP7C-3ylNCsWIx-m8hQ";
+    //var scriptId =
+   //   "https://script.google.com/macros/s/AKfycbw63ZiEXuv9Hw-0tHmUaa2fVvpee2Eluwc9O9_J7BKAQwICReHKcULyP3lb2dbHxbxYZg/exec";
     var url =
-      "https://script.google.com/macros/s/" +
-      scriptId +
-      "/exec?post=" +
-      encodeURIComponent(postId);
+      "https://script.google.com/macros/s/AKfycbw63ZiEXuv9Hw-0tHmUaa2fVvpee2Eluwc9O9_J7BKAQwICReHKcULyP3lb2dbHxbxYZg/exec"
+    + "?post=" + encodeURIComponent(postId);
+    //  scriptId +
+    //  "/exec?post=" +
+    //  encodeURIComponent(postId);
 console.log("Views init", { postId });
 
     
