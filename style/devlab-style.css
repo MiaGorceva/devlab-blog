@@ -301,7 +301,7 @@
     .hero-text {
       color: var(--text-muted);
       font-size: 0.98rem;
-      max-width: 34rem;
+     /* max-width: 34rem;*/
       margin-bottom: 1rem;
       margin-top:0.5rem;
     }
