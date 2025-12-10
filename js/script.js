@@ -126,33 +126,17 @@
     //var scriptId =
    //   "https://script.google.com/macros/s/AKfycbysq7b54MsoEaeRilfxMmfqSoz6nb0iKwWvakSn2kDKJiSEopTzJWv2StS8Iv2v3vDJVQ/exec";
     var url =
-      "https://script.google.com/macros/s/AKfycbysq7b54MsoEaeRilfxMmfqSoz6nb0iKwWvakSn2kDKJiSEopTzJWv2StS8Iv2v3vDJVQ/exec"
-    + "?post=" + encodeURIComponent(postId);
-    //  scriptId +
-    //  "/exec?post=" +
-    //  encodeURIComponent(postId);
-console.log("Views init", { postId });
+      "https://script.google.com/macros/s/AKfycbysq7b54MsoEaeRilfxMmfqSoz6nb0iKwWvakSn2kDKJiSEopTzJWv2StS8Iv2v3vDJVQ/exec"+
+  "?callback=updateViews&post=" + encodeURIComponent(postId);
+  
+    var script = document.createElement("script");
+    script.src = url;
+    document.body.appendChild(script);
 
-    
-    fetch(url)
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (data) {
-        // ожидаем что-то типа { views: 123 } или { count: 123 } или { value: 123 }
-        var value = null;
-        if (data) {
-          if (typeof data.views === "number") value = data.views;
-          else if (typeof data.count === "number") value = data.count;
-          else if (typeof data.value === "number") value = data.value;
-        }
-
-        if (value !== null) {
-          countEl.textContent = value.toLocaleString("en-US");
-        }
-      })
-      .catch(function () {
-        // Если скрипт/интернет/Гугл легли — просто оставляем "—"
-      });
+    function updateViews(data) {
+      if (data && typeof data.views === "number") {
+        countEl.textContent = data.views.toLocaleString("en-US");
+      }
+    }
   });
 })();
