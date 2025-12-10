@@ -143,18 +143,20 @@
   
   });
 })();
-// === Мобильное меню ===
+// === Мобильное меню (бургер ↔ крест) ===
 var navToggle = document.querySelector(".nav-toggle");
 var navGroup  = document.querySelector(".nav-group");
+var navCta    = document.querySelector(".nav-cta");
 
 if (navToggle && navGroup) {
-  navToggle.addEventListener("click", function () {
+  // начальное состояние
+  navToggle.setAttribute("aria-expanded", "false");
+  navToggle.textContent = "☰";
 
+  navToggle.addEventListener("click", function () {
     var isOpen = document.body.classList.toggle("nav-open");
 
-    // переключаем иконку
     navToggle.textContent = isOpen ? "×" : "☰";
-
     navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
   });
 }
