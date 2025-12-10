@@ -125,8 +125,7 @@
     // 3.4. Вызов Google Apps Script (твой деплой)
     //var scriptId =
    //   "https://script.google.com/macros/s/AKfycbysq7b54MsoEaeRilfxMmfqSoz6nb0iKwWvakSn2kDKJiSEopTzJWv2StS8Iv2v3vDJVQ/exec";
-    var url =
-      "https://script.google.com/macros/s/AKfycbysq7b54MsoEaeRilfxMmfqSoz6nb0iKwWvakSn2kDKJiSEopTzJWv2StS8Iv2v3vDJVQ/exec"+
+    var url = "https://script.google.com/macros/s/AKfycbwxV1PVMSj4PIy90CjqRJMt9xHO8G0BGNWajamQEl2frDPy8WDpAlJU_2YfNaqfdc2sCg/exec"+
   "?callback=updateViews&post=" + encodeURIComponent(postId);
   
     var script = document.createElement("script");
