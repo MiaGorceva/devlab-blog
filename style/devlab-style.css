@@ -616,11 +616,11 @@
       gap: 1.15rem;
     }
 
-    /* sticky только на широких экранах */
+    /* sticky-колонка справа на десктопе: и на главной, и на постах */
     @media (min-width: 900px) {
       .sidebar {
         position: sticky;
-        top: 1.5rem;          /* можно 2rem, если хочется ниже */
+        top: 1.8rem;          /* можешь подстроить: 1.5–3rem */
         align-self: flex-start;
       }
     }
@@ -838,6 +838,7 @@
 .post-page main {
   overflow: visible;
 }
+
 
 /* --- Post content lists & bullets --- */
 
