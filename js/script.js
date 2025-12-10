@@ -126,16 +126,20 @@
     //var scriptId =
    //   "https://script.google.com/macros/s/AKfycbysq7b54MsoEaeRilfxMmfqSoz6nb0iKwWvakSn2kDKJiSEopTzJWv2StS8Iv2v3vDJVQ/exec";
     var url = "https://script.google.com/macros/s/AKfycbwxV1PVMSj4PIy90CjqRJMt9xHO8G0BGNWajamQEl2frDPy8WDpAlJU_2YfNaqfdc2sCg/exec"+
-  "?callback=updateViews&post=" + encodeURIComponent(postId);
-  
-    var script = document.createElement("script");
-    script.src = url;
-    document.body.appendChild(script);
+    "?callback=updateViews&post=" + encodeURIComponent(postId);
 
-    function updateViews(data) {
+    // 1) СНАЧАЛА объявляем колбэк в глобальной области
+    window.updateViews = function (data) {
+      console.log("JSONP data:", data);
       if (data && typeof data.views === "number") {
         countEl.textContent = data.views.toLocaleString("en-US");
       }
-    }
+    };
+
+    // 2) Потом подключаем JSONP-скрипт
+    var script = document.createElement("script");
+    script.src = url;
+    document.body.appendChild(script);
+  
   });
 })();
