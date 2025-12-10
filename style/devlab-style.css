@@ -271,13 +271,12 @@
     }
 
     .nav-toggle {
-      display: none;
-      border: none;
-      background: transparent;
-      color: var(--text-main);
-      font-size: 1.35rem;
-      cursor: pointer;
-    }
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      body.nav-open .nav-toggle {
+        transform: rotate(0deg); /* если хочешь — можно 90deg */
+      }
 
     @media (max-width: 900px) {
       .nav-cta {
