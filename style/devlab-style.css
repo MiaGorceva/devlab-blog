@@ -914,11 +914,10 @@ main {
 
 .post-page .post-hero img {
   width: 100%;
-  max-width: 100%;
-  height: auto;              /* ← КЛЮЧЕВО */
+  max-width: 780px;
+  height: auto;              
   height: clamp(220px, 34vw, 420px);/* адаптивная высота */
   object-fit: cover;                /* возвращаем “баннерный” вид */
-  object-position: 50% 65%;         /* смещаем кадр вниз (подбери) */
 
   border-radius: 18px;
   box-shadow: 0 18px 40px rgba(0,0,0,.55);
