@@ -890,22 +890,24 @@ main {
   position: static;
 }
 
+/* HERO IMAGE FIX */
 .post-page .post-hero {
-  position: static;
-  top: auto;
-  z-index: 0;
-  margin: 1.5rem 0 1.25rem;
+  margin: 2rem 0 2rem;
+  padding: 0;
   text-align: center;
+  loading: eager;
 }
 
 .post-page .post-hero img {
   width: 100%;
-  max-width: 780px;
-  max-height: 360px;
-  object-fit: cover;
+  max-width: 100%;
+  height: auto;              /* ← КЛЮЧЕВО */
+  max-height: none;          /* ← УБИРАЕМ ОБРЕЗКУ */
+  object-fit: contain;       /* ← НЕ cover */
   border-radius: 18px;
-  display: inline-block;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
 }
+
 
 /* убедимся, что контент не уезжает "под" картинку */
 .post-page article,
