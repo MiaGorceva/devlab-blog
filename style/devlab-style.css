@@ -890,14 +890,6 @@ main {
   position: static;
 }
 
-/* HERO IMAGE FIX */
-.post-page .post-hero {
-  margin: 2rem 0 2rem;
-  padding: 0;
-  text-align: center;
-  position: relative;
-}
-
 .post-page .post-hero::after {
   content: "";
   position: absolute;
@@ -912,15 +904,22 @@ main {
 }
 
 
-.post-page .post-hero img {
-  width: 100%;
-  max-width: 780px;
-  height: auto;              
-  height: clamp(220px, 34vw, 420px);/* адаптивная высота */
-  object-fit: cover;                /* возвращаем “баннерный” вид */
-
+/* HERO image wrapper */
+.post-page .post-hero{
+  max-width: 780px;          /* как у тебя было */
+  margin: 1.5rem auto 1.25rem;
   border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(0,0,0,.55);
+  overflow: hidden;          /* важно для красивого кропа */
+  background: rgba(15, 23, 42, 0.35);
+}
+
+/* HERO image itself */
+.post-page .post-hero img{
+  width: 100%;
+  height: clamp(240px, 34vw, 420px); /* ограничиваем “гиганта” */
+  object-fit: cover;                /* баннерный режим */
+  object-position: center 30%;      /* подними кадр чуть вверх */
+  display: block;
 }
 
 /* чуть мягче на мобиле */
