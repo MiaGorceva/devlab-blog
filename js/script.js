@@ -60,16 +60,12 @@
     }
 
     // === 3. Счётчик просмотров — только на страницах постов ===
-    if (!document.body.classList.contains("post-page")) {
-      return; // на главной ничего больше не делаем
-    }
+    if (!document.body.classList.contains("post-page")) return;
 
-    var article =
-      document.querySelector("main article") ||
-      document.querySelector("article");
+    var article = document.querySelector("main article") || document.querySelector("article");
     if (!article) return;
 
-    // 3.1. Определяем/задаём id статьи
+    // 3.1. id статьи
     var postId = article.id;
     if (!postId) {
       var path = window.location.pathname;
@@ -78,15 +74,11 @@
       article.id = postId;
     }
 
-    // 3.2. Ищем блок .post-meta-secondary и вставляем туда Views
-    var metaSecondary = article.querySelector(".post-meta-secondary");
-    var viewsSpan = null;
-
-    if (metaSecondary) {
-      viewsSpan = metaSecondary.querySelector(".post-views");
-
+    // 3.2. Гарантируем, что в каждом .post-meta-secondary есть .post-views
+    var metaBlocks = Array.from(article.querySelectorAll(".post-meta-secondary"));
+    metaBlocks.forEach(function (metaSecondary) {
+      var viewsSpan = metaSecondary.querySelector(".post-views");
       if (!viewsSpan) {
-        // ставим "· Views: —"
         var dot = document.createElement("span");
         dot.textContent = "·";
         metaSecondary.appendChild(dot);
@@ -96,39 +88,50 @@
         viewsSpan.innerHTML = 'Views: <span class="count">—</span>';
         metaSecondary.appendChild(viewsSpan);
       }
-    } else {
-      // запасной вариант — свой блок под статьёй
-      var footer =
-        article.querySelector("footer") || article.appendChild(document.createElement("footer"));
+    });
+
+    // если вообще нет meta-block’ов — fallback
+    if (!metaBlocks.length) {
+      var footer = article.querySelector("footer") || article.appendChild(document.createElement("footer"));
       footer.classList.add("post-footer-extended");
 
-      viewsSpan = document.createElement("span");
-      viewsSpan.className = "post-views";
-      viewsSpan.innerHTML = 'Views: <span class="count">—</span>';
-      footer.appendChild(viewsSpan);
+      var viewsSpan = footer.querySelector(".post-views");
+      if (!viewsSpan) {
+        viewsSpan = document.createElement("span");
+        viewsSpan.className = "post-views";
+        viewsSpan.innerHTML = 'Views: <span class="count">—</span>';
+        footer.appendChild(viewsSpan);
+      }
     }
 
-    var countEl = viewsSpan.querySelector(".count");
-    if (!countEl) {
-      countEl = document.createElement("span");
-      countEl.className = "count";
-      countEl.textContent = "—";
-      viewsSpan.appendChild(countEl);
+    // соберём ВСЕ count-элементы на странице статьи
+    var countEls = Array.from(article.querySelectorAll(".post-views .count"));
+
+    // 3.3. ручной key (если надо)
+    var manualKeyEl = article.querySelector(".post-views[data-key]");
+    if (manualKeyEl && manualKeyEl.getAttribute("data-key")) {
+      postId = manualKeyEl.getAttribute("data-key");
     }
 
-    // 3.3. Позволяем руками переопределить ключ через data-key, если вдруг захочешь
-    var manualKey = viewsSpan.getAttribute("data-key");
-    if (manualKey) {
-      postId = manualKey;
-    }
+    // 3.4. JSONP (с анти-кэшем)
+    window.updateViews = function (data) {
+      console.log("JSONP data:", data);
+      if (data && typeof data.views === "number") {
+        var v = data.views.toLocaleString("en-US");
+        countEls.forEach(function (el) { el.textContent = v; });
+      }
+    };
 
-    // 3.4. Вызов Google Apps Script (твой деплой)
-    //var scriptId =
-   //   "https://script.google.com/macros/s/AKfycbysq7b54MsoEaeRilfxMmfqSoz6nb0iKwWvakSn2kDKJiSEopTzJWv2StS8Iv2v3vDJVQ/exec";
-    var url = "https://script.google.com/macros/s/AKfycbz3O_smyEG9F2xsOcxxkG0wsWKXGB4gfuOv2OIYw6vO3dzvzBPJTnT2WgsjzopftF3Vxg/exec"+
-    "?callback=updateViews&post=" + encodeURIComponent(postId);
+    var url =
+      "https://script.google.com/macros/s/AKfycbz3O_smyEG9F2xsOcxxkG0wsWKXGB4gfuOv2OIYw6vO3dzvzBPJTnT2WgsjzopftF3Vxg/exec" +
+      "?callback=updateViews&post=" + encodeURIComponent(postId) +
+      "&t=" + Date.now(); // <-- важно
 
-    // 1) СНАЧАЛА объявляем колбэк в глобальной области
+    var script = document.createElement("script");
+    script.src = url;
+    document.body.appendChild(script);
+
+    /* 1) СНАЧАЛА объявляем колбэк в глобальной области
     window.updateViews = function (data) {
       console.log("JSONP data:", data);
       if (data && typeof data.views === "number") {
@@ -139,10 +142,11 @@
     // 2) Потом подключаем JSONP-скрипт
     var script = document.createElement("script");
     script.src = url;
-    document.body.appendChild(script);
+    document.body.appendChild(script);*/
   
   });
 })();
+
 // === Мобильное меню (бургер ↔ крест) ===
 var navToggle = document.querySelector(".nav-toggle");
 var navGroup  = document.querySelector(".nav-group");
