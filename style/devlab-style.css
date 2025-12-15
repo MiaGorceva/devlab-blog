@@ -916,10 +916,21 @@ main {
   width: 100%;
   max-width: 100%;
   height: auto;              /* ← КЛЮЧЕВО */
-  max-height: none;          /* ← УБИРАЕМ ОБРЕЗКУ */
-  object-fit: contain;       /* ← НЕ cover */
+  height: clamp(220px, 34vw, 420px);/* адаптивная высота */
+  object-fit: cover;                /* возвращаем “баннерный” вид */
+  object-position: 50% 65%;         /* смещаем кадр вниз (подбери) */
+
   border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 18px 40px rgba(0,0,0,.55);
+}
+
+/* чуть мягче на мобиле */
+@media (max-width: 720px){
+  .post-page .post-hero img{
+    max-width: 100%;
+    height: clamp(200px, 52vw, 320px);
+    object-position: 50% 60%;
+  }
 }
 
 
