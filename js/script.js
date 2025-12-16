@@ -270,23 +270,5 @@ document.querySelectorAll(".post-image img").forEach(function (img) {
   });
 });
 
-function applyRatio(img) {
-  var w = img.naturalWidth;
-  var h = img.naturalHeight;
-  var box = img.closest(".post-image");
-  if (!box || !w || !h) return;
-
-  box.classList.remove("ratio-square", "ratio-portrait", "ratio-landscape");
-
-  var ratio = w / h;
-
-  if (ratio > 1.25) {
-    box.classList.add("ratio-landscape");   // широкая
-  } else if (ratio < 0.85) {
-    box.classList.add("ratio-portrait");    // вертикальная
-  } else {
-    box.classList.add("ratio-square");      // почти квадрат
-  }
-}
 
 

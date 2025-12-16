@@ -713,58 +713,45 @@ main { flex: 1; padding-bottom: 3rem; }
    9. POST PAGE OVERRIDES
    ========================= */
 
+/* 9. POST PAGE OVERRIDES */
+
 .post-page header { position: static; }
 
-.post-page .post-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(7, 11, 20, 0) 60%,
-    rgba(7, 11, 20, 0.85) 100%
-  );
-  pointer-events: none;
-  border-radius: 18px;
-}
-
 /* HERO image wrapper */
-.post-page .post-hero {
+.post-page .post-hero{
   max-width: 780px;
-  margin: 1.5rem auto 1.25rem;
+  margin: 32px auto;
   border-radius: 18px;
   overflow: hidden;
-  background: rgba(15, 23, 42, 0.35);
-  position: relative;
+  background: rgba(15,23,42,.9);
+  padding: 13px;
+
+  position: relative; /* <-- ДОБАВЬ, если хочешь ::after */
 }
 
 /* Post content images */
-.post-page .post-content img { max-width: 100%; height: auto; border-radius: 14px; }
+.post-page .post-content img{
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
 
-/* HERO image */
-.post-page .post-hero img {
+/* HERO image (НЕ режем) */
+.post-page .post-hero img{
   width: 100%;
-  height: clamp(240px, 34vw, 420px);
-  object-fit: cover;
-  object-position: center 30%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
   display: block;
 }
 
-@media (max-width: 720px) {
-  .post-page .post-hero img {
-    height: clamp(200px, 52vw, 320px);
-    object-position: 50% 60%;
-  }
-}
-
-/* убедимся, что контент не уезжает "под" картинку */
 .post-page article,
 .post-page .post-content { position: relative; z-index: 1; }
 
-/* комфортная ширина текста на постах */
 .post-page .post-content { max-width: 90ch; margin-right: auto; }
 
 .post-page main { overflow: visible; }
+
 
 /* --- Post content lists & bullets --- */
 .post-page article ul {
