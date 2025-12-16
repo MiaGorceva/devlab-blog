@@ -19,35 +19,22 @@
 }
 
 @media (min-width: 1440px) {
-  :root {
-    --max-width: 1320px;
-  }
+  :root { --max-width: 1320px; }
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: radial-gradient(circle at top, #141b2f 0, #050812 55%, #020308 100%);
   color: var(--text-main);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+a { color: inherit; text-decoration: none; }
 
-img {
-  max-width: 100%;
-  display: block;
-}
+img { max-width: 100%; display: block; }
 
 .page {
   min-height: 100vh;
@@ -108,32 +95,15 @@ header {
     0 0 24px rgba(84, 229, 74, 0.6);
 }
 
-.nav-logo img {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
+.nav-logo img { width: 100%; height: 100%; display: block; }
 
-.nav-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
+.nav-meta { display: flex; flex-direction: column; gap: 0.15rem; }
 
-.nav-meta-title {
-  font-size: 0.88rem;
-}
+.nav-meta-title { font-size: 0.88rem; }
 
-.nav-meta-sub {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
+.nav-meta-sub { font-size: 0.72rem; color: var(--text-muted); }
 
-.nav-group {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
+.nav-group { display: flex; align-items: center; gap: 1.5rem; }
 
 .nav-links {
   display: flex;
@@ -143,10 +113,7 @@ header {
   color: var(--text-muted);
 }
 
-.nav-links a {
-  position: relative;
-  padding-bottom: 0.2rem;
-}
+.nav-links a { position: relative; padding-bottom: 0.2rem; }
 
 .nav-links a::after {
   content: "";
@@ -160,13 +127,8 @@ header {
   transition: width 0.18s ease-out;
 }
 
-.nav-links a:hover {
-  color: var(--text-main);
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
+.nav-links a:hover { color: var(--text-main); }
+.nav-links a:hover::after { width: 100%; }
 
 .nav-lang {
   display: flex;
@@ -196,7 +158,6 @@ header {
 }
 
 /* Кнопка-бургер / крест */
-
 .nav-toggle {
   display: none;
   border: none;
@@ -210,10 +171,7 @@ header {
   justify-content: center;
   background: rgba(15, 23, 42, 0.9);
   border: 1px solid rgba(148, 163, 184, 0.6);
-  transition:
-    background 0.15s ease-out,
-    border-color 0.15s ease-out,
-    transform 0.12s ease-out;
+  transition: background 0.15s ease-out, border-color 0.15s ease-out, transform 0.12s ease-out;
 }
 
 body.nav-open .nav-toggle {
@@ -223,7 +181,6 @@ body.nav-open .nav-toggle {
 }
 
 /* Общие кнопки */
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -234,11 +191,7 @@ body.nav-open .nav-toggle {
   font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
-  transition:
-    background 0.18s ease-out,
-    border-color 0.18s ease-out,
-    transform 0.12s ease-out,
-    box-shadow 0.12s ease-out;
+  transition: background 0.18s ease-out, border-color 0.18s ease-out, transform 0.12s ease-out, box-shadow 0.12s ease-out;
   white-space: nowrap;
   background: transparent;
   color: var(--text-main);
@@ -266,7 +219,6 @@ body.nav-open .nav-toggle {
 }
 
 /* Мобильная навигация */
-
 @media (max-width: 900px) {
   .nav {
     padding: 0.6rem 0;
@@ -275,13 +227,8 @@ body.nav-open .nav-toggle {
     flex-wrap: wrap;
   }
 
-  .nav-brand {
-    flex: 1;
-  }
-
-  .nav-toggle {
-    display: inline-flex;
-  }
+  .nav-brand { flex: 1; }
+  .nav-toggle { display: inline-flex; }
 
   .nav-group,
   .nav-cta {
@@ -290,9 +237,7 @@ body.nav-open .nav-toggle {
   }
 
   body.nav-open .nav-group,
-  body.nav-open .nav-cta {
-    display: flex;
-  }
+  body.nav-open .nav-cta { display: flex; }
 
   .nav-group {
     flex-direction: column;
@@ -308,9 +253,7 @@ body.nav-open .nav-toggle {
     font-size: 0.9rem;
   }
 
-  .nav-lang {
-    margin-top: 0.2rem;
-  }
+  .nav-lang { margin-top: 0.2rem; }
 
   .nav-cta {
     margin-top: 0.5rem;
@@ -324,9 +267,7 @@ body.nav-open .nav-toggle {
    3. HERO
    ========================= */
 
-.hero {
-  padding: 3.2rem 0 1.8rem;
-}
+.hero { padding: 3.2rem 0 1.8rem; }
 
 .hero-grid {
   display: grid;
@@ -336,9 +277,7 @@ body.nav-open .nav-toggle {
 }
 
 @media (max-width: 900px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-  }
+  .hero-grid { grid-template-columns: 1fr; }
 }
 
 .hero-kicker {
@@ -364,9 +303,7 @@ body.nav-open .nav-toggle {
   color: transparent;
 }
 
-.back {
-  text-decoration: underline;
-}
+.back { text-decoration: underline; }
 
 .hero-text {
   color: var(--text-muted);
@@ -414,10 +351,7 @@ body.nav-open .nav-toggle {
   pointer-events: none;
 }
 
-.hero-card-inner {
-  position: relative;
-  z-index: 1;
-}
+.hero-card-inner { position: relative; z-index: 1; }
 
 .hero-pill {
   display: inline-flex;
@@ -439,24 +373,11 @@ body.nav-open .nav-toggle {
   box-shadow: 0 0 10px rgba(84, 229, 74, 0.9);
 }
 
-.hero-card-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 0.35rem;
-}
+.hero-card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; }
 
-.hero-card-text {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  margin-bottom: 0.65rem;
-}
+.hero-card-text { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.65rem; }
 
-.hero-card-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-}
+.hero-card-links { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8rem; }
 
 .hero-link {
   padding: 0.18rem 0.6rem;
@@ -471,10 +392,7 @@ body.nav-open .nav-toggle {
    4. MAIN LAYOUT / GRID
    ========================= */
 
-main {
-  flex: 1;
-  padding-bottom: 3rem;
-}
+main { flex: 1; padding-bottom: 3rem; }
 
 .main-grid {
   display: grid;
@@ -483,9 +401,7 @@ main {
 }
 
 @media (max-width: 900px) {
-  .main-grid {
-    grid-template-columns: 1fr;
-  }
+  .main-grid { grid-template-columns: 1fr; }
 }
 
 /* На страницах статьи шире колонка с текстом — только на десктопе */
@@ -514,11 +430,7 @@ main {
   gap: 1rem;
 }
 
-.section-title small {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 400;
-}
+.section-title small { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
 
 
 /* =========================
@@ -533,11 +445,7 @@ main {
   margin-bottom: 0.9rem;
 }
 
-.search {
-  flex: 1;
-  min-width: 190px;
-  position: relative;
-}
+.search { flex: 1; min-width: 190px; position: relative; }
 
 .search input {
   width: 100%;
@@ -549,9 +457,7 @@ main {
   font-size: 0.85rem;
 }
 
-.search input::placeholder {
-  color: rgba(148, 163, 184, 0.7);
-}
+.search input::placeholder { color: rgba(148, 163, 184, 0.7); }
 
 .search-icon {
   position: absolute;
@@ -562,11 +468,7 @@ main {
   color: rgba(148, 163, 184, 0.9);
 }
 
-.pill-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
+.pill-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
 .tag {
   padding: 0.18rem 0.6rem;
@@ -576,10 +478,7 @@ main {
   color: var(--text-muted);
   background: rgba(15, 23, 42, 0.8);
   cursor: pointer;
-  transition:
-    border-color 0.12s ease-out,
-    background 0.12s ease-out,
-    color 0.12s ease-out;
+  transition: border-color 0.12s ease-out, background 0.12s ease-out, color 0.12s ease-out;
 }
 
 .tag.active,
@@ -594,11 +493,7 @@ main {
    6. POST LIST / CARD
    ========================= */
 
-.post-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.05rem;
-}
+.post-list { display: flex; flex-direction: column; gap: 1.05rem; }
 
 .post-card {
   display: grid;
@@ -609,11 +504,7 @@ main {
   border: 1px solid var(--border-subtle);
   padding: 0.85rem 0.9rem;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
-  transition:
-    transform 0.12s ease-out,
-    box-shadow 0.12s ease-out,
-    border-color 0.12s ease-out,
-    background 0.12s ease-out;
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s ease-out, background 0.12s ease-out;
   cursor: pointer;
 }
 
@@ -624,11 +515,7 @@ main {
   background: radial-gradient(circle at top, rgba(72, 207, 255, 0.09), transparent 55%), rgba(15, 23, 42, 0.96);
 }
 
-.post-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
+.post-body { display: flex; flex-direction: column; gap: 0.4rem; }
 
 .post-meta {
   display: flex;
@@ -638,42 +525,16 @@ main {
   color: var(--text-muted);
 }
 
-.post-title {
-  font-size: 1rem;
-  font-weight: 600;
-}
+.post-title { font-size: 1rem; font-weight: 600; }
 
-.post-excerpt {
-  font-size: 0.86rem;
-  color: var(--text-muted);
-}
+.post-excerpt { font-size: 0.86rem; color: var(--text-muted); }
 
-.post-read {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: var(--accent);
-  font-size: 0.8rem;
-}
+.post-read { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--accent); font-size: 0.8rem; }
 
-.post-image img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 14px;
-}
-
-.post-tag {
-  padding: 0.16rem 0.55rem;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.55);
-  font-size: 0.75rem;
-}
+.post-tag { padding: 0.16rem 0.55rem; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.55); font-size: 0.75rem; }
 
 @media (max-width: 720px) {
-  .post-card {
-    grid-template-columns: 1fr;
-  }
+  .post-card { grid-template-columns: 1fr; }
 }
 
 
@@ -681,23 +542,11 @@ main {
    7. SIDEBAR
    ========================= */
 
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 1.15rem;
-}
+.sidebar { display: flex; flex-direction: column; gap: 1.15rem; }
 
 @media (min-width: 900px) {
-  .sidebar {
-    position: sticky;
-    top: 1.8rem;
-    align-self: flex-start;
-  }
-
-  .post-page .sidebar {
-    top: 7rem;
-    margin-top: 0;
-  }
+  .sidebar { position: sticky; top: 1.8rem; align-self: flex-start; }
+  .post-page .sidebar { top: 7rem; margin-top: 0; }
 }
 
 .sidebar-block {
@@ -708,16 +557,9 @@ main {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
 }
 
-.sidebar-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 0.55rem;
-}
+.sidebar-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.55rem; }
 
-.sidebar-text {
-  font-size: 0.83rem;
-  color: var(--text-muted);
-}
+.sidebar-text { font-size: 0.83rem; color: var(--text-muted); }
 
 .sidebar-block ul {
   margin-top: 0.5rem;
@@ -727,16 +569,9 @@ main {
   color: var(--text-muted);
 }
 
-.sidebar-block li {
-  margin-bottom: 0.25rem;
-}
+.sidebar-block li { margin-bottom: 0.25rem; }
 
-.badge-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-top: 0.55rem;
-}
+.badge-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.55rem; }
 
 .badge {
   font-size: 0.75rem;
@@ -746,12 +581,7 @@ main {
   color: var(--text-muted);
 }
 
-.newsletter-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 0.4rem;
-}
+.newsletter-form { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.4rem; }
 
 .field {
   width: 100%;
@@ -763,15 +593,9 @@ main {
   font-size: 0.83rem;
 }
 
-.field::placeholder {
-  color: rgba(148, 163, 184, 0.7);
-}
+.field::placeholder { color: rgba(148, 163, 184, 0.7); }
 
-.newsletter-note {
-  font-size: 0.76rem;
-  color: var(--text-muted);
-  margin-top: 0.2rem;
-}
+.newsletter-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.2rem; }
 
 
 /* =========================
@@ -794,11 +618,7 @@ main {
   align-items: flex-start;
 }
 
-@media (max-width: 900px) {
-  .footer-grid {
-    flex-direction: column;
-  }
-}
+@media (max-width: 900px) { .footer-grid { flex-direction: column; } }
 
 .footer-links {
   display: flex;
@@ -813,9 +633,7 @@ main {
   text-decoration-color: rgba(148, 163, 184, 0.7);
 }
 
-.footer-meta {
-  color: var(--text-muted);
-}
+.footer-meta { color: var(--text-muted); }
 
 
 /* ==== FOOTER У СТАТЬИ (ТЕГИ) ==== */
@@ -828,13 +646,9 @@ main {
   color: var(--text-muted);
 }
 
-.post-footer-article .post-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
+.post-footer-article .post-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
-/* маленький футер у карточек на списке постов (оставляем как был) */
+/* маленький футер у карточек на списке постов */
 .post-footer {
   margin-top: 0.4rem;
   display: flex;
@@ -857,75 +671,94 @@ main {
 }
 
 .post-footer-extended + .sidebar-block,
-.post-meta-secondary + .sidebar-block {
-  margin-top: 2rem;
-}
+.post-meta-secondary + .sidebar-block { margin-top: 2rem; }
 
-.post-meta-secondary {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  color: var(--text-muted);
-}
+.post-meta-secondary { display: flex; flex-wrap: wrap; gap: 0.4rem; color: var(--text-muted); }
 
-.post-share {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.post-share a {
-  text-decoration: underline;
-}
+.post-share { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; font-size: 0.85rem; color: var(--text-muted); }
+.post-share a { text-decoration: underline; }
 
 
 /* =========================
    9. POST PAGE OVERRIDES
    ========================= */
 
-.post-page header {
-  position: static;
-}
+/* 9. POST PAGE OVERRIDES */
 
-.post-page .post-hero {
-  position: static;
-  top: auto;
-  z-index: 0;
-  margin: 1.5rem 0 1.25rem;
-  text-align: center;
-}
-
-.post-page .post-hero img {
+/* Cards: image box should be a square */
+.post-image {
   width: 100%;
+  max-width: 260px;        /* как у тебя сейчас */
+  aspect-ratio: 1 / 1;     /* КВАДРАТ */
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: grid;
+  place-items: center;
+}
+
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;     /* ключевое: НЕ cover */
+  display: block;
+}
+
+.post-image::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(72,207,255,.18), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(84,229,74,.14), transparent 45%);
+  pointer-events: none;
+  filter: blur(12px);
+  opacity: .6;
+}
+.post-image { position: relative; }
+.post-image img { position: relative; z-index: 1; }
+
+
+.post-page header { position: static; }
+
+/* HERO image wrapper */
+.post-page .post-hero{
   max-width: 780px;
-  max-height: 360px;
-  object-fit: cover;
+  margin: 32px auto;
   border-radius: 18px;
-  display: inline-block;
+  overflow: hidden;
+  background: rgba(15,23,42,.9);
+  padding: 13px;
+
+  position: relative; /* <-- ДОБАВЬ, если хочешь ::after */
 }
 
-/* убедимся, что контент не уезжает "под" картинку */
+/* Post content images */
+.post-page .post-content img{
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+/* HERO image (НЕ режем) */
+.post-page .post-hero img{
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  display: block;
+}
+
 .post-page article,
-.post-page .post-content {
-  position: relative;
-  z-index: 1;
-}
+.post-page .post-content { position: relative; z-index: 1; }
 
-/* комфортная ширина текста на постах */
-.post-page .post-content {
-  max-width: 90ch;
-  margin-right: auto;
-}
+.post-page .post-content { max-width: 90ch; margin-right: auto; }
 
-.post-page main {
-  overflow: visible;
-}
+.post-page main { overflow: visible; }
+
 
 /* --- Post content lists & bullets --- */
-
 .post-page article ul {
   margin: 0.6rem 0 1rem 1.3rem;
   padding-left: 0;
@@ -952,7 +785,6 @@ main {
   color: var(--accent);
 }
 
-
 /* =========================
    10. VIEWS COUNTER
    ========================= */
@@ -965,9 +797,7 @@ main {
   gap: 0.35rem;
 }
 
-.post-views .label {
-  opacity: 0.75;
-}
+.post-views .label { opacity: 0.75; }
 
 .post-meta-secondary .post-views {
   display: inline-flex;
@@ -975,6 +805,187 @@ main {
   gap: 0.25rem;
 }
 
-.post-meta-secondary .post-views .count {
+.post-meta-secondary .post-views .count { font-variant-numeric: tabular-nums; }
+
+/* === Post content: numbered lists === */
+.post-page .post-content ol {
+  margin: 0.9rem 0 1.2rem;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.post-page .post-content ol > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.2rem;
+  line-height: 1.55;
+}
+
+/* ЕДИНСТВЕННОЕ определение маркера: кружок-бейдж */
+.post-page .post-content ol > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.02rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  line-height: 1.7rem;
+  border-radius: 999px;
+  text-align: center;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(72, 207, 255, 0.35);
+  box-shadow: 0 0 0 1px rgba(84, 229, 74, 0.12);
+  color: var(--accent);
   font-variant-numeric: tabular-nums;
+}
+
+.post-page .post-content ol strong { color: var(--text-main); }
+
+@media (max-width: 720px) {
+  .post-page .post-content ol > li { padding-left: 2rem; }
+  .post-page .post-content ol > li::before { width: 1.5rem; height: 1.5rem; line-height: 1.5rem; }
+}
+
+/* Diagram / callout helpers */
+.diagram-card {
+  margin: 1.2rem 0 1.4rem;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+  overflow: hidden;
+}
+
+.diagram-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.65rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+}
+
+.diagram-hint { font-size: 0.78rem; color: var(--text-muted); font-weight: 400; }
+
+.callout {
+  margin: 1.1rem 0 1.2rem;
+  padding: 1rem 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(72, 207, 255, 0.22);
+  background:
+    radial-gradient(circle at top left, rgba(72, 207, 255, 0.10), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(84, 229, 74, 0.10), transparent 55%),
+    rgba(5, 10, 25, 0.70);
+}
+
+.callout strong { color: var(--text-main); }
+.callout p { color: var(--text-muted); margin-top: .35rem; }
+
+/* Makes SVG responsive + crisp */
+.diagram-card svg { width: 100%; height: auto; display: block; }
+.diagram-card .mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Smooth HR */
+.post-content hr {
+  border: 0;
+  height: 1px;
+  margin: 1.6rem 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+}
+
+
+/* =========================
+   POST 13 READABILITY PATCH
+   (ссылки + отступы + блоки)
+   ========================= */
+
+/* Типографика */
+.post-page .post-content {
+  max-width: 86ch;
+  line-height: 1.75;
+}
+
+.post-page .post-content p { margin: 0.85rem 0; }
+
+.post-page .post-content h2 {
+  margin: 2.0rem 0 0.75rem;
+  line-height: 1.2;
+}
+
+.post-page .post-content h3 {
+  margin: 1.65rem 0 0.75rem;
+  line-height: 1.25;
+
+  /* “карточка” для каждого пункта */
+  position: relative;
+  padding: 0.85rem 0.95rem;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at top left, rgba(72, 207, 255, 0.10), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(84, 229, 74, 0.10), transparent 55%),
+    rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+.post-page .post-content h3::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  opacity: 0.9;
+}
+
+.post-page .post-content h3 + p { margin-top: 0.9rem; }
+
+/* Ссылки в контенте (видимые) */
+.post-page .post-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(72, 207, 255, 0.55);
+  transition: color 0.15s ease-out, text-decoration-color 0.15s ease-out, filter 0.15s ease-out;
+}
+
+.post-page .post-content a:hover {
+  color: var(--text-main);
+  text-decoration-color: rgba(84, 229, 74, 0.75);
+  filter: drop-shadow(0 0 10px rgba(72, 207, 255, 0.35));
+}
+
+/* Выделение “Best for / Watch out / Links” через strong */
+.post-page .post-content p strong { color: var(--text-main); }
+
+.post-page .post-content p strong:first-child {
+  display: inline-block;
+  padding: 0.14rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(72, 207, 255, 0.28);
+  margin-right: 0.35rem;
+  font-weight: 600;
+}
+
+/* Списки в контенте чуть ровнее */
+.post-page .post-content ul { margin: 0.75rem 0 1.05rem 0; }
+.post-page .post-content li { margin-bottom: 0.45rem; }
+
+/* Мобилка */
+@media (max-width: 720px) {
+  .post-page .post-content { max-width: 100%; line-height: 1.7; }
+  .post-page .post-content h3 { padding: 0.75rem 0.8rem; }
+  .post-page .post-content h3::before { left: 8px; }
 }

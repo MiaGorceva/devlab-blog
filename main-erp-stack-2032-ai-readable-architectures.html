@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Корпоративні системи у 2032: як ми прийшли до архітектур, читабельних для AI – DevLab Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="(польовий звіт із 2032 року: як померли монолітні ERP, чому стеки замінили «комбайни» та що робить бізнес-логіку читабельною для людей і AI. З реальними прикладами стеків (ERPNext, Odoo CE, metasfresh, ToolJet/Appsmith) і діаграмами SVG."
+  />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="https://uk.devlab.blog/img/devlab-logo.svg">
+  <link rel="alternate icon" type="image/png" sizes="32x32" href="https://uk.devlab.blog/img/devlab-favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://uk.devlab.blog/img/devlab-favicon-180.png">
+
+  <link rel="stylesheet" href="https://uk.devlab.blog/style/devlab-style.css">
+
+  <!-- Main blog scripts (year + search + views counter) -->
+  <script src="https://uk.devlab.blog/js/script.js" defer></script>
+
+  <!-- Structured data for search engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://ua.devlab.blog/main-erp-stack-2032-ai-readable-architectures.html"
+    },
+    "headline": "Корпоративні системи у 2032: як ми прийшли до архітектур, читабельних для AI",
+    "description": "Польовий звіт із 2032 року: чому монолітні ERP померли, як стеки замінили enterprise-suite та що робить бізнес-логіку читабельною для людей і AI.",
+    "author": {
+      "@type": "Organization",
+      "name": "DevLab Blog"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DevLab",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://uk.devlab.blog/img/devlab-logo.svg"
+      }
+    },
+    "datePublished": "2025-01-20",
+    "dateModified": "2025-01-20"
+  }
+  </script>
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://uk.devlab.blog/main-erp-stack-2032-ai-readable-architectures.html">
+
+</head>
+
+<body class="post-page">
+  <div class="page">
+    <!-- HEADER -->
+    <header>
+      <div class="wrapper">
+        <nav class="nav">
+          <a href="/" class="nav-brand">
+            <div class="nav-logo" aria-hidden="true">
+              <img src="https://uk.devlab.blog/img/devlab-logo.svg" alt="Логотип DevLab Blog">
+            </div>
+            <div class="nav-meta">
+              <div class="nav-meta-title">DevLab Blog</div>
+              <div class="nav-meta-sub">Нотатки про open-source ERP та автоматизацію</div>
+            </div>
+          </a>
+
+          <div class="nav-group" id="navGroup">
+            <div class="nav-links">
+              <a href="/#posts">Пости</a>
+              <a href="/#categories">Категорії</a>
+              <a href="/#about">Про нас</a>
+              <a href="https://devlab.blog" target="_blank" rel="noopener">Головний сайт</a>
+            </div>
+            <div class="nav-lang">
+              <a href="https://en.devlab.blog/">EN</a>
+              <a href="https://pl.devlab.blog/">PL</a>
+              <a href="https://ru.devlab.blog/">RU</a>
+              <a href="https://uk.devlab.blog/" class="active">UA</a>
+            </div>
+          </div>
+
+          <div class="nav-cta" id="navCta">
+            <a href="/#posts" class="btn btn-outline">Переглянути пости</a>
+            <a href="/#about" class="btn btn-primary">Що це?</a>
+          </div>
+
+          <button class="nav-toggle" aria-label="Перемкнути навігацію" aria-expanded="false" aria-controls="navGroup">☰</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <div class="wrapper">
+        <div class="main-grid">
+          <!-- ARTICLE -->
+          <article id="main-erp-stack-2032-ai-readable-architectures">
+            <div class="section-title">
+              <span>Стаття</span>
+              <small><a class="back" href="/">← Назад до всіх постів</a></small>
+            </div>
+
+            <header>
+              <div class="post-meta">
+                <span>Архітектура ERP</span>
+                <span>&middot;</span>
+                <span>Прибл. 9 хв читання</span>
+                <span>&middot;</span>
+                <span>Польовий звіт 2032</span>
+              </div>
+
+              <h1 class="hero-title">
+                Корпоративні системи у 2032: як ми прийшли до архітектур, читабельних для AI
+              </h1>
+
+              <p class="hero-text">
+                Знайдено в архівах Digital Systems Museum. Опубліковано 14 березня 2032 року.
+                Автор — інженер, який досі пам’ятає моноліти, «бурі» патчів на Python і епоху, коли “customization” була способом життя.
+              </p>
+
+              <!-- HERO IMAGE (optional) -->
+              <figure class="post-hero">
+                <img
+                  src="https://uk.devlab.blog/img/main-low-code-analytics-2026.png"
+                  alt="Футуристична діаграма ERP-стеку на темному неоновому фоні"
+                  loading="eager"
+                >
+              </figure>
+
+              <div class="post-meta-secondary">
+                <span>Опубліковано: 20 січня 2025</span>
+                <span>·</span>
+                <span>Прибл. 9 хв читання</span>
+                <span>·</span>
+                <span class="post-views">Перегляди: <span class="count">—</span></span>
+              </div>
+            </header>
+
+            <!-- ARTICLE BODY -->
+            <section class="post-content">
+
+              <h2>1) Чому старі ERP “померли” (ввічливо)</h2>
+              <p>
+                У 2020-х ми будували корпоративні системи як міста ручної роботи:
+                правила, екрани, модулі й “ще один патч”
+                нашаровувалися одне на одне, доки ніхто вже не пам’ятав, що є несучою конструкцією.
+              </p>
+
+              <p>
+                Потім прийшов AI — і виявився напрочуд марним.
+                Не тому, що він слабкий, а тому що системи були нечитабельні.
+              </p>
+
+              <ul>
+                <li>Бізнес-логіка жила в розкиданих <code>if</code> по різних модулях.</li>
+                <li>UI, дані та правила еволюціонували в різних “часових поясах”.</li>
+                <li>Документація відставала від реальності (на кілька релізів… і на кілька років).</li>
+              </ul>
+
+              <div class="callout">
+                <strong>Жорсткий урок 2027–2031:</strong>
+                <p>
+                  AI не “виправляє” архітектуру. Він її підсилює.
+                  Якщо система структурована — AI прискорює її. Якщо там хаос — AI прискорює паніку.
+                </p>
+              </div>
+
+              <hr>
+
+              <h2>2) Патерн 2032: стек, а не «комбайн»</h2>
+              <p>
+                До 2032 року компанії перестали “обирати одну ERP на 15 років”.
+                Вони почали збирати <em>ERP-стеки</em>: модульну архітектуру, де кожен шар має одну роботу
+                й може еволюціонувати, не ламаючи весь організм.
+              </p>
+
+              <div class="diagram-card">
+                <div class="diagram-title">
+                  <span>ERP-стек (референс 2032)</span>
+                  <span class="diagram-hint">Зрозуміло людям. Читабельно машинам.</span>
+                </div>
+
+                <!-- Inline SVG diagram (neon style, no external deps) -->
+                <svg viewBox="0 0 980 420" role="img" aria-label="Діаграма ERP-стеку: AI-шар, шар декларативних правил, low-code, ERP-ядро, інтеграції">
+                  <defs>
+                    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0" stop-color="#48cfff" stop-opacity="0.95"/>
+                      <stop offset="1" stop-color="#54e54a" stop-opacity="0.95"/>
+                    </linearGradient>
+                    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="4" result="blur"/>
+                      <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+
+                  <rect x="0" y="0" width="980" height="420" fill="rgba(0,0,0,0)"/>
+
+                  <g class="mono" font-size="18" fill="#f5f7ff">
+                    <g filter="url(#glow)">
+                      <rect x="120" y="30" width="740" height="58" rx="18" fill="rgba(15,23,42,0.85)" stroke="url(#g1)" stroke-width="2"/>
+                      <text x="490" y="67" text-anchor="middle">AI-шар (агенти, copilot-и, аудитори)</text>
+
+                      <rect x="120" y="105" width="740" height="58" rx="18" fill="rgba(15,23,42,0.85)" stroke="rgba(72,207,255,0.55)" stroke-width="2"/>
+                      <text x="490" y="142" text-anchor="middle">Шар декларативних правил / доменної логіки</text>
+
+                      <rect x="120" y="180" width="740" height="58" rx="18" fill="rgba(15,23,42,0.85)" stroke="rgba(84,229,74,0.55)" stroke-width="2"/>
+                      <text x="490" y="217" text-anchor="middle">Low-code UI + workflow шар</text>
+
+                      <rect x="120" y="255" width="740" height="58" rx="18" fill="rgba(15,23,42,0.85)" stroke="rgba(255,255,255,0.14)" stroke-width="2"/>
+                      <text x="490" y="292" text-anchor="middle">ERP-ядро (дані, транзакції, аудит)</text>
+
+                      <rect x="120" y="330" width="740" height="58" rx="18" fill="rgba(15,23,42,0.85)" stroke="rgba(255,255,255,0.10)" stroke-width="2"/>
+                      <text x="490" y="367" text-anchor="middle">Інтеграції (API, події, конектори)</text>
+                    </g>
+
+                    <g stroke="rgba(148,163,184,0.55)" stroke-width="2" fill="none">
+                      <path d="M490 88 L490 105" />
+                      <path d="M490 163 L490 180" />
+                      <path d="M490 238 L490 255" />
+                      <path d="M490 313 L490 330" />
+                    </g>
+
+                    <g font-size="14" fill="#9ca3c4">
+                      <text x="875" y="70" text-anchor="start">Пояснює</text>
+                      <text x="875" y="145" text-anchor="start">Формалізує</text>
+                      <text x="875" y="220" text-anchor="start">Доставляє</text>
+                      <text x="875" y="295" text-anchor="start">Гарантує</text>
+                      <text x="875" y="370" text-anchor="start">З’єднує</text>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+
+              <p>
+                Суть не в “більшій кількості інструментів”. Суть у <strong>розподілі відповідальностей</strong>:
+                тримати строгі речі строгими (гроші, запаси, аудит),
+                а швидкі — швидкими (UI, workflow, інтеграції).
+              </p>
+
+              <hr>
+
+              <h2>3) Реальні стеки, які справді запускали</h2>
+              <p>
+                Тут теорія або стає архітектурою… або дуже впевненою презентацією.
+                Такі комбінації були поширені в реальних проєктах, бо вони відповідають тому, як працюють команди:
+              </p>
+
+              <h3>Приклади ERP-ядра</h3>
+              <ul>
+                <li><strong>ERPNext</strong> як стабільне операційне ядро (запаси, бухгалтерія, базові процеси).</li>
+                <li><strong>Odoo Community Edition</strong>, коли важлива широка модульність (CRM + продажі + операції), часто з чіткими межами розширення.</li>
+                <li><strong>metasfresh</strong> / <strong>iDempiere</strong>, коли центр ваги — дистрибуція та логістика.</li>
+              </ul>
+
+              <h3>Приклади low-code шару</h3>
+              <ul>
+                <li><strong>ToolJet</strong> / <strong>Appsmith</strong> для внутрішніх екранів: адмінки, “столи погоджень”, “зробіть дашборд до п’ятниці”.</li>
+                <li><strong>NocoBase</strong> для data-driven застосунків, коли потрібне розширення через плагіни та багатше моделювання.</li>
+              </ul>
+
+              <div class="callout">
+                <strong>Патерн, який постійно повторювався:</strong>
+                <p>
+                  UI та workflow змінювалися щотижня. ERP-ядра — щокварталу.
+                  Розділення зменшувало “хірургію ERP” на порядок.
+                </p>
+              </div>
+
+              <hr>
+
+              <h2>4) Таймлайн еволюції: що було, що стало</h2>
+
+              <div class="diagram-card">
+                <div class="diagram-title">
+                  <span>Еволюція платформ (2023 → 2032)</span>
+                  <span class="diagram-hint">Найважливіше — у нудному.</span>
+                </div>
+
+                <svg viewBox="0 0 980 280" role="img" aria-label="Таймлайн еволюції архітектури ERP з 2023 до 2032">
+                  <defs>
+                    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0" stop-color="#48cfff" stop-opacity="0.9"/>
+                      <stop offset="1" stop-color="#54e54a" stop-opacity="0.9"/>
+                    </linearGradient>
+                  </defs>
+
+                  <rect x="40" y="120" width="900" height="6" rx="4" fill="rgba(255,255,255,0.10)"/>
+                  <rect x="40" y="120" width="900" height="6" rx="4" fill="url(#tg)" opacity="0.35"/>
+
+                  <g class="mono" font-size="14" fill="#f5f7ff">
+                    <g>
+                      <circle cx="120" cy="123" r="10" fill="rgba(15,23,42,0.9)" stroke="rgba(72,207,255,0.8)" stroke-width="2"/>
+                      <text x="120" y="70" text-anchor="middle">2023</text>
+                      <text x="120" y="92" text-anchor="middle" fill="#9ca3c4">“ERP робить більшість”</text>
+                      <text x="120" y="156" text-anchor="middle" fill="#9ca3c4">Odoo / ERPNext</text>
+                    </g>
+
+                    <g>
+                      <circle cx="350" cy="123" r="10" fill="rgba(15,23,42,0.9)" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+                      <text x="350" y="70" text-anchor="middle">2026</text>
+                      <text x="350" y="92" text-anchor="middle" fill="#9ca3c4">“Low-code забирає UI”</text>
+                      <text x="350" y="156" text-anchor="middle" fill="#9ca3c4">ToolJet / Appsmith</text>
+                    </g>
+
+                    <g>
+                      <circle cx="580" cy="123" r="10" fill="rgba(15,23,42,0.9)" stroke="rgba(84,229,74,0.75)" stroke-width="2"/>
+                      <text x="580" y="70" text-anchor="middle">2028</text>
+                      <text x="580" y="92" text-anchor="middle" fill="#9ca3c4">“Правила потребують формальності”</text>
+                      <text x="580" y="156" text-anchor="middle" fill="#9ca3c4">Декларативний шар логіки</text>
+                    </g>
+
+                    <g>
+                      <circle cx="820" cy="123" r="10" fill="rgba(15,23,42,0.9)" stroke="url(#tg)" stroke-width="2"/>
+                      <text x="820" y="70" text-anchor="middle">2030–2032</text>
+                      <text x="820" y="92" text-anchor="middle" fill="#9ca3c4">“AI вимагає структури”</text>
+                      <text x="820" y="156" text-anchor="middle" fill="#9ca3c4">AI-native стеки</text>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+
+              <p>
+                Поворот був непомітним: команди не “додали AI”.
+                Вони замінили неструктуровану логіку на правила, які можна читати, рев’ювати, версіонувати —
+                і так, розуміти машинам.
+              </p>
+
+              <hr>
+
+              <h2>5) Чому open-source став умовою виживання</h2>
+              <p>
+                До 2032 року “open-source” перестав бути філософією.
+                Це стало практичним обмеженням:
+              </p>
+
+              <ul>
+                <li><strong>AI не може оптимізувати те, чого не бачить.</strong> Закритий код стає “чорною скринькою” для автоматизованого рев’ю та рефакторингу.</li>
+                <li><strong>Бізнес перестав довіряти системам, які не можна інспектувати.</strong> Особливо на горизонті 10–20 років.</li>
+                <li><strong>Відкриті ERP стали базовим шаром для стеків.</strong> Сформувалася типова тріада: <em>ERP-ядро → Low-code → Декларативні правила</em>.</li>
+              </ul>
+
+              <hr>
+
+              <h2>6) Що має питати CEO / власник у 2032 (а не лише “яку ERP?”)</h2>
+              <ol>
+                <li><strong>Чи може AI читати правила?</strong> Якщо правила не формалізовані — ви будуєте музейний експонат.</li>
+                <li><strong>Чи є декларативна структура?</strong> Мова важить менше, ніж те, що ви можете виразити чітко.</li>
+                <li><strong>UI генерується чи зроблений вручну?</strong> Ручний UI швидко старіє; згенерований — тримається в такт моделі.</li>
+                <li><strong>Чи явна доменна модель?</strong> Якщо модель імпліцитна — кожна нова команда “перевідкриває” систему заново.</li>
+                <li><strong>Чи правила — це правила (а не розкидані умови)?</strong> Бізнес-правило в <code>if</code> важко аудіювати й важко еволюціонувати.</li>
+                <li><strong>Чи витримає це 20 років змін?</strong> Команди, ринки, комплаєнс та інтеграції зміняться. Структура не повинна розсипатися.</li>
+              </ol>
+
+              <hr>
+
+              <h2>7) Одна діаграма, що пояснює все десятиліття</h2>
+
+              <div class="diagram-card">
+                <div class="diagram-title">
+                  <span>Карта “що виживає”</span>
+                  <span class="diagram-hint">Просто, але не примітивно.</span>
+                </div>
+
+                <svg viewBox="0 0 980 240" role="img" aria-label="Карта: імперативні системи вмирають, low-code поверхневий, монолітні ERP важкі, декларативні моделі читабельні для AI">
+                  <g class="mono" font-size="18" fill="#f5f7ff">
+                    <text x="40" y="50" fill="#9ca3c4">Майбутнє корпоративних систем</text>
+
+                    <rect x="40" y="80" width="900" height="1" fill="rgba(255,255,255,0.12)"/>
+
+                    <text x="60" y="120">Імперативні системи</text>
+                    <text x="520" y="120" fill="#9ca3c4">→</text>
+                    <text x="570" y="120" fill="#ffdddd">Вмирають швидше за документацію</text>
+
+                    <text x="60" y="150">Low-code</text>
+                    <text x="520" y="150" fill="#9ca3c4">→</text>
+                    <text x="570" y="150" fill="#9ca3c4">Добре, але поверхнево для доменних правил</text>
+
+                    <text x="60" y="180">Монолітні ERP</text>
+                    <text x="520" y="180" fill="#9ca3c4">→</text>
+                    <text x="570" y="180" fill="#9ca3c4">Важкі, повільні, дорогі в еволюції</text>
+
+                    <text x="60" y="210">Декларативні моделі</text>
+                    <text x="520" y="210" fill="#9ca3c4">→</text>
+                    <text x="570" y="210" fill="#bfffe0">Читабельні для AI, розширювані, аудитовані</text>
+                  </g>
+                </svg>
+              </div>
+
+              <hr>
+
+              <h2>8) Висновок: системи майбутнього будують разом з AI, а не лише для людей</h2>
+              <p>
+                ERP дає фундамент. Low-code дає швидкість. Декларативна логіка дає структуру.
+                AI дає еволюцію — але тільки коли систему можна прочитати.
+              </p>
+              <p>
+                Якщо архітектура формальна, модульна й придатна до інспекції — вона переживе наступне десятиліття.
+                Якщо ні… вона стане “проєктом міграції legacy” ще до того, як висохне чорнило.
+              </p>
+
+            </section>
+
+            <!-- FOOTER (tags + meta + Views) -->
+            <footer class="post-footer-extended">
+              <div class="post-footer-meta">
+                <div class="post-meta-tags">
+                  <span class="post-tag">ERP</span>
+                  <span class="post-tag">Архітектура</span>
+                  <span class="post-tag">Open-source</span>
+                  <span class="post-tag">Low-code</span>
+                  <span class="post-tag">Декларативність</span>
+                  <span class="post-tag">AI-ready</span>
+                </div>
+
+                <div class="post-meta-secondary">
+                  <span>Опубліковано: 20 січня 2025</span>
+                  <span>·</span>
+                  <span>Прибл. 9 хв читання</span>
+                  <span>·</span>
+                  <span class="post-views">Перегляди: <span class="count">—</span></span>
+                </div>
+              </div>
+            </footer>
+
+            <!-- Inline newsletter -->
+            <section class="sidebar-block">
+              <p class="sidebar-text">
+                Без спаму — лише інколи нотатки про дизайн ERP, експерименти з автоматизацією та нові пости.
+              </p>
+              <form class="newsletter-form"
+                    action="https://formsubmit.co/info@devlab.blog"
+                    method="POST">
+                <input type="hidden" name="_next" value="https://ua.devlab.blog/thank-you.html">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="text" name="_honey" style="display:none">
+
+                <input type="email" name="email" class="field" placeholder="Ваша email-адреса" required>
+                <button class="btn btn-primary" type="submit">Підписатися</button>
+
+                <p class="newsletter-note">
+                  Ви отримаєте лист для підтвердження.<br>
+                  Безпечно через FormSubmit.
+                </p>
+              </form>
+            </section>
+          </article>
+
+          <!-- SIDEBAR -->
+          <aside class="sidebar">
+            <section class="sidebar-block">
+              <h3 class="sidebar-title">Про цей блог</h3>
+              <p class="sidebar-text">
+                DevLab Blog фокусується на концепціях open-source ERP, модульних бізнес-системах і low-code
+                автоматизації. Ми пишемо про архітектурні патерни, стратегії інтеграції та уроки з реальних впроваджень.
+              </p>
+            </section>
+
+            <section class="sidebar-block">
+              <h3 class="sidebar-title">Ще цікаве</h3>
+              <p class="sidebar-text">
+                Поверніться на головну, щоб переглянути інші пости, або оберіть за категоріями:
+              </p>
+              <ul>
+                <li><a href="/">Усі пости блогу</a></li>
+                <li><a href="/#categories">Перегляд за категоріями</a></li>
+                <li><a href="https://devlab.blog" target="_blank" rel="noopener">Головний сайт DevLab</a></li>
+              </ul>
+            </section>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="wrapper footer-grid">
+        <div>
+          <div class="footer-links">
+            <a href="/">Пости</a>
+            <a href="/#categories">Категорії</a>
+            <a href="/#about">Про нас</a>
+            <a href="https://devlab.blog" target="_blank" rel="noopener">Головний сайт</a>
+          </div>
+          <p class="footer-meta">
+            DevLab Blog — нотатки про open-source ERP, модульні архітектури та експерименти з автоматизацією.
+          </p>
+        </div>
+        <div class="footer-meta">
+          <p>&copy; <span id="year"></span> DevLab Blog</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
