@@ -262,5 +262,28 @@ if (navToggle && navGroup) {
     });
   });
 })();
+document.querySelectorAll(".post-image img").forEach(function (img) {
+  if (img.complete) applyRatio(img);
+  else img.addEventListener("load", function () {
+    applyRatio(img);
+  });
+});
 
+function applyRatio(img) {
+  var w = img.naturalWidth;
+  var h = img.naturalHeight;
+  var box = img.closest(".post-image");
+
+  if (!box || !w || !h) return;
+
+  box.classList.remove("ratio-square", "ratio-portrait", "ratio-landscape");
+
+  if (Math.abs(w - h) / w < 0.1) {
+    box.classList.add("ratio-square");
+  } else if (h > w) {
+    box.classList.add("ratio-portrait");
+  } else {
+    box.classList.add("ratio-landscape");
+  }
+}
 

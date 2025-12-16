@@ -532,17 +532,32 @@ main { flex: 1; padding-bottom: 3rem; }
 .post-read { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--accent); font-size: 0.8rem; }
 
 .post-image {
-  aspect-ratio: 16 / 9;      /* можно 4/3 если нравится “плотнее” */
-  overflow: hidden;
+  width: 100%;
+  max-width: 260px;
   border-radius: 14px;
+  overflow: hidden;
+}
+
+/* дефолт */
+.post-image.ratio-square {
+  aspect-ratio: 1 / 1;
+}
+
+.post-image.ratio-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+.post-image.ratio-landscape {
+  aspect-ratio: 16 / 9;
 }
 
 .post-image img {
   width: 100%;
   height: 100%;
-  object-fit: contain;         /* тут можно cover или contain */
-  border-radius: 0;
+  object-fit: cover;
+  display: block;
 }
+
 
 .post-tag { padding: 0.16rem 0.55rem; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.55); font-size: 0.75rem; }
 
