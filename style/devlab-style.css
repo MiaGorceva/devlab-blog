@@ -729,7 +729,6 @@ main { flex: 1; padding-bottom: 3rem; }
   border-radius: 18px;
   overflow: hidden;
   background: rgba(15,23,42,.9);
-  padding: 13px;
 
   position: relative; /* <-- ДОБАВЬ, если хочешь ::after */
 }
