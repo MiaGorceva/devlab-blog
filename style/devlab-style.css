@@ -705,6 +705,28 @@ main { flex: 1; padding-bottom: 3rem; }
   display: block;
 }
 
+/* HERO image wrapper — без "рамки" */
+.post-page .post-hero{
+  max-width: 780px;
+  margin: 24px auto 18px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* HERO image */
+.post-page .post-hero img{
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 18px;
+}
+
+
 .post-image::before {
   content: "";
   position: absolute;
@@ -722,16 +744,6 @@ main { flex: 1; padding-bottom: 3rem; }
 
 .post-page header { position: static; }
 
-/* HERO image wrapper */
-.post-page .post-hero{
-  max-width: 780px;
-  margin: 32px auto;
-  border-radius: 18px;
-  overflow: hidden;
-  background: rgba(15,23,42,.9);
-
-  position: relative; /* <-- ДОБАВЬ, если хочешь ::after */
-}
 
 /* Post content images */
 .post-page .post-content img{
@@ -740,14 +752,6 @@ main { flex: 1; padding-bottom: 3rem; }
   border-radius: 14px;
 }
 
-/* HERO image (НЕ режем) */
-.post-page .post-hero img{
-  width: 100%;
-  height: auto;
-  max-height: 70vh;
-  object-fit: contain;
-  display: block;
-}
 
 .post-page article,
 .post-page .post-content { position: relative; z-index: 1; }
