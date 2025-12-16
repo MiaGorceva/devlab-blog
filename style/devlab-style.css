@@ -536,9 +536,10 @@ main { flex: 1; padding-bottom: 3rem; }
   max-width: 260px;
   border-radius: 14px;
   overflow: hidden;
+  background: rgba(15, 23, 42, 0.9);
 }
 
-/* дефолт */
+/* Разрешённые форматы */
 .post-image.ratio-square {
   aspect-ratio: 1 / 1;
 }
@@ -557,6 +558,7 @@ main { flex: 1; padding-bottom: 3rem; }
   object-fit: cover;
   display: block;
 }
+
 
 
 .post-tag { padding: 0.16rem 0.55rem; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.55); font-size: 0.75rem; }
