@@ -992,3 +992,14 @@ main { flex: 1; padding-bottom: 3rem; }
   .post-page .post-content h3 { padding: 0.75rem 0.8rem; }
   .post-page .post-content h3::before { left: 8px; }
 }
+
+.topic-question::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 20% 0, rgba(72, 207, 255, 0.07), transparent 45%),
+    radial-gradient(circle at 80% 100%, rgba(84, 229, 74, 0.06), transparent 45%);
+  opacity: 0.8;
+  pointer-events: none;
+}
