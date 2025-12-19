@@ -263,12 +263,5 @@ if (navToggle && navGroup) {
   });
 })();
 
-document.querySelectorAll(".post-image img").forEach(function (img) {
-  if (img.complete) applyRatio(img);
-  else img.addEventListener("load", function () {
-    applyRatio(img);
-  });
-});
-
 
 
