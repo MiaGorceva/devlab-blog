@@ -1003,3 +1003,46 @@ main { flex: 1; padding-bottom: 3rem; }
   opacity: 0.8;
   pointer-events: none;
 }
+
+/* --- Post TOC / Quick Summary --- */
+.post-toc {
+  margin: 18px 0 22px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  background: rgba(255,255,255,.04);
+}
+
+.post-toc__title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.post-toc__list {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.6;
+}
+
+.post-toc__list li {
+  margin: 6px 0;
+}
+
+/* --- “Short on time?” block --- */
+.post-quick {
+  margin: 18px 0 22px;
+  padding: 14px 16px;
+  border-left: 3px solid rgba(84,229,74,.9); /* твой неон */
+  border-radius: 12px;
+  background: rgba(84,229,74,.08);
+}
+
+.post-quick__title {
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.post-quick__text {
+  margin: 0;
+  line-height: 1.6;
+}
