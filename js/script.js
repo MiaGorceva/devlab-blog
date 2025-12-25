@@ -254,3 +254,194 @@
     });
   });
 })();
+
+(() => {
+  // ---- 1) Detect language (subdomain / HTML lang / fallback EN)
+  const host = location.hostname || "";
+  const htmlLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+
+  function detectLang() {
+    // en.devlab.blog | ru.devlab.blog | pl.devlab.blog | uk.devlab.blog (UA)
+    if (host.startsWith("ru.")) return "ru";
+    if (host.startsWith("pl.")) return "pl";
+    if (host.startsWith("uk.")) return "ua";
+    if (host.startsWith("en.")) return "en";
+    if (htmlLang.startsWith("ru")) return "ru";
+    if (htmlLang.startsWith("pl")) return "pl";
+    if (htmlLang.startsWith("uk") || htmlLang.startsWith("ua")) return "ua";
+    return "en";
+  }
+
+  const lang = detectLang();
+
+  // ---- 2) i18n strings
+  const I18N = {
+    en: {
+      title: "Short on time?",
+      lead: "Most teams don’t evaluate all options equally. They narrow the list down by context:",
+      legend: "Pick what sounds closest:",
+      opt1: "SMB · stable processes · no in-house dev",
+      opt2: "SMB · changing processes · small dev team",
+      opt3: "Enterprise · standardized processes",
+      opt4: "Enterprise · evolving logic · platform-first approach",
+      hint: "If you recognize yourself in one of these, only a small subset of systems in this article usually applies.",
+      mapTitle: "Quick map:",
+      map1: "Classic ERPs → sections 1–2",
+      map2: "Platform-first systems → section 3",
+      map3: "Low-code & internal tools → section 4",
+      recTitle: "What to focus on:",
+      recDefault: "Choose an option above — I’ll highlight the most relevant section(s).",
+      rec: {
+        smb_stable_no_dev: "Start with Classic ERPs first. Avoid heavy customization early; optimize for time-to-value.",
+        smb_change_small_dev: "Look at platform-first options and flexible stacks. You’ll feel “customization debt” earlier than you think.",
+        ent_standardized: "Classic ERPs can work well when governance is strong. Focus on upgrade path + integration strategy.",
+        ent_platform: "Platform-first approaches fit best when logic must evolve. Prioritize declarative/readable business logic and long-term maintainability."
+      }
+    },
+    ru: {
+      title: "Мало времени?",
+      lead: "Обычно команды не оценивают весь список одинаково. Сужают выбор по контексту:",
+      legend: "Выберите, что ближе всего:",
+      opt1: "SMB · стабильные процессы · нет своей разработки",
+      opt2: "SMB · процессы часто меняются · небольшая dev-команда",
+      opt3: "Enterprise · процессы стандартизированы",
+      opt4: "Enterprise · логика эволюционирует · platform-first подход",
+      hint: "Если вы узнали себя, обычно подходит лишь небольшая часть систем из этой статьи.",
+      mapTitle: "Быстрая карта:",
+      map1: "Классические ERP → разделы 1–2",
+      map2: "Platform-first системы → раздел 3",
+      map3: "Low-code и internal tools → раздел 4",
+      recTitle: "На что смотреть в первую очередь:",
+      recDefault: "Выберите вариант выше — я подсвечу наиболее релевантные части статьи.",
+      rec: {
+        smb_stable_no_dev: "Начните с классических ERP. На старте избегайте тяжёлой кастомизации — важнее быстро получить пользу.",
+        smb_change_small_dev: "Смотрите platform-first и более гибкие стеки. «Долг кастомизаций» вы почувствуете раньше, чем кажется.",
+        ent_standardized: "Классические ERP хорошо работают при сильном управлении. Фокус: обновления, интеграции, жизненный цикл.",
+        ent_platform: "Platform-first лучше, когда логика должна постоянно меняться. Ставьте в приоритет читаемую/декларативную бизнес-логику и поддерживаемость."
+      }
+    },
+    pl: {
+      title: "Mało czasu?",
+      lead: "Zespoły rzadko oceniają całą listę jednakowo. Zawężają wybór według kontekstu:",
+      legend: "Wybierz, co jest najbliższe:",
+      opt1: "SMB · stabilne procesy · brak zespołu dev in-house",
+      opt2: "SMB · procesy się zmieniają · mały zespół dev",
+      opt3: "Enterprise · procesy ustandaryzowane",
+      opt4: "Enterprise · logika ewoluuje · podejście platform-first",
+      hint: "Jeśli rozpoznajesz tu swój kontekst, zwykle pasuje tylko niewielka część systemów z tego artykułu.",
+      mapTitle: "Szybka mapa:",
+      map1: "Klasyczne ERP → sekcje 1–2",
+      map2: "Platform-first → sekcja 3",
+      map3: "Low-code i narzędzia wewnętrzne → sekcja 4",
+      recTitle: "Na czym się skupić:",
+      recDefault: "Wybierz opcję powyżej — podświetlę najbardziej pasujące fragmenty.",
+      rec: {
+        smb_stable_no_dev: "Zacznij od klasycznych ERP. Unikaj ciężkiej customizacji na starcie — liczy się szybka wartość.",
+        smb_change_small_dev: "Spójrz na platform-first i elastyczne podejścia. „Dług customizacji” pojawia się szybciej, niż się wydaje.",
+        ent_standardized: "Klasyczne ERP działa, gdy governance jest mocny. Skup się na aktualizacjach i strategii integracji.",
+        ent_platform: "Platform-first pasuje, gdy logika musi ewoluować. Priorytet: czytelna/deklaratywna logika i utrzymanie w czasie."
+      }
+    },
+    ua: {
+      title: "Мало часу?",
+      lead: "Зазвичай команди не оцінюють весь список однаково. Вони звужують вибір за контекстом:",
+      legend: "Оберіть, що найближче:",
+      opt1: "SMB · стабільні процеси · немає in-house розробки",
+      opt2: "SMB · процеси змінюються · невелика dev-команда",
+      opt3: "Enterprise · процеси стандартизовані",
+      opt4: "Enterprise · логіка еволюціонує · platform-first підхід",
+      hint: "Якщо ви впізнали себе, зазвичай підходить лише невелика частина систем із цієї статті.",
+      mapTitle: "Швидка карта:",
+      map1: "Класичні ERP → розділи 1–2",
+      map2: "Platform-first → розділ 3",
+      map3: "Low-code та internal tools → розділ 4",
+      recTitle: "На що дивитися в першу чергу:",
+      recDefault: "Оберіть варіант вище — я підсвічу найрелевантніші частини статті.",
+      rec: {
+        smb_stable_no_dev: "Почніть із класичних ERP. На старті уникайте важкої кастомізації — важливіше швидко отримати цінність.",
+        smb_change_small_dev: "Дивіться platform-first та гнучкі підходи. «Борг кастомізації» з’являється раніше, ніж здається.",
+        ent_standardized: "Класичні ERP працюють, коли governance сильний. Фокус: апгрейди та стратегія інтеграцій.",
+        ent_platform: "Platform-first найкраще, коли логіка має постійно змінюватися. Пріоритет: декларативна/читабельна логіка та підтримуваність."
+      }
+    }
+  };
+
+  function applyI18n() {
+    const dict = I18N[lang] || I18N.en;
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (!key) return;
+      // Nested keys are handled in recommend part only.
+      if (dict[key]) el.textContent = dict[key];
+    });
+  }
+
+  // ---- 3) Analytics helpers (GTM/GA4)
+  function dlPush(payload) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(payload);
+  }
+
+  // ---- 4) Behavior: pick option -> highlight + recommend text + optional focus jump targets
+  const block = document.querySelector(".quick-fit");
+  if (!block) return;
+
+  const recommendText = block.querySelector(".quick-fit__recommend-text");
+  const radios = block.querySelectorAll('input[type="radio"][name="quickFit"]');
+  const links = block.querySelectorAll(".quick-fit__link");
+
+  // Map choices to which section link(s) to emphasize
+  // NOTE: Update href anchors to match your actual headings IDs.
+  const choiceToSections = {
+    smb_stable_no_dev: ["classic"],
+    smb_change_small_dev: ["platform", "tools"],
+    ent_standardized: ["classic"],
+    ent_platform: ["platform"]
+  };
+
+  function setActiveSections(sectionKeys) {
+    links.forEach(a => {
+      const key = a.getAttribute("data-section");
+      a.classList.toggle("is-active", sectionKeys.includes(key));
+    });
+  }
+
+  function onSelect(value) {
+    const dict = I18N[lang] || I18N.en;
+    const text = (dict.rec && dict.rec[value]) ? dict.rec[value] : dict.recDefault;
+
+    if (recommendText) recommendText.textContent = text;
+
+    const sections = choiceToSections[value] || [];
+    setActiveSections(sections);
+
+    dlPush({
+      event: "quick_fit_select",
+      quick_fit_choice: value,
+      content_lang: lang,
+      page_path: location.pathname
+    });
+  }
+
+  radios.forEach(r => {
+    r.addEventListener("change", () => onSelect(r.value));
+  });
+
+  // Track map clicks
+  links.forEach(a => {
+    a.addEventListener("click", () => {
+      dlPush({
+        event: "quick_fit_map_click",
+        quick_fit_section: a.getAttribute("data-section") || "",
+        content_lang: lang,
+        page_path: location.pathname,
+        link_url: a.getAttribute("href") || ""
+      });
+    });
+  });
+
+  // Apply i18n on load
+  applyI18n();
+
+
+})();
