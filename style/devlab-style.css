@@ -1046,3 +1046,5 @@ main { flex: 1; padding-bottom: 3rem; }
   margin: 0;
   line-height: 1.6;
 }
+.quick-fit--dim { opacity: .35; filter: saturate(.65); transition: opacity .2s ease, filter .2s ease; }
+.quick-fit--hit { opacity: 1; filter: none; }

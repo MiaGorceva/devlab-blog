@@ -445,3 +445,200 @@
 
 
 })();
+(function () {
+  const root = document.querySelector('[data-quick-fit]');
+  if (!root) return;
+
+  // 1) Fit mapping (auto-assign data-fit by ERP)
+  const ERP_FIT = {
+    "odoo": ["smb-stable-no-dev"],
+    "erpnext": ["smb-stable-no-dev", "enterprise-standardized"],
+
+    "mycompany-lsfusion": ["smb-changing-small-dev", "enterprise-evolving-platform"],
+    "tryton": ["enterprise-standardized", "enterprise-evolving-platform"],
+    "ofbiz": ["enterprise-evolving-platform"],
+
+    "tooljet": ["smb-changing-small-dev", "enterprise-evolving-platform"],
+    "nocobase": ["smb-changing-small-dev", "enterprise-evolving-platform"],
+    "budibase": ["smb-changing-small-dev"]
+  };
+
+  // 2) i18n dictionary (4 languages). Auto-detect by host or <html lang="">
+  const LANG = (document.documentElement.lang || "").toLowerCase();
+  const host = location.hostname.toLowerCase();
+  const detected =
+    host.startsWith("ru.") ? "ru" :
+    host.startsWith("pl.") ? "pl" :
+    host.startsWith("uk.") ? "uk" :
+    (LANG.startsWith("ru") ? "ru" : LANG.startsWith("pl") ? "pl" : LANG.startsWith("uk") ? "uk" : "en");
+
+  const I18N = {
+    en: {
+      title: "Short on time?",
+      lead: "Most teams don’t evaluate all options equally. They narrow the list down by context:",
+      legend: "Pick what sounds closest:",
+      opt1: "SMB · stable processes · no in-house dev",
+      opt2: "SMB · changing processes · small dev team",
+      opt3: "Enterprise · standardized processes",
+      opt4: "Enterprise · evolving logic · platform-first approach",
+      hint: "If you recognize yourself in one of these, only a small subset of systems in this article usually applies.",
+      mapTitle: "Jump to:",
+      map1: "Classic ERPs (Odoo, ERPNext)",
+      map2: "Platform-first (lsFusion, Tryton, OFBiz)",
+      map3: "Low-code & internal tools (ToolJet, NocoBase, Budibase)",
+      recTitle: "What to focus on:",
+      recDefault: "Choose an option above — I’ll highlight the most relevant systems.",
+      rec: {
+        "smb-stable-no-dev": "Start with Odoo and ERPNext. Prioritize clean implementation and avoid heavy customization early.",
+        "smb-changing-small-dev": "Look at lsFusion + internal tools (ToolJet/NocoBase/Budibase). You’ll trade “out-of-the-box” for adaptability.",
+        "enterprise-standardized": "ERPNext + Tryton are worth attention. Standardize processes first, then choose the system.",
+        "enterprise-evolving-platform": "lsFusion / Tryton / OFBiz (+ internal tools) fit best when business logic is evolving and ownership matters."
+      }
+    },
+
+    ru: {
+      title: "Нет времени читать всё?",
+      lead: "Большинство команд не оценивают все варианты одинаково. Обычно список сужают по контексту:",
+      legend: "Что ближе всего про вас?",
+      opt1: "SMB · стабильные процессы · нет своей разработки",
+      opt2: "SMB · процессы меняются · маленькая dev-команда",
+      opt3: "Enterprise · процессы стандартизированы",
+      opt4: "Enterprise · логика эволюционирует · platform-first подход",
+      hint: "Если вы узнали себя — обычно подходит только небольшая часть систем из статьи.",
+      mapTitle: "Перейти к:",
+      map1: "Классические ERP (Odoo, ERPNext)",
+      map2: "Platform-first (lsFusion, Tryton, OFBiz)",
+      map3: "Low-code / внутренние инструменты (ToolJet, NocoBase, Budibase)",
+      recTitle: "На что смотреть:",
+      recDefault: "Выберите вариант выше — я подсвечу наиболее релевантные системы.",
+      rec: {
+        "smb-stable-no-dev": "Смотрите Odoo и ERPNext. Делайте аккуратное внедрение и не уходите в тяжёлую кастомизацию на старте.",
+        "smb-changing-small-dev": "Смотрите lsFusion + internal tools (ToolJet/NocoBase/Budibase). Это про адаптивность вместо «всё из коробки».",
+        "enterprise-standardized": "Смотрите ERPNext + Tryton. Сначала стандартизируйте процессы, потом выбирайте систему.",
+        "enterprise-evolving-platform": "Лучше всего подходят lsFusion / Tryton / OFBiz (+ internal tools), когда логика постоянно меняется и важна управляемость."
+      }
+    },
+
+    pl: {
+      title: "Mało czasu?",
+      lead: "Większość zespołów nie ocenia wszystkich opcji jednakowo. Zwykle zawężają listę według kontekstu:",
+      legend: "Wybierz, co pasuje najbardziej:",
+      opt1: "SMB · stabilne procesy · brak zespołu dev",
+      opt2: "SMB · zmienne procesy · mały zespół dev",
+      opt3: "Enterprise · procesy ustandaryzowane",
+      opt4: "Enterprise · ewoluująca logika · podejście platform-first",
+      hint: "Jeśli rozpoznajesz się w jednym z wariantów, zwykle pasuje tylko mały podzbiór systemów z artykułu.",
+      mapTitle: "Przejdź do:",
+      map1: "Klasyczne ERP (Odoo, ERPNext)",
+      map2: "Platform-first (lsFusion, Tryton, OFBiz)",
+      map3: "Low-code i narzędzia wewnętrzne (ToolJet, NocoBase, Budibase)",
+      recTitle: "Na czym się skupić:",
+      recDefault: "Wybierz opcję powyżej — podświetlę najbardziej trafne systemy.",
+      rec: {
+        "smb-stable-no-dev": "Zacznij od Odoo i ERPNext. Postaw na czyste wdrożenie i unikaj ciężkiej kastomizacji na początku.",
+        "smb-changing-small-dev": "Spójrz na lsFusion + narzędzia (ToolJet/NocoBase/Budibase). To wymiana „out-of-the-box” na elastyczność.",
+        "enterprise-standardized": "Warto rozważyć ERPNext + Tryton. Najpierw standaryzacja procesów, potem wybór systemu.",
+        "enterprise-evolving-platform": "Najlepiej pasują lsFusion / Tryton / OFBiz (+ narzędzia), gdy logika się zmienia i liczy się kontrola."
+      }
+    },
+
+    uk: {
+      title: "Мало часу?",
+      lead: "Більшість команд не оцінюють усі варіанти однаково. Зазвичай список звужують за контекстом:",
+      legend: "Оберіть, що найближче:",
+      opt1: "SMB · стабільні процеси · немає in-house dev",
+      opt2: "SMB · процеси змінюються · маленька dev-команда",
+      opt3: "Enterprise · стандартизовані процеси",
+      opt4: "Enterprise · логіка еволюціонує · platform-first підхід",
+      hint: "Якщо ви впізнали себе — зазвичай підходить лише невелика частина систем зі статті.",
+      mapTitle: "Перейти до:",
+      map1: "Класичні ERP (Odoo, ERPNext)",
+      map2: "Platform-first (lsFusion, Tryton, OFBiz)",
+      map3: "Low-code та внутрішні інструменти (ToolJet, NocoBase, Budibase)",
+      recTitle: "На що дивитись:",
+      recDefault: "Оберіть варіант вище — я підсвічу найрелевантніші системи.",
+      rec: {
+        "smb-stable-no-dev": "Почніть з Odoo та ERPNext. Сфокусуйтеся на чистому впровадженні й не ускладнюйте кастомізацією на старті.",
+        "smb-changing-small-dev": "Дивіться lsFusion + інструменти (ToolJet/NocoBase/Budibase). Це про адаптивність замість «з коробки».",
+        "enterprise-standardized": "Варто розглянути ERPNext + Tryton. Спершу стандартизація процесів, потім вибір системи.",
+        "enterprise-evolving-platform": "Найкраще підходять lsFusion / Tryton / OFBiz (+ інструменти), коли логіка змінюється й важливий контроль."
+      }
+    }
+  };
+
+  // Apply i18n
+  const dict = I18N[detected] || I18N.en;
+  root.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key]) el.textContent = dict[key];
+  });
+
+  // Auto-assign data-fit on headings with data-erp
+  document.querySelectorAll('[data-erp]').forEach(h3 => {
+    const erpKey = h3.getAttribute('data-erp');
+    const fit = ERP_FIT[erpKey];
+    if (!fit) return;
+    h3.setAttribute('data-fit', fit.join(' '));
+    // Mark the entire card/section if you later wrap it (fallback: parent until next H3)
+    h3.classList.add('quick-fit__item');
+  });
+
+  // Helpers to find "ERP blocks" (from H3 until next H3/H2)
+  function getErpBlocks() {
+    const blocks = [];
+    const headers = Array.from(document.querySelectorAll('article [data-erp]'));
+    headers.forEach(h3 => {
+      const block = { head: h3, nodes: [h3] };
+      let n = h3.nextElementSibling;
+      while (n && !n.matches('h3[data-erp], h2')) {
+        block.nodes.push(n);
+        n = n.nextElementSibling;
+      }
+      blocks.push(block);
+    });
+    return blocks;
+  }
+
+  const blocks = getErpBlocks();
+  const recEl = root.querySelector('.quick-fit__recommend-text');
+
+  function clearHighlight() {
+    blocks.forEach(b => b.nodes.forEach(node => node.classList.remove('quick-fit--dim', 'quick-fit--hit')));
+  }
+
+  function applyFilter(selected) {
+    if (!selected) {
+      recEl.textContent = dict.recDefault;
+      clearHighlight();
+      return;
+    }
+
+    // Update recommendation text
+    recEl.textContent = (dict.rec && dict.rec[selected]) ? dict.rec[selected] : dict.recDefault;
+
+    blocks.forEach(b => {
+      const fitStr = (b.head.getAttribute('data-fit') || '').trim();
+      const fits = fitStr.split(/\s+/).filter(Boolean);
+      const hit = fits.includes(selected);
+
+      b.nodes.forEach(node => {
+        node.classList.toggle('quick-fit--hit', hit);
+        node.classList.toggle('quick-fit--dim', !hit);
+      });
+    });
+
+    // GA4 event (optional, safe)
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'quick_fit_select', { fit: selected, lang: detected });
+    }
+  }
+
+  // Wire radios
+  root.querySelectorAll('input[name="quickFit"]').forEach(r => {
+    r.addEventListener('change', () => applyFilter(r.value));
+  });
+
+  // Start in neutral state
+  applyFilter(null);
+})();
+
