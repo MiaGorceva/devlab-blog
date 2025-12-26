@@ -423,12 +423,14 @@ main { flex: 1; padding-bottom: 3rem; }
 .section-title {
   font-size: 1.08rem;
   font-weight: 600;
-  margin-bottom: 0.7rem;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  opacity: 0.95;
 }
+
 
 .section-title small { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
 
@@ -523,6 +525,8 @@ main { flex: 1; padding-bottom: 3rem; }
   gap: 0.6rem;
   font-size: 0.75rem;
   color: var(--text-muted);
+  margin-bottom: 14px;
+  opacity: 0.85;
 }
 
 .post-title { font-size: 1rem; font-weight: 600; }
@@ -1028,6 +1032,18 @@ main { flex: 1; padding-bottom: 3rem; }
   margin: 6px 0;
 }
 
+/* If you use a class for that box, target it. If not, add one. */
+.post-toc, .in-this-article {
+  margin-top: 18px;
+  margin-bottom: 26px;
+  padding: 18px 18px;
+}
+
+.post-toc li, .in-this-article li {
+  margin: 10px 0;
+}
+
+
 /* --- “Short on time?” block --- */
 .post-quick {
   margin: 18px 0 22px;
@@ -1048,3 +1064,80 @@ main { flex: 1; padding-bottom: 3rem; }
 }
 .quick-fit--dim { opacity: .35; filter: saturate(.65); transition: opacity .2s ease, filter .2s ease; }
 .quick-fit--hit { opacity: 1; filter: none; }
+
+
+/* Options become a responsive grid: 1 col on mobile, 2 cols on wide screens */
+.quick-fit__options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px 14px;
+  margin-top: 10px;
+}
+
+@media (min-width: 860px) {
+  .quick-fit__options {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Each option: clickable pill-like row */
+.quick-fit__option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.quick-fit__option:hover {
+  transform: translateY(-1px);
+  border-color: rgba(72,207,255,0.25);
+  background: rgba(0,0,0,0.12);
+}
+
+/* Radio alignment */
+.quick-fit__option input[type="radio"] {
+  margin-top: 3px;
+}
+
+/* Make long text wrap nicely */
+.quick-fit__option span {
+  display: inline-block;
+  line-height: 1.35;
+  opacity: 0.95;
+}
+
+/* “Jump to” list spacing */
+.quick-fit__map {
+  margin-top: 14px;
+}
+
+.quick-fit__map-title {
+  margin: 0 0 10px;
+  opacity: 0.9;
+}
+
+.quick-fit__map-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.quick-fit__map-list li {
+  margin: 8px 0;
+}
+
+/* Recommendation block */
+.quick-fit__recommend {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.quick-fit__recommend-title {
+  margin: 0 0 8px;
+  opacity: 0.9;
+}
