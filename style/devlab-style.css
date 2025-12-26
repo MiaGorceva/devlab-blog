@@ -1043,6 +1043,27 @@ main { flex: 1; padding-bottom: 3rem; }
   margin: 10px 0;
 }
 
+@media (min-width: 980px) {
+  .post-hero img {
+    max-width: 880px;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+.quick-fit__options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px 14px;
+  margin-top: 10px;
+}
+
+@media (min-width: 860px) {
+  .quick-fit__options {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 
 /* --- “Short on time?” block --- */
 .post-quick {
@@ -1065,19 +1086,9 @@ main { flex: 1; padding-bottom: 3rem; }
 .quick-fit--dim { opacity: .35; filter: saturate(.65); transition: opacity .2s ease, filter .2s ease; }
 .quick-fit--hit { opacity: 1; filter: none; }
 
-
-/* Options become a responsive grid: 1 col on mobile, 2 cols on wide screens */
-.quick-fit__options {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px 14px;
-  margin-top: 10px;
-}
-
-@media (min-width: 860px) {
-  .quick-fit__options {
-    grid-template-columns: 1fr 1fr;
-  }
+.quick-fit__hint {
+  margin-top: 14px;
+  opacity: 0.9;
 }
 
 /* Each option: clickable pill-like row */
