@@ -934,7 +934,7 @@ main { flex: 1; padding-bottom: 3rem; }
   /* “карточка” для каждого пункта */
   position: relative;
   padding: 0.85rem 0.95rem;
-  border-radius: var(--radius-lg);
+/*  border-radius: var(--radius-lg);*/
   background:
     radial-gradient(circle at top left, rgba(72, 207, 255, 0.10), transparent 55%),
     radial-gradient(circle at bottom right, rgba(84, 229, 74, 0.10), transparent 55%),
@@ -1152,3 +1152,9 @@ main { flex: 1; padding-bottom: 3rem; }
   margin: 0 0 8px;
   opacity: 0.9;
 }
+.quick-fit__link.is-active {
+  color: var(--text-main);
+  text-decoration-color: rgba(84,229,74,.75);
+  filter: drop-shadow(0 0 10px rgba(72,207,255,.25));
+}
+
