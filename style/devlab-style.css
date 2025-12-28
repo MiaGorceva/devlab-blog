@@ -1141,20 +1141,32 @@ main { flex: 1; padding-bottom: 3rem; }
   margin: 8px 0;
 }
 
-/* Recommendation block */
-.quick-fit__recommend {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,0.10);
-}
-
-.quick-fit__recommend-title {
-  margin: 0 0 8px;
-  opacity: 0.9;
-}
 .quick-fit__link.is-active {
   color: var(--text-main);
   text-decoration-color: rgba(84,229,74,.75);
   filter: drop-shadow(0 0 10px rgba(72,207,255,.25));
 }
+
+.quick-fit__recommend {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at top left, rgba(72,207,255,.12), transparent 55%),
+    rgba(15,23,42,.9);
+  border: 1px solid rgba(72,207,255,.35);
+}
+
+.quick-fit__recommend-title {
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.quick-fit__recommend-text {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
 
