@@ -755,6 +755,11 @@ main { flex: 1; padding-bottom: 3rem; }
 
 .post-page header { position: static; }
 
+.post-page .post-hero {
+  box-shadow:
+    0 0 0 1px rgba(72,207,255,.12),
+    0 0 40px rgba(72,207,255,.08);
+}
 
 /* Post content images */
 .post-page .post-content img{
