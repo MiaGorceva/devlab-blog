@@ -730,6 +730,13 @@ main { flex: 1; padding-bottom: 3rem; }
   border-radius: 18px;
 }
 
+.post-page .post-hero {
+  box-shadow:
+    0 0 0 1px rgba(72,207,255,.12),
+    0 0 40px rgba(72,207,255,.08);
+}
+
+
 
 .post-image::before {
   content: "";
@@ -759,8 +766,6 @@ main { flex: 1; padding-bottom: 3rem; }
 
 .post-page article,
 .post-page .post-content { position: relative; z-index: 1; }
-
-.post-page .post-content { max-width: 90ch; margin-right: auto; }
 
 .post-page main { overflow: visible; }
 
@@ -918,6 +923,7 @@ main { flex: 1; padding-bottom: 3rem; }
 .post-page .post-content {
   max-width: 86ch;
   line-height: 1.75;
+  margin-right: auto;
 }
 
 .post-page .post-content p { margin: 0.85rem 0; }
@@ -1010,8 +1016,8 @@ main { flex: 1; padding-bottom: 3rem; }
 
 /* --- Post TOC / Quick Summary --- */
 .post-toc {
-  margin: 18px 0 22px;
-  padding: 14px 16px;
+ /* margin: 18px 0 22px;
+  padding: 14px 16px;*/
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 14px;
   background: rgba(255,255,255,.04);
