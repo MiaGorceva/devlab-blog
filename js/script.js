@@ -540,7 +540,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
     // пушим в GTM/GA4 через dataLayer
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
-      event: "outbound_click",
+      event: "outbound_click1",
       outbound_url: url.href,
       outbound_domain: url.hostname,
       outbound_path: url.pathname,
