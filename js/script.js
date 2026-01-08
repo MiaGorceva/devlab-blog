@@ -518,34 +518,4 @@
 })();
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
-(function () {
-  document.addEventListener("click", function (e) {
-    var a = e.target.closest && e.target.closest("a[href]");
-    if (!a) return;
-
-    // игнор якорей и служебных ссылок
-    var href = a.getAttribute("href") || "";
-    if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
-
-    var url;
-    try {
-      url = new URL(a.href, location.href);
-    } catch (err) {
-      return;
-    }
-
-    // только внешние
-    if (url.hostname === location.hostname) return;
-
-    // пушим в GTM/GA4 через dataLayer
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "outbound_click",
-      outbound_url: url.href,
-      outbound_domain: url.hostname,
-      outbound_path: url.pathname,
-      source_page: location.pathname
-    });
-  }, true);
-})();
 
