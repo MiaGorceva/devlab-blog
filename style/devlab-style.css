@@ -303,7 +303,9 @@ body.nav-open .nav-toggle {
   color: transparent;
 }
 
-.back { text-decoration: underline; }
+.back { text-decoration: underline; 
+  display: inline-block;
+  gap: 12px;}
 
 .hero-text {
   color: var(--text-muted);
