@@ -520,7 +520,7 @@
    7) Reactions (👍/👎) — Google Apps Script safe mode (no JSON POST)
    ========================= */
 const REACTIONS_API =
-  "https://script.google.com/macros/s/AKfycbwC9PfWU4oqJU4zOtYnRgVrFXdrp7C3EpPML0V2dk_59yD3eUE7dNegproebzGQhaZ6Mw/exec";
+  "https://script.google.com/macros/s/AKfycbzrikgWx4c27jDaCBboSUL6cM9HS4jVGfeMfspdcVTzBuVxDYgS-AyResoOsUt3W7GA1A/exec";
 
 function getPostIdForReactions() {
   const article = document.querySelector("main article") || document.querySelector("article");
