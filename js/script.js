@@ -516,14 +516,16 @@
     applyFilter(null);
   });
 
-  // === Reactions (👍/👎) ===
-// 1) Вставь сюда URL Web App
-const REACTIONS_API = "https://script.google.com/macros/s/AKfycbwC9PfWU4oqJU4zOtYnRgVrFXdrp7C3EpPML0V2dk_59yD3eUE7dNegproebzGQhaZ6Mw/exec";
+  /* =========================
+   7) Reactions (👍/👎) — Google Apps Script safe mode (no JSON POST)
+   ========================= */
+const REACTIONS_API =
+  "https://script.google.com/macros/s/AKfycbwC9PfWU4oqJU4zOtYnRgVrFXdrp7C3EpPML0V2dk_59yD3eUE7dNegproebzGQhaZ6Mw/exec";
 
-// 2) post_id можно брать из <article id="{{POST_ID}}">, у тебя это уже есть
-function getPostId() {
-  const article = document.querySelector("article[id]");
-  return article ? article.id : null;
+function getPostIdForReactions() {
+  const article = document.querySelector("main article") || document.querySelector("article");
+  if (!article) return null;
+  return getPostIdFromArticle(article); // твоя функция
 }
 
 async function loadReactions(postId) {
@@ -532,7 +534,7 @@ async function loadReactions(postId) {
   return await r.json();
 }
 
-function setCounts(data) {
+function setReactionCounts(data) {
   const likeEl = document.querySelector('[data-count="like"]');
   const dislikeEl = document.querySelector('[data-count="dislike"]');
   if (likeEl) likeEl.textContent = String(data.like ?? 0);
@@ -541,13 +543,11 @@ function setCounts(data) {
 
 async function sendVote(postId, vote) {
   const key = `voted:${postId}:${vote}`;
-  if (localStorage.getItem(key)) return null; // простая защита от повторов
+  if (localStorage.getItem(key)) return null;
 
-  const r = await fetch(REACTIONS_API, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ post_id: postId, vote })
-  });
+  // IMPORTANT: POST without JSON to avoid CORS preflight
+  const url = `${REACTIONS_API}?post_id=${encodeURIComponent(postId)}&vote=${encodeURIComponent(vote)}&_=${Date.now()}`;
+  const r = await fetch(url, { method: "POST" });
 
   if (!r.ok) return null;
   const data = await r.json();
@@ -556,16 +556,22 @@ async function sendVote(postId, vote) {
 }
 
 function initReactions() {
-  const postId = getPostId();
+  // only on post pages (optional)
+  if (!document.body.classList.contains("post-page")) return;
+
+  const postId = getPostIdForReactions();
   if (!postId) return;
 
-  // загрузить текущие
-  loadReactions(postId).then(setCounts).catch(() => {});
+  // If buttons not present — do nothing
+  const buttons = Array.from(document.querySelectorAll("button[data-vote]"));
+  if (!buttons.length) return;
 
-  // обработчики
-  document.querySelectorAll("button[data-vote]").forEach(btn => {
+  loadReactions(postId).then(setReactionCounts).catch(() => {});
+
+  buttons.forEach((btn) => {
     btn.addEventListener("click", async () => {
       const vote = btn.getAttribute("data-vote");
+      if (!vote) return;
 
       // optimistic UI
       const current = {
@@ -574,18 +580,20 @@ function initReactions() {
       };
       if (vote === "like") current.like += 1;
       if (vote === "dislike") current.dislike += 1;
-      setCounts(current);
+      setReactionCounts(current);
 
-      const res = await sendVote(postId, vote);
-      if (res && res.ok) setCounts(res);
+      try {
+        const res = await sendVote(postId, vote);
+        if (res && res.ok) setReactionCounts(res);
+      } catch (e) {
+        console.warn("Vote failed:", e);
+      }
     });
   });
 }
+
 initReactions();
 
+
 })();
-
-
-const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
 
