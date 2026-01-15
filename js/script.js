@@ -518,7 +518,7 @@
 
   // === Reactions (👍/👎) ===
 // 1) Вставь сюда URL Web App
-const REACTIONS_API = "PASTE_YOUR_APPS_SCRIPT_WEBAPP_URL_HERE";
+const REACTIONS_API = "https://script.google.com/macros/s/AKfycbwC9PfWU4oqJU4zOtYnRgVrFXdrp7C3EpPML0V2dk_59yD3eUE7dNegproebzGQhaZ6Mw/exec";
 
 // 2) post_id можно брать из <article id="{{POST_ID}}">, у тебя это уже есть
 function getPostId() {
