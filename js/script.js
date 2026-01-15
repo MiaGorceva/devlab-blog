@@ -515,7 +515,77 @@
     // Start neutral
     applyFilter(null);
   });
+
+  // === Reactions (👍/👎) ===
+// 1) Вставь сюда URL Web App
+const REACTIONS_API = "PASTE_YOUR_APPS_SCRIPT_WEBAPP_URL_HERE";
+
+// 2) post_id можно брать из <article id="{{POST_ID}}">, у тебя это уже есть
+function getPostId() {
+  const article = document.querySelector("article[id]");
+  return article ? article.id : null;
+}
+
+async function loadReactions(postId) {
+  const r = await fetch(`${REACTIONS_API}?post_id=${encodeURIComponent(postId)}`);
+  if (!r.ok) return { like: 0, dislike: 0 };
+  return await r.json();
+}
+
+function setCounts(data) {
+  const likeEl = document.querySelector('[data-count="like"]');
+  const dislikeEl = document.querySelector('[data-count="dislike"]');
+  if (likeEl) likeEl.textContent = String(data.like ?? 0);
+  if (dislikeEl) dislikeEl.textContent = String(data.dislike ?? 0);
+}
+
+async function sendVote(postId, vote) {
+  const key = `voted:${postId}:${vote}`;
+  if (localStorage.getItem(key)) return null; // простая защита от повторов
+
+  const r = await fetch(REACTIONS_API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ post_id: postId, vote })
+  });
+
+  if (!r.ok) return null;
+  const data = await r.json();
+  if (data && data.ok) localStorage.setItem(key, "1");
+  return data;
+}
+
+function initReactions() {
+  const postId = getPostId();
+  if (!postId) return;
+
+  // загрузить текущие
+  loadReactions(postId).then(setCounts).catch(() => {});
+
+  // обработчики
+  document.querySelectorAll("button[data-vote]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const vote = btn.getAttribute("data-vote");
+
+      // optimistic UI
+      const current = {
+        like: Number(document.querySelector('[data-count="like"]')?.textContent || 0),
+        dislike: Number(document.querySelector('[data-count="dislike"]')?.textContent || 0),
+      };
+      if (vote === "like") current.like += 1;
+      if (vote === "dislike") current.dislike += 1;
+      setCounts(current);
+
+      const res = await sendVote(postId, vote);
+      if (res && res.ok) setCounts(res);
+    });
+  });
+}
+initReactions();
+
 })();
+
+
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
