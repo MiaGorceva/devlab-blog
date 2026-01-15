@@ -129,181 +129,170 @@
     }
 
     /* =========================
-       JSONP helper (views)
-       ========================= */
-    const VIEWS_ENDPOINT =
-      "https://script.google.com/macros/s/AKfycbz3O_smyEG9F2xsOcxxkG0wsWKXGB4gfuOv2OIYw6vO3dzvzBPJTnT2WgsjzopftF3Vxg/exec";
-
-    function fetchViewsJSONP(postId) {
-      return new Promise((resolve) => {
-        if (!postId) return resolve(0);
-
-        const cbName = "__views_cb_" + Math.random().toString(36).slice(2);
-        const script = document.createElement("script");
-
-        window[cbName] = (data) => {
-          try {
-            const v = (data && typeof data.views === "number") ? data.views : 0;
-            resolve(v);
-          } catch {
-            resolve(0);
-          } finally {
-            try { delete window[cbName]; } catch { window[cbName] = undefined; }
-            if (script && script.parentNode) script.parentNode.removeChild(script);
-          }
-        };
-
-        script.onerror = () => {
-          resolve(0);
-          try { delete window[cbName]; } catch {}
-          if (script && script.parentNode) script.parentNode.removeChild(script);
-        };
-
-        script.src =
-          VIEWS_ENDPOINT +
-          "?callback=" + encodeURIComponent(cbName) +
-          "&post=" + encodeURIComponent(postId) +
-          "&_=" + Date.now(); // cache-bust
-
-        document.body.appendChild(script);
-      });
-    }
-
-    /* =========================
-       4) Views on POST pages
-       ========================= */
-    if (document.body.classList.contains("post-page")) {
-      const article = document.querySelector("main article") || document.querySelector("article");
-      if (!article) return;
-
-      let postId = getPostIdFromArticle(article);
-
-      // Ensure .post-views exists in every .post-meta-secondary
-      const metaBlocks = Array.from(article.querySelectorAll(".post-meta-secondary"));
-      metaBlocks.forEach((metaSecondary) => {
-        let viewsSpan = metaSecondary.querySelector(".post-views");
-        if (!viewsSpan) {
-          const dot = document.createElement("span");
-          dot.textContent = "·";
-          metaSecondary.appendChild(dot);
-
-          viewsSpan = document.createElement("span");
-          viewsSpan.className = "post-views";
-          viewsSpan.innerHTML = 'Views: <span class="count">—</span>';
-          metaSecondary.appendChild(viewsSpan);
-        }
-      });
-
-      // Fallback if no meta blocks exist
-      if (!metaBlocks.length) {
-        const footer = article.querySelector("footer") || article.appendChild(document.createElement("footer"));
-        footer.classList.add("post-footer-extended");
-
-        let viewsSpan2 = footer.querySelector(".post-views");
-        if (!viewsSpan2) {
-          viewsSpan2 = document.createElement("span");
-          viewsSpan2.className = "post-views";
-          viewsSpan2.innerHTML = 'Views: <span class="count">—</span>';
-          footer.appendChild(viewsSpan2);
-        }
-      }
-
-      // Allow manual key override via data-key on any .post-views
-      const manualKeyEl = article.querySelector(".post-views[data-key]");
-      if (manualKeyEl && manualKeyEl.getAttribute("data-key")) {
-        postId = manualKeyEl.getAttribute("data-key");
-      }
-
-      // Update all counters on the page
-      const countEls = Array.from(article.querySelectorAll(".post-views .count"));
-
-      fetchViewsJSONP(postId).then((views) => {
-        const v = Number(views || 0).toLocaleString("en-US");
-        countEls.forEach((el) => { el.textContent = v; });
-      });
-
-      // Post pages: no list sorting
-      // But Quick Fit should still run (it is on post pages), so don't return here.
-      // We'll continue below.
-    }
-
-    /* =========================
-   7) Reactions (👍/👎) — Google Apps Script safe mode (no JSON POST)
+   JSONP helper (universal)
    ========================= */
-const REACTIONS_API =
-  "https://script.google.com/macros/s/AKfycbzrikgWx4c27jDaCBboSUL6cM9HS4jVGfeMfspdcVTzBuVxDYgS-AyResoOsUt3W7GA1A/exec";
+function fetchJSONP(baseUrl, params) {
+  return new Promise((resolve) => {
+    const cbName = "__jsonp_cb_" + Math.random().toString(36).slice(2);
+    const script = document.createElement("script");
 
-function getPostIdForReactions() {
+    window[cbName] = (data) => {
+      try { resolve(data ?? null); }
+      finally {
+        try { delete window[cbName]; } catch { window[cbName] = undefined; }
+        if (script && script.parentNode) script.parentNode.removeChild(script);
+      }
+    };
+
+    script.onerror = () => {
+      resolve(null);
+      try { delete window[cbName]; } catch {}
+      if (script && script.parentNode) script.parentNode.removeChild(script);
+    };
+
+    const q = new URLSearchParams({
+      callback: cbName,
+      _: String(Date.now()),
+      ...(params || {})
+    });
+
+    script.src = baseUrl + "?" + q.toString();
+    document.body.appendChild(script);
+  });
+}
+
+/* =========================
+   4) Views (JSONP)
+   ========================= */
+const VIEWS_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbz3O_smyEG9F2xsOcxxkG0wsWKXGB4gfuOv2OIYw6vO3dzvzBPJTnT2WgsjzopftF3Vxg/exec";
+
+function fetchViewsJSONP(postId) {
+  if (!postId) return Promise.resolve(0);
+
+  return fetchJSONP(VIEWS_ENDPOINT, { post: postId }).then((data) => {
+    const v = (data && typeof data.views === "number") ? data.views : 0;
+    return v;
+  });
+}
+
+/* =========================
+   5) Views on POST pages
+   ========================= */
+if (document.body.classList.contains("post-page")) {
   const article = document.querySelector("main article") || document.querySelector("article");
-  if (!article) return null;
-  return getPostIdFromArticle(article); // твоя функция
+  if (!article) return;
+
+  let postId = getPostIdFromArticle(article);
+
+  // Ensure .post-views exists in every .post-meta-secondary
+  const metaBlocks = Array.from(article.querySelectorAll(".post-meta-secondary"));
+  metaBlocks.forEach((metaSecondary) => {
+    let viewsSpan = metaSecondary.querySelector(".post-views");
+    if (!viewsSpan) {
+      const dot = document.createElement("span");
+      dot.textContent = "·";
+      metaSecondary.appendChild(dot);
+
+      viewsSpan = document.createElement("span");
+      viewsSpan.className = "post-views";
+      viewsSpan.innerHTML = 'Views: <span class="count">—</span>';
+      metaSecondary.appendChild(viewsSpan);
+    }
+  });
+
+  // Fallback if no meta blocks exist
+  if (!metaBlocks.length) {
+    const footer = article.querySelector("footer") || article.appendChild(document.createElement("footer"));
+    footer.classList.add("post-footer-extended");
+
+    let viewsSpan2 = footer.querySelector(".post-views");
+    if (!viewsSpan2) {
+      viewsSpan2 = document.createElement("span");
+      viewsSpan2.className = "post-views";
+      viewsSpan2.innerHTML = 'Views: <span class="count">—</span>';
+      footer.appendChild(viewsSpan2);
+    }
+  }
+
+  // Allow manual key override via data-key on any .post-views
+  const manualKeyEl = article.querySelector(".post-views[data-key]");
+  if (manualKeyEl && manualKeyEl.getAttribute("data-key")) {
+    postId = manualKeyEl.getAttribute("data-key");
+  }
+
+  // Update all counters on the page
+  const countEls = Array.from(article.querySelectorAll(".post-views .count"));
+
+  fetchViewsJSONP(postId).then((views) => {
+    const v = Number(views || 0).toLocaleString("en-US");
+    countEls.forEach((el) => { el.textContent = v; });
+  });
 }
 
-async function loadReactions(postId) {
-  const r = await fetch(`${REACTIONS_API}?post_id=${encodeURIComponent(postId)}`);
-  if (!r.ok) return { like: 0, dislike: 0 };
-  return await r.json();
-}
+/* =========================
+   6) Reactions (👍/👎) — JSONP (no CORS)
+   ========================= */
+const REACTIONS_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbzrikgWx4c27jDaCBboSUL6cM9HS4jVGfeMfspdcVTzBuVxDYgS-AyResoOsUt3W7GA1A/exec";
 
 function setReactionCounts(data) {
   const likeEl = document.querySelector('[data-count="like"]');
   const dislikeEl = document.querySelector('[data-count="dislike"]');
-  if (likeEl) likeEl.textContent = String(data.like ?? 0);
-  if (dislikeEl) dislikeEl.textContent = String(data.dislike ?? 0);
+  if (likeEl) likeEl.textContent = String((data && data.like) ?? 0);
+  if (dislikeEl) dislikeEl.textContent = String((data && data.dislike) ?? 0);
 }
 
-async function sendVote(postId, vote) {
-  const key = `voted:${postId}:${vote}`;
-  if (localStorage.getItem(key)) return null;
-
-  // IMPORTANT: POST without JSON to avoid CORS preflight
-  const url = `${REACTIONS_API}?post_id=${encodeURIComponent(postId)}&vote=${encodeURIComponent(vote)}&_=${Date.now()}`;
-  const r = await fetch(url, { method: "POST" });
-
-  if (!r.ok) return null;
-  const data = await r.json();
-  if (data && data.ok) localStorage.setItem(key, "1");
-  return data;
+function getPostIdForReactions() {
+  const article = document.querySelector("main article") || document.querySelector("article");
+  if (!article) return null;
+  return getPostIdFromArticle(article);
 }
 
-    function initReactions() {
-      // only on post pages (optional)
-      if (!document.body.classList.contains("post-page")) return;
+function initReactions() {
+  if (!document.body.classList.contains("post-page")) return;
 
-      const postId = getPostIdForReactions();
-      if (!postId) return;
+  const postId = getPostIdForReactions();
+  if (!postId) return;
 
-      // If buttons not present — do nothing
-      const buttons = Array.from(document.querySelectorAll("button[data-vote]"));
-      if (!buttons.length) return;
+  const buttons = Array.from(document.querySelectorAll("button[data-vote]"));
+  if (!buttons.length) return;
 
-      loadReactions(postId).then(setReactionCounts).catch(() => {});
+  // Load counts (JSONP)
+  fetchJSONP(REACTIONS_ENDPOINT, { post_id: postId }).then((data) => {
+    if (data) setReactionCounts(data);
+  });
 
-      buttons.forEach((btn) => {
-        btn.addEventListener("click", async () => {
-          const vote = btn.getAttribute("data-vote");
-          if (!vote) return;
+  // Vote (JSONP)
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const vote = btn.getAttribute("data-vote");
+      if (!vote) return;
 
-          // optimistic UI
-          const current = {
-            like: Number(document.querySelector('[data-count="like"]')?.textContent || 0),
-            dislike: Number(document.querySelector('[data-count="dislike"]')?.textContent || 0),
-          };
-          if (vote === "like") current.like += 1;
-          if (vote === "dislike") current.dislike += 1;
-          setReactionCounts(current);
 
-          try {
-            const res = await sendVote(postId, vote);
-            if (res && res.ok) setReactionCounts(res);
-          } catch (e) {
-            console.warn("Vote failed:", e);
-          }
-        });
-      });
-    }
+      const key = `voted:${postId}`;
+      if (localStorage.getItem(key)) return;
 
-    initReactions();
+      // optimistic UI
+      const current = {
+        like: Number(document.querySelector('[data-count="like"]')?.textContent || 0),
+        dislike: Number(document.querySelector('[data-count="dislike"]')?.textContent || 0),
+      };
+      if (vote === "like") current.like += 1;
+      if (vote === "dislike") current.dislike += 1;
+      setReactionCounts(current);
+
+      const res = await fetchJSONP(REACTIONS_ENDPOINT, { post_id: postId, vote });
+      if (res && res.ok) {
+        localStorage.setItem(key, vote); // store what they picked
+        setReactionCounts(res);
+      }
+    });
+  });
+}
+
+initReactions();
+
 
     /* =========================
        5) Sort post cards on INDEX pages:
@@ -382,7 +371,7 @@ async function sendVote(postId, vote) {
             "Look at platform-first options and flexible stacks. You’ll feel “customization debt” earlier than you think.",
           "enterprise-standardized":
             "Classic ERPs can work well when governance is strong. Focus on upgrade path + integration strategy.",
-          "enterprise-evolving-platform":
+          "enterprise-evolving-platform": 
             "Platform-first approaches fit best when logic must evolve. Prioritize declarative/readable business logic and long-term maintainability."
         }
       },
