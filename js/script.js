@@ -228,6 +228,84 @@
     }
 
     /* =========================
+   7) Reactions (👍/👎) — Google Apps Script safe mode (no JSON POST)
+   ========================= */
+const REACTIONS_API =
+  "https://script.google.com/macros/s/AKfycbzrikgWx4c27jDaCBboSUL6cM9HS4jVGfeMfspdcVTzBuVxDYgS-AyResoOsUt3W7GA1A/exec";
+
+function getPostIdForReactions() {
+  const article = document.querySelector("main article") || document.querySelector("article");
+  if (!article) return null;
+  return getPostIdFromArticle(article); // твоя функция
+}
+
+async function loadReactions(postId) {
+  const r = await fetch(`${REACTIONS_API}?post_id=${encodeURIComponent(postId)}`);
+  if (!r.ok) return { like: 0, dislike: 0 };
+  return await r.json();
+}
+
+function setReactionCounts(data) {
+  const likeEl = document.querySelector('[data-count="like"]');
+  const dislikeEl = document.querySelector('[data-count="dislike"]');
+  if (likeEl) likeEl.textContent = String(data.like ?? 0);
+  if (dislikeEl) dislikeEl.textContent = String(data.dislike ?? 0);
+}
+
+async function sendVote(postId, vote) {
+  const key = `voted:${postId}:${vote}`;
+  if (localStorage.getItem(key)) return null;
+
+  // IMPORTANT: POST without JSON to avoid CORS preflight
+  const url = `${REACTIONS_API}?post_id=${encodeURIComponent(postId)}&vote=${encodeURIComponent(vote)}&_=${Date.now()}`;
+  const r = await fetch(url, { method: "POST" });
+
+  if (!r.ok) return null;
+  const data = await r.json();
+  if (data && data.ok) localStorage.setItem(key, "1");
+  return data;
+}
+
+    function initReactions() {
+      // only on post pages (optional)
+      if (!document.body.classList.contains("post-page")) return;
+
+      const postId = getPostIdForReactions();
+      if (!postId) return;
+
+      // If buttons not present — do nothing
+      const buttons = Array.from(document.querySelectorAll("button[data-vote]"));
+      if (!buttons.length) return;
+
+      loadReactions(postId).then(setReactionCounts).catch(() => {});
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const vote = btn.getAttribute("data-vote");
+          if (!vote) return;
+
+          // optimistic UI
+          const current = {
+            like: Number(document.querySelector('[data-count="like"]')?.textContent || 0),
+            dislike: Number(document.querySelector('[data-count="dislike"]')?.textContent || 0),
+          };
+          if (vote === "like") current.like += 1;
+          if (vote === "dislike") current.dislike += 1;
+          setReactionCounts(current);
+
+          try {
+            const res = await sendVote(postId, vote);
+            if (res && res.ok) setReactionCounts(res);
+          } catch (e) {
+            console.warn("Vote failed:", e);
+          }
+        });
+      });
+    }
+
+    initReactions();
+
+    /* =========================
        5) Sort post cards on INDEX pages:
           - Pin latest by data-date first
           - Others by views desc
@@ -515,84 +593,6 @@
     // Start neutral
     applyFilter(null);
   });
-
-  /* =========================
-   7) Reactions (👍/👎) — Google Apps Script safe mode (no JSON POST)
-   ========================= */
-const REACTIONS_API =
-  "https://script.google.com/macros/s/AKfycbzrikgWx4c27jDaCBboSUL6cM9HS4jVGfeMfspdcVTzBuVxDYgS-AyResoOsUt3W7GA1A/exec";
-
-function getPostIdForReactions() {
-  const article = document.querySelector("main article") || document.querySelector("article");
-  if (!article) return null;
-  return getPostIdFromArticle(article); // твоя функция
-}
-
-async function loadReactions(postId) {
-  const r = await fetch(`${REACTIONS_API}?post_id=${encodeURIComponent(postId)}`);
-  if (!r.ok) return { like: 0, dislike: 0 };
-  return await r.json();
-}
-
-function setReactionCounts(data) {
-  const likeEl = document.querySelector('[data-count="like"]');
-  const dislikeEl = document.querySelector('[data-count="dislike"]');
-  if (likeEl) likeEl.textContent = String(data.like ?? 0);
-  if (dislikeEl) dislikeEl.textContent = String(data.dislike ?? 0);
-}
-
-async function sendVote(postId, vote) {
-  const key = `voted:${postId}:${vote}`;
-  if (localStorage.getItem(key)) return null;
-
-  // IMPORTANT: POST without JSON to avoid CORS preflight
-  const url = `${REACTIONS_API}?post_id=${encodeURIComponent(postId)}&vote=${encodeURIComponent(vote)}&_=${Date.now()}`;
-  const r = await fetch(url, { method: "POST" });
-
-  if (!r.ok) return null;
-  const data = await r.json();
-  if (data && data.ok) localStorage.setItem(key, "1");
-  return data;
-}
-
-function initReactions() {
-  // only on post pages (optional)
-  if (!document.body.classList.contains("post-page")) return;
-
-  const postId = getPostIdForReactions();
-  if (!postId) return;
-
-  // If buttons not present — do nothing
-  const buttons = Array.from(document.querySelectorAll("button[data-vote]"));
-  if (!buttons.length) return;
-
-  loadReactions(postId).then(setReactionCounts).catch(() => {});
-
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const vote = btn.getAttribute("data-vote");
-      if (!vote) return;
-
-      // optimistic UI
-      const current = {
-        like: Number(document.querySelector('[data-count="like"]')?.textContent || 0),
-        dislike: Number(document.querySelector('[data-count="dislike"]')?.textContent || 0),
-      };
-      if (vote === "like") current.like += 1;
-      if (vote === "dislike") current.dislike += 1;
-      setReactionCounts(current);
-
-      try {
-        const res = await sendVote(postId, vote);
-        if (res && res.ok) setReactionCounts(res);
-      } catch (e) {
-        console.warn("Vote failed:", e);
-      }
-    });
-  });
-}
-
-initReactions();
 
 
 })();
