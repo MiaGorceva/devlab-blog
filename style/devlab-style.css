@@ -908,6 +908,8 @@ main { flex: 1; padding-bottom: 3rem; }
 .diagram-card svg { width: 100%; height: auto; display: block; }
 .diagram-card .mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  margin:0; 
+  color: var(--text-muted);
 }
 
 /* Smooth HR */
