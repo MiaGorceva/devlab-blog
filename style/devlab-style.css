@@ -311,8 +311,15 @@ body.nav-open .nav-toggle {
 
 
 .back { text-decoration: underline; 
-  display: inline-block;
-  gap: 12px;}
+  }
+
+.post-nav-links{
+  display:flex;
+  gap:28px;          /* тут gap уже работает */
+  flex-wrap:wrap;    /* чтобы на мобиле красиво переносилось */
+  margin-top: 14px;
+}
+
 
 .hero-text {
   color: var(--text-muted);
