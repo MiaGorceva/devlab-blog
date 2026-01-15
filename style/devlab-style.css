@@ -303,6 +303,13 @@ body.nav-open .nav-toggle {
   color: transparent;
 }
 
+.count{
+  margin-left: .35rem;
+  font-variant-numeric: tabular-nums;
+  opacity: .9;
+}
+
+
 .back { text-decoration: underline; 
   display: inline-block;
   gap: 12px;}
