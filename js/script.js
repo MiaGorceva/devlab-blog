@@ -586,3 +586,69 @@ initReactions();
 
 })();
 
+(function () {
+  const KEY = "dl_consent_v1"; // saved in localStorage
+
+  function showBanner() {
+    document.getElementById("dl-cookie").style.display = "block";
+  }
+
+  function hideBanner() {
+    document.getElementById("dl-cookie").style.display = "none";
+  }
+
+  function apply(mode) {
+    if (mode === "analytics") {
+      gtag('consent', 'update', {
+        analytics_storage: 'granted',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+    } else {
+      // reject
+      gtag('consent', 'update', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+    }
+    localStorage.setItem(KEY, mode);
+  }
+
+  const saved = localStorage.getItem(KEY);
+
+  // If no choice yet -> show banner
+  if (!saved) {
+    showBanner();
+  } else {
+    apply(saved);
+  }
+
+  document.getElementById("dl-cookie-analytics").addEventListener("click", function () {
+    apply("analytics");
+    hideBanner();
+  });
+
+  document.getElementById("dl-cookie-reject").addEventListener("click", function () {
+    apply("reject");
+    hideBanner();
+  });
+
+  // "Change later" link
+  document.getElementById("dl-cookie-open").addEventListener("click", function (e) {
+    e.preventDefault();
+    showBanner();
+  });
+
+  // Optional: open from console/window if needed
+  window.DLConsent = {
+    open: showBanner,
+    reset: function() {
+      localStorage.removeItem(KEY);
+      showBanner();
+    }
+  };
+})();
+
