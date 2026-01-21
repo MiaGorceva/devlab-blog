@@ -710,9 +710,9 @@ initReactions();
   });
 
   // no click-outside close (forces choice)
-  document.getElementById("dl-consent-overlay").addEventListener("click", function(e){
-    if (e.target === this) {
+ // document.getElementById("dl-consent-overlay").addEventListener("click", function(e){
+ //   if (e.target === this) {
       // do nothing
-    }
-  });
+ //   }
+ // });
 })();

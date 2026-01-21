@@ -1199,24 +1199,26 @@ main { flex: 1; padding-bottom: 3rem; }
 }
 
 #dl-consent-overlay{
-    position:fixed; inset:0;
-    z-index:9999999;
-    display:none;
-    background: rgba(0,0,0,.62);
-    backdrop-filter: blur(6px);
+   position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  top: auto;              /* важно */
+  z-index: 9999999;
+  display: none;
+  background: transparent; /* убрали затемнение */
+  backdrop-filter: none;
+  pointer-events: none;    /* overlay не перехватывает клики */
   }
 
   #dl-consent-modal{
-    position:absolute;
-    left:50%; top:50%;
-    transform: translate(-50%,-50%);
-    width: min(640px, calc(100vw - 28px));
-    border-radius: 18px;
-    border: 1px solid rgba(72,207,255,.28);
-    background: rgba(7,11,20,.95);
-    box-shadow: 0 22px 70px rgba(0,0,0,.6);
-    overflow:hidden;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    position: relative;
+  left: auto; top: auto;
+  transform: none;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  pointer-events: auto;    /* клики работают только по баннеру */
   }
 
   #dl-consent-modal .inner{
