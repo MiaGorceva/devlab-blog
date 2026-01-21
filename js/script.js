@@ -605,35 +605,31 @@ initReactions();
   }
 
   const I18N = {
-    en: {
-      title: "Analytics preference",
-      text: "We use anonymous analytics to improve content and understand outbound link usage.",
-      yes: "Analytics only",
-      no: "Reject",
-      privacy: "Privacy"
-    },
-    pl: {
-      title: "Ustawienia analityki",
-      text: "Używamy anonimowej analityki, aby ulepszać treści i rozumieć użycie linków zewnętrznych.",
-      yes: "Tylko analityka",
-      no: "Odrzuć",
-      privacy: "Prywatność"
-    },
-    ru: {
-      title: "Настройка аналитики",
-      text: "Мы используем анонимную аналитику, чтобы улучшать контент и понимать клики по внешним ссылкам.",
-      yes: "Только аналитика",
-      no: "Отклонить",
-      privacy: "Политика"
-    },
-    uk: {
-      title: "Налаштування аналітики",
-      text: "Ми використовуємо анонімну аналітику, щоб покращувати контент і розуміти кліки по зовнішніх посиланнях.",
-      yes: "Лише аналітика",
-      no: "Відхилити",
-      privacy: "Політика"
-    }
-  };
+   en: {
+    title: "Anonymous analytics (no ads, no personalization).",
+    text: "We use anonymous analytics to improve articles ONLY.",
+    yes: "Analytics only",
+    no: "Reject"
+  },
+  pl: {
+    title: "Anonimowa analityka (bez reklam, bez personalizacji).",
+    text: "Używamy anonimowej analityki WYŁĄCZNIE do ulepszania artykułów.",
+    yes: "Tylko analityka",
+    no: "Odrzuć"
+  },
+  ru: {
+    title: "Анонимная аналитика (без рекламы, без персонализации).",
+    text: "Мы используем анонимную аналитику ТОЛЬКО для улучшения статей.",
+    yes: "Только аналитика",
+    no: "Отклонить"
+  },
+  uk: {
+    title: "Анонімна аналітика (без реклами, без персоналізації).",
+    text: "Ми використовуємо анонімну аналітику ЛИШЕ для покращення статей.",
+    yes: "Лише аналітика",
+    no: "Відхилити"
+  },
+};
 
   function show(){ document.getElementById("dl-consent-overlay").style.display = "block"; }
   function hide(){ document.getElementById("dl-consent-overlay").style.display = "none"; }

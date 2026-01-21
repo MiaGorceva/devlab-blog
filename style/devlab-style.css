@@ -1274,19 +1274,19 @@ main { flex: 1; padding-bottom: 3rem; }
     border-color: rgba(84,229,74,.85);
   }
 
-  /* Reject = small + subtle */
-  #dl-consent-modal .reject{
-    padding: 8px 10px;
-    font-size: 11.5px;
-    opacity: .75;
-    background: transparent;
-    border-color: rgba(255,255,255,.10);
-  }
-  #dl-consent-modal .reject:hover{
-    opacity: .95;
-    border-color: rgba(255,255,255,.18);
-    transform: none;
-  }
+  /* Reject = secondary, но доступная */
+#dl-consent-modal .reject{
+  padding: 9px 12px;
+  font-size: 12.5px;
+  opacity: .78;
+  background: rgba(255,255,255,.03);
+  border-color: rgba(255,255,255,.10);
+}
+#dl-consent-modal .reject:hover{
+  opacity: .95;
+  border-color: rgba(255,255,255,.18);
+  transform: translateY(-1px);
+}
 
   #dl-consent-modal .linkrow{
     margin-top: 10px;
