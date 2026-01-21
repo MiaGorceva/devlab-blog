@@ -662,7 +662,6 @@ initReactions();
   document.getElementById("dl-c-text").textContent = t.text;
   document.getElementById("dl-c-analytics").textContent = t.yes;
   document.getElementById("dl-c-reject").textContent = t.no;
-  document.getElementById("dl-c-privacy").textContent = t.privacy;
 
   // enforce choice
   const saved = localStorage.getItem(KEY);
