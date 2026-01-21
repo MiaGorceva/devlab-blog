@@ -587,68 +587,57 @@ initReactions();
 })();
 
 (function () {
-  const KEY = "dl_consent_v1"; // saved in localStorage
+  const KEY = "dl_consent_v1";
 
-  function showBanner() {
-    document.getElementById("dl-cookie").style.display = "block";
+  function detectLang() {
+    const host = (location.hostname || "").toLowerCase();
+    if (host.startsWith("pl.")) return "pl";
+    if (host.startsWith("ru.")) return "ru";
+    if (host.startsWith("uk.")) return "uk";
+    if (host.startsWith("en.")) return "en";
+
+    const htmlLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
+    if (htmlLang.startsWith("pl")) return "pl";
+    if (htmlLang.startsWith("ru")) return "ru";
+    if (htmlLang.startsWith("uk") || htmlLang.startsWith("ua")) return "uk";
+    if (htmlLang.startsWith("en")) return "en";
+
+    return "en";
   }
 
-  function hideBanner() {
-    document.getElementById("dl-cookie").style.display = "none";
+  const I18N = {
+    en: { text: "Anonymous analytics for improving articles & outbound links.", btn: "Analytics only" },
+    pl: { text: "Anonimowa analityka do ulepszania artykułów i linków zewnętrznych.", btn: "Tylko analityka" },
+    ru: { text: "Анонимная аналитика для улучшения статей и внешних ссылок.", btn: "Только аналитика" },
+    uk: { text: "Анонімна аналітика для покращення статей і зовнішніх посилань.", btn: "Лише аналітика" }
+  };
+
+  function show() { document.getElementById("dl-cookie").style.display = "block"; }
+  function hide() { document.getElementById("dl-cookie").style.display = "none"; }
+
+  function acceptAnalyticsOnly() {
+    gtag('consent', 'update', {
+      analytics_storage: 'granted',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    localStorage.setItem(KEY, "analytics");
   }
 
-  function apply(mode) {
-    if (mode === "analytics") {
-      gtag('consent', 'update', {
-        analytics_storage: 'granted',
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied'
-      });
-    } else {
-      // reject
-      gtag('consent', 'update', {
-        analytics_storage: 'denied',
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied'
-      });
-    }
-    localStorage.setItem(KEY, mode);
-  }
+  // Language text
+  const lang = detectLang();
+  const t = I18N[lang] || I18N.en;
 
+  document.getElementById("dl-cookie-text").textContent = t.text;
+  document.getElementById("dl-cookie-analytics").textContent = t.btn;
+
+  // Show only if not accepted
   const saved = localStorage.getItem(KEY);
-
-  // If no choice yet -> show banner
-  if (!saved) {
-    showBanner();
-  } else {
-    apply(saved);
-  }
+  if (saved !== "analytics") show();
 
   document.getElementById("dl-cookie-analytics").addEventListener("click", function () {
-    apply("analytics");
-    hideBanner();
+    acceptAnalyticsOnly();
+    hide();
   });
-
-  document.getElementById("dl-cookie-reject").addEventListener("click", function () {
-    apply("reject");
-    hideBanner();
-  });
-
-  // "Change later" link
-  document.getElementById("dl-cookie-open").addEventListener("click", function (e) {
-    e.preventDefault();
-    showBanner();
-  });
-
-  // Optional: open from console/window if needed
-  window.DLConsent = {
-    open: showBanner,
-    reset: function() {
-      localStorage.removeItem(KEY);
-      showBanner();
-    }
-  };
 })();
-

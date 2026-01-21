@@ -1217,82 +1217,40 @@ main { flex: 1; padding-bottom: 3rem; }
   }
 
   #dl-cookie .dl-inner {
-    padding: 14px 14px 12px;
+    padding: 12px 12px 10px;
     background:
       radial-gradient(500px 120px at 12% 0%, rgba(72,207,255,.10), transparent 60%),
       radial-gradient(500px 120px at 88% 0%, rgba(84,229,74,.10), transparent 60%);
   }
 
-  #dl-cookie .dl-top {
+  #dl-cookie .dl-row {
     display: flex;
     gap: 12px;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
   }
 
-  #dl-cookie .dl-title {
-    margin: 0;
-    font-size: 13px;
-    letter-spacing: .2px;
-    color: rgba(255,255,255,.88);
-  }
-
   #dl-cookie .dl-text {
-    margin: 6px 0 0;
+    margin: 0;
     font-size: 12.5px;
-    line-height: 1.35;
-    color: rgba(255,255,255,.62);
-  }
-
-  #dl-cookie .dl-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 10px;
+    line-height: 1.25;
+    color: rgba(255,255,255,.72);
   }
 
   #dl-cookie button {
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,.12);
-    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(84,229,74,.55);
+    background: rgba(84,229,74,.14);
     color: rgba(255,255,255,.88);
-    padding: 10px 12px;
+    padding: 9px 12px;
     font-size: 12.5px;
     cursor: pointer;
-    transition: transform .06s ease, border-color .15s ease, background .15s ease;
+    transition: transform .06s ease, border-color .15s ease;
+    white-space: nowrap;
   }
 
   #dl-cookie button:hover {
     transform: translateY(-1px);
-    border-color: rgba(72,207,255,.35);
-  }
-
-  #dl-cookie .dl-primary {
-    border-color: rgba(84,229,74,.55);
-    background: rgba(84,229,74,.14);
-  }
-
-  #dl-cookie .dl-primary:hover {
     border-color: rgba(84,229,74,.85);
   }
-
-  #dl-cookie .dl-links {
-    margin-top: 8px;
-    font-size: 12px;
-    color: rgba(255,255,255,.45);
-  }
-
-  #dl-cookie .dl-links a {
-    color: rgba(72,207,255,.85);
-    text-decoration: none;
-    border-bottom: 1px dashed rgba(72,207,255,.35);
-  }
-
-  #dl-cookie .dl-links a:hover {
-    color: rgba(72,207,255,1);
-    border-bottom-color: rgba(72,207,255,.65);
-  }
-
-
