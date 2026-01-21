@@ -586,6 +586,34 @@ initReactions();
 
 })();
 
+(function () {
+  // чтобы не вставлялось 2 раза
+  if (document.getElementById("dl-consent-overlay")) return;
+
+  // создаём контейнер
+  const wrapper = document.createElement("div");
+
+  // кладём внутрь HTML баннера
+  wrapper.innerHTML = `
+    <div id="dl-consent-overlay" role="dialog" aria-live="polite" aria-modal="true">
+      <div id="dl-consent-modal">
+        <div class="inner">
+          <h4 id="dl-c-title"></h4>
+          <p id="dl-c-text"></p>
+
+          <div class="actions">
+            <button class="primary" id="dl-c-analytics"></button>
+            <button class="reject" id="dl-c-reject"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // добавляем в конец body
+  document.body.appendChild(wrapper);
+})();
+
 (function(){
   const KEY = "dl_consent_v1";
 
@@ -687,32 +715,4 @@ initReactions();
       // do nothing
     }
   });
-})();
-
-(function () {
-  // чтобы не вставлялось 2 раза
-  if (document.getElementById("dl-consent-overlay")) return;
-
-  // создаём контейнер
-  const wrapper = document.createElement("div");
-
-  // кладём внутрь HTML баннера
-  wrapper.innerHTML = `
-    <div id="dl-consent-overlay" role="dialog" aria-live="polite" aria-modal="true">
-      <div id="dl-consent-modal">
-        <div class="inner">
-          <h4 id="dl-c-title"></h4>
-          <p id="dl-c-text"></p>
-
-          <div class="actions">
-            <button class="primary" id="dl-c-analytics"></button>
-            <button class="reject" id="dl-c-reject"></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // добавляем в конец body
-  document.body.appendChild(wrapper);
 })();
