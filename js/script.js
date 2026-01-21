@@ -586,7 +586,7 @@ initReactions();
 
 })();
 
-(function () {
+(function(){
   const KEY = "dl_consent_v1";
 
   function detectLang() {
@@ -601,21 +601,44 @@ initReactions();
     if (htmlLang.startsWith("ru")) return "ru";
     if (htmlLang.startsWith("uk") || htmlLang.startsWith("ua")) return "uk";
     if (htmlLang.startsWith("en")) return "en";
-
     return "en";
   }
 
   const I18N = {
-    en: { text: "Anonymous analytics for improving articles & outbound links.", btn: "Analytics only" },
-    pl: { text: "Anonimowa analityka do ulepszania artykułów i linków zewnętrznych.", btn: "Tylko analityka" },
-    ru: { text: "Анонимная аналитика для улучшения статей и внешних ссылок.", btn: "Только аналитика" },
-    uk: { text: "Анонімна аналітика для покращення статей і зовнішніх посилань.", btn: "Лише аналітика" }
+    en: {
+      title: "Analytics preference",
+      text: "We use anonymous analytics to improve content and understand outbound link usage.",
+      yes: "Analytics only",
+      no: "Reject",
+      privacy: "Privacy"
+    },
+    pl: {
+      title: "Ustawienia analityki",
+      text: "Używamy anonimowej analityki, aby ulepszać treści i rozumieć użycie linków zewnętrznych.",
+      yes: "Tylko analityka",
+      no: "Odrzuć",
+      privacy: "Prywatność"
+    },
+    ru: {
+      title: "Настройка аналитики",
+      text: "Мы используем анонимную аналитику, чтобы улучшать контент и понимать клики по внешним ссылкам.",
+      yes: "Только аналитика",
+      no: "Отклонить",
+      privacy: "Политика"
+    },
+    uk: {
+      title: "Налаштування аналітики",
+      text: "Ми використовуємо анонімну аналітику, щоб покращувати контент і розуміти кліки по зовнішніх посиланнях.",
+      yes: "Лише аналітика",
+      no: "Відхилити",
+      privacy: "Політика"
+    }
   };
 
-  function show() { document.getElementById("dl-cookie").style.display = "block"; }
-  function hide() { document.getElementById("dl-cookie").style.display = "none"; }
+  function show(){ document.getElementById("dl-consent-overlay").style.display = "block"; }
+  function hide(){ document.getElementById("dl-consent-overlay").style.display = "none"; }
 
-  function acceptAnalyticsOnly() {
+  function setAnalyticsGranted(){
     gtag('consent', 'update', {
       analytics_storage: 'granted',
       ad_storage: 'denied',
@@ -625,19 +648,48 @@ initReactions();
     localStorage.setItem(KEY, "analytics");
   }
 
-  // Language text
+  function setDenied(){
+    gtag('consent', 'update', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    localStorage.setItem(KEY, "denied");
+  }
+
+  // inject copy
   const lang = detectLang();
   const t = I18N[lang] || I18N.en;
 
-  document.getElementById("dl-cookie-text").textContent = t.text;
-  document.getElementById("dl-cookie-analytics").textContent = t.btn;
+  document.getElementById("dl-c-title").textContent = t.title;
+  document.getElementById("dl-c-text").textContent = t.text;
+  document.getElementById("dl-c-analytics").textContent = t.yes;
+  document.getElementById("dl-c-reject").textContent = t.no;
+  document.getElementById("dl-c-privacy").textContent = t.privacy;
 
-  // Show only if not accepted
+  // enforce choice
   const saved = localStorage.getItem(KEY);
-  if (saved !== "analytics") show();
+  if (!saved) show();
+  else {
+    if (saved === "analytics") setAnalyticsGranted();
+    else setDenied();
+  }
 
-  document.getElementById("dl-cookie-analytics").addEventListener("click", function () {
-    acceptAnalyticsOnly();
+  document.getElementById("dl-c-analytics").addEventListener("click", function(){
+    setAnalyticsGranted();
     hide();
+  });
+
+  document.getElementById("dl-c-reject").addEventListener("click", function(){
+    setDenied();
+    hide();
+  });
+
+  // no click-outside close (forces choice)
+  document.getElementById("dl-consent-overlay").addEventListener("click", function(e){
+    if (e.target === this) {
+      // do nothing
+    }
   });
 })();
