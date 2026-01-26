@@ -1224,8 +1224,8 @@ main { flex: 1; padding-bottom: 3rem; }
   #dl-consent-modal .inner{
     padding: 18px 16px 14px;
     background:
-      radial-gradient(700px 180px at 15% 0%, rgba(72,207,255,.12), transparent 60%),
-      radial-gradient(700px 180px at 85% 0%, rgba(84,229,74,.12), transparent 60%);
+      radial-gradient(700px 180px at 15% 0%, rgba(72,207,255,.12), transparent 20%),
+      radial-gradient(700px 180px at 85% 0%, rgba(84,229,74,.12), transparent 20%);
   }
 
   #dl-consent-modal h4{
