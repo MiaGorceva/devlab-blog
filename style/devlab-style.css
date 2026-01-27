@@ -1206,8 +1206,10 @@ main { flex: 1; padding-bottom: 3rem; }
   top: auto;              /* важно */
   z-index: 9999999;
   display: none;
-/*  background: transparent; /* убрали затемнение */
-  backdrop-filter: none;
+background: rgba(5, 10, 20, 0.88); /* почти opaque */
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.4);
   pointer-events: none;    /* overlay не перехватывает клики */
   }
 
