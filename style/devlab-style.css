@@ -1206,7 +1206,7 @@ main { flex: 1; padding-bottom: 3rem; }
   top: auto;              /* важно */
   z-index: 9999999;
   display: none;
-  background: transparent; /* убрали затемнение */
+/*  background: transparent; /* убрали затемнение */
   backdrop-filter: none;
   pointer-events: none;    /* overlay не перехватывает клики */
   }
