@@ -1346,7 +1346,6 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 
 /* ===== TOC: компактный + hover раскрытие ===== */
 .post-toc {
-  position: sticky;
   top: 84px;            /* под твой header */
   max-height: calc(100vh - 120px);
   overflow: auto;
