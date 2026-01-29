@@ -717,4 +717,85 @@ initReactions();
     });
   });
 
+  (function () {
+  const toc = document.getElementById("toc");
+  if (!toc) return;
+
+  // 1) Подсветка активного якоря по scroll (IntersectionObserver)
+  const links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+  const targets = links
+    .map(a => document.querySelector(a.getAttribute("href")))
+    .filter(Boolean);
+
+  const linkById = new Map(
+    links.map(a => [a.getAttribute("href").slice(1), a])
+  );
+
+  const setActive = (id) => {
+    links.forEach(a => a.classList.remove("active"));
+    const a = linkById.get(id);
+    if (a) a.classList.add("active");
+  };
+
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      // выбираем самый "верхний видимый" заголовок
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (visible && visible.target && visible.target.id) {
+        setActive(visible.target.id);
+      }
+    }, { rootMargin: "-20% 0px -70% 0px", threshold: [0.1, 0.2, 0.3] });
+
+    targets.forEach(t => io.observe(t));
+  }
+
+  // 2) Mobile/touch: клик по "родителю" раскрывает/схлопывает подсписок
+  const parents = Array.from(toc.querySelectorAll("li.has-children > a"));
+  parents.forEach(a => {
+    a.addEventListener("click", (e) => {
+      // На десктопе кликом пусть просто скроллит по якорю.
+      // На touch — раскрываем, если ещё закрыто.
+      if (!window.matchMedia("(hover: none)").matches) return;
+
+      const li = a.parentElement;
+      const sub = li.querySelector("ol");
+      if (!sub) return;
+
+      const isOpen = li.classList.contains("open");
+      // если закрыто — открываем и не уходим по ссылке
+      if (!isOpen) {
+        e.preventDefault();
+        li.classList.add("open");
+        sub.style.maxHeight = "520px";
+        sub.style.opacity = "1";
+        sub.style.transform = "translateY(0)";
+      } else {
+        // если открыто — при повторном тапе даём перейти по якорю
+        li.classList.remove("open");
+        sub.style.maxHeight = "0";
+        sub.style.opacity = "0";
+        sub.style.transform = "translateY(-4px)";
+      }
+    });
+  });
+
+  // 3) На мобиле: если тапнули вне toc — схлопнуть раскрытые
+  document.addEventListener("click", (e) => {
+    if (!window.matchMedia("(hover: none)").matches) return;
+    if (toc.contains(e.target)) return;
+
+    toc.querySelectorAll("li.has-children.open").forEach(li => {
+      li.classList.remove("open");
+      const sub = li.querySelector("ol");
+      if (!sub) return;
+      sub.style.maxHeight = "0";
+      sub.style.opacity = "0";
+      sub.style.transform = "translateY(-4px)";
+    });
+  });
+})();
+
 })();
