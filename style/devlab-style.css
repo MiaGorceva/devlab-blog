@@ -1331,6 +1331,12 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 /* вложенные подпункты */
 .post-toc > ol > li > ol{
   counter-reset: toc-sub;
+  transition:
+    max-height .28s cubic-bezier(.2,.8,.2,1),
+    opacity   .18s ease,
+    transform .18s ease,
+    visibility .18s ease;
+  will-change: max-height, opacity, transform;
 }
 
 /* скрытие вложенных по умолчанию */
@@ -1406,4 +1412,12 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
     transform: translateY(1px) rotate(90deg);
     opacity:1;
   }
+}
+
+/* В раскрытом состоянии - тоже плавно */
+.post-toc > ol > li.is-open > ol{
+  max-height: 999px;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
