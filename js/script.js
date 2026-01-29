@@ -709,14 +709,6 @@ initReactions();
     hide();
   });
 
- document.querySelectorAll('.post-toc > ol > li > a')
-  .forEach(a => {
-    a.addEventListener('click', e => {
-      const sub = a.nextElementSibling;
-      if (sub) sub.classList.toggle('open');
-    });
-  });
-
   (function () {
   const toc = document.getElementById("toc");
   if (!toc) return;
