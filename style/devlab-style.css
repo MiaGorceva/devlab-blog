@@ -1341,8 +1341,6 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 /* optional: make long lines nicer */
 .post-toc a:hover { text-decoration: underline; }
 
-.post-toc ol ol { display: none; }
-.post-toc ol ol.open { display: block; }
 
 /* ===== TOC: компактный + hover раскрытие ===== */
 .post-toc {
