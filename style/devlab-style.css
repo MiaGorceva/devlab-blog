@@ -1421,3 +1421,8 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   visibility: visible;
   transform: translateY(0);
 }
+
+.post-toc li.has-children {
+  padding-bottom: 6px; /* мостик до подменю */
+}
+

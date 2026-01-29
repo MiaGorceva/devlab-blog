@@ -793,41 +793,38 @@ initReactions();
 })();
 
 // ===== Smooth hover: delayed close to avoid flicker (desktop) =====
-const isDesktopHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+(() => {
+  const toc = document.getElementById("toc");
+  if (!toc) return;
 
-if (isDesktopHover) {
+  const isDesktopHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (!isDesktopHover) return;
 
-  const topItems = document.querySelectorAll(
-  '.post-toc > ol > li.has-children'
-);
+  const items = toc.querySelectorAll(".has-children");
+  const timers = new WeakMap();
 
-topItems.forEach(li => {
-  const link = li.querySelector('a');
+  const cancelClose = (li) => {
+    const t = timers.get(li);
+    if (t) clearTimeout(t);
+    timers.delete(li);
+  };
 
-  // клик нужен ТОЛЬКО для мобилки
-  link.addEventListener('click', e => {
-    if (window.matchMedia('(hover: none)').matches) {
-      e.preventDefault();
-      li.classList.toggle('open');
-    }
+  const scheduleClose = (li) => {
+    cancelClose(li);
+    const t = setTimeout(() => {
+      // На десктопе мы НЕ трогаем .open вообще.
+      // Закрытие происходит чисто CSS'ом по :hover/:focus-within.
+      // Но задержка нужна, чтобы курсор успел "перейти" в подменю.
+    }, 220);
+    timers.set(li, t);
+  };
+
+  items.forEach((li) => {
+    li.addEventListener("mouseenter", () => cancelClose(li));
+    li.addEventListener("mouseleave", () => scheduleClose(li));
+
+    // клавиатура
+    li.addEventListener("focusin", () => cancelClose(li));
+    li.addEventListener("focusout", () => scheduleClose(li));
   });
-});
-
-
-  const closeTimers = new WeakMap();
-
-    const scheduleClose = () => {
-      const t = setTimeout(() => {
-        li.classList.remove('is-open');
-      }, 220); // задержка закрытия (можно 150–300)
-      closeTimers.set(li, t);
-    };
-
-    li.addEventListener('mouseenter', open);
-    li.addEventListener('mouseleave', scheduleClose);
-
-    // чтобы при работе с клавиатуры не схлопывалось
-    li.addEventListener('focusin', open);
-    li.addEventListener('focusout', scheduleClose);
-  });
-}
+})();
