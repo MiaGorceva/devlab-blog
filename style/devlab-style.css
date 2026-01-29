@@ -1037,15 +1037,6 @@ main { flex: 1; padding-bottom: 3rem; }
   pointer-events: none;
 }
 
-/* --- Post TOC / Quick Summary --- */
-.post-toc {
- /* margin: 18px 0 22px;
-  padding: 14px 16px;*/
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 14px;
-  background: rgba(255,255,255,.04);
-}
-
 .post-toc__title {
   font-weight: 600;
   margin-bottom: 8px;
@@ -1352,4 +1343,85 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 
 .post-toc ol ol { display: none; }
 .post-toc ol ol.open { display: block; }
+
+/* ===== TOC: компактный + hover раскрытие ===== */
+.post-toc {
+  position: sticky;
+  top: 84px;            /* под твой header */
+  max-height: calc(100vh - 120px);
+  overflow: auto;
+  padding-right: 6px;   /* чтобы скролл не давил текст */
+}
+
+/* верхний список */
+.post-toc > ol {
+  margin: 0;
+  padding-left: 18px;
+}
+
+/* вложенные подпункты по умолчанию скрыты */
+.post-toc ol ol {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
+  margin-top: 6px;
+  padding-left: 16px;
+}
+
+/* раскрытие при hover на LI + при фокусе внутри (клавиатура) */
+.post-toc li.has-children:hover > ol,
+.post-toc li.has-children:focus-within > ol {
+  max-height: 520px;      /* достаточно для 8–12 подпунктов */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ссылка-родитель: курсор/индикатор */
+.post-toc li.has-children > a {
+  position: relative;
+  padding-right: 18px;
+}
+
+/* маленькая стрелочка */
+.post-toc li.has-children > a::after {
+  content: "▸";
+  position: absolute;
+  right: 0;
+  top: 0;
+  opacity: .7;
+  transform: translateY(1px);
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+/* стрелочка вращается при раскрытии */
+.post-toc li.has-children:hover > a::after,
+.post-toc li.has-children:focus-within > a::after {
+  transform: translateY(1px) rotate(90deg);
+  opacity: 1;
+}
+
+/* чуть больше воздуха между верхними пунктами */
+.post-toc > ol > li {
+  margin: 10px 0;
+}
+
+/* подпункты плотнее */
+.post-toc ol ol li {
+  margin: 6px 0;
+}
+
+/* подсветка активного пункта (JS добавит .active) */
+.post-toc a.active {
+  text-decoration: underline;
+}
+
+/* Мобилка: hover нет — раскроем кликом через JS */
+@media (hover: none) {
+  .post-toc ol ol {
+    transition: max-height .22s ease;
+  }
+}
+
 
