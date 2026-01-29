@@ -796,16 +796,25 @@ initReactions();
 const isDesktopHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 if (isDesktopHover) {
+
+  const topItems = document.querySelectorAll(
+  '.post-toc > ol > li.has-children'
+);
+
+topItems.forEach(li => {
+  const link = li.querySelector('a');
+
+  // клик нужен ТОЛЬКО для мобилки
+  link.addEventListener('click', e => {
+    if (window.matchMedia('(hover: none)').matches) {
+      e.preventDefault();
+      li.classList.toggle('open');
+    }
+  });
+});
+
+
   const closeTimers = new WeakMap();
-
-  topItems.forEach((li) => {
-    if (!li.classList.contains('has-children')) return;
-
-    const open = () => {
-      const t = closeTimers.get(li);
-      if (t) clearTimeout(t);
-      li.classList.add('is-open');
-    };
 
     const scheduleClose = () => {
       const t = setTimeout(() => {
