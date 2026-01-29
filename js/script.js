@@ -791,3 +791,34 @@ initReactions();
 })();
 
 })();
+
+// ===== Smooth hover: delayed close to avoid flicker (desktop) =====
+const isDesktopHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+if (isDesktopHover) {
+  const closeTimers = new WeakMap();
+
+  topItems.forEach((li) => {
+    if (!li.classList.contains('has-children')) return;
+
+    const open = () => {
+      const t = closeTimers.get(li);
+      if (t) clearTimeout(t);
+      li.classList.add('is-open');
+    };
+
+    const scheduleClose = () => {
+      const t = setTimeout(() => {
+        li.classList.remove('is-open');
+      }, 220); // задержка закрытия (можно 150–300)
+      closeTimers.set(li, t);
+    };
+
+    li.addEventListener('mouseenter', open);
+    li.addEventListener('mouseleave', scheduleClose);
+
+    // чтобы при работе с клавиатуры не схлопывалось
+    li.addEventListener('focusin', open);
+    li.addEventListener('focusout', scheduleClose);
+  });
+}
