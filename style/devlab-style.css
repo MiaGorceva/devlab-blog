@@ -1297,127 +1297,114 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
     border-bottom-color: rgba(72,207,255,.65);
   }
 
-  /* TOC readability + proper hierarchical numbering */
-.post-toc ol {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-  counter-reset: toc;
+/* ===== TOC: нумерация + компактность + hover-раскрытие ===== */
+
+.post-toc ol{
+  list-style:none;
+  margin:0;
+  padding-left:0;
 }
 
-.post-toc > ol > li {
-  counter-increment: toc;
-  margin: 10px 0;
-}
-
-.post-toc > ol > li > a::before {
-  content: counter(toc) ". ";
-  opacity: 0.9;
-}
-
-.post-toc > ol > li > ol {
-  list-style: none;
-  margin: 8px 0 0 0;
-  padding-left: 18px;
-  counter-reset: toc-sub;
-}
-
-.post-toc > ol > li > ol > li {
-  counter-increment: toc-sub;
-  margin: 6px 0;
-}
-
-.post-toc > ol > li > ol > li > a::before {
-  content: counter(toc) "." counter(toc-sub) " ";
-  opacity: 0.8;
-}
-
-.post-toc a {
-  display: inline-block;
-  line-height: 1.55;
-  text-decoration: none;
-}
-
-/* optional: make long lines nicer */
-.post-toc a:hover { text-decoration: underline; }
-
-
-/* ===== TOC: компактный + hover раскрытие ===== */
-.post-toc {
-  top: 84px;            /* под твой header */
+/* sticky в сайдбаре */
+.post-toc{
   max-height: calc(100vh - 120px);
-  overflow: auto;
-  padding-right: 6px;   /* чтобы скролл не давил текст */
+  overflow:auto;
+  padding-right:6px;
 }
 
 /* верхний список */
-.post-toc > ol {
-  margin: 0;
-  padding-left: 18px;
+.post-toc > ol{
+  padding-left:18px;
+  counter-reset: toc;
 }
 
-/* вложенные подпункты по умолчанию скрыты */
-.post-toc ol ol {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
+.post-toc > ol > li{
+  counter-increment: toc;
+  margin:10px 0;
+}
+
+.post-toc > ol > li > a::before{
+  content: counter(toc) ". ";
+  opacity:.9;
+}
+
+/* вложенные подпункты */
+.post-toc > ol > li > ol{
+  counter-reset: toc-sub;
+}
+
+/* скрытие вложенных по умолчанию */
+.post-toc ol ol{
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
   transform: translateY(-4px);
   transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
-  margin-top: 6px;
-  padding-left: 16px;
+  margin-top:6px;
+  padding-left:16px;
 }
 
-/* раскрытие при hover на LI + при фокусе внутри (клавиатура) */
+.post-toc ol ol > li{
+  counter-increment: toc-sub;
+  margin:6px 0;
+}
+
+.post-toc ol ol > li > a::before{
+  content: counter(toc) "." counter(toc-sub) " ";
+  opacity:.8;
+}
+
+/* раскрытие: hover + клавиатура */
 .post-toc li.has-children:hover > ol,
-.post-toc li.has-children:focus-within > ol {
-  max-height: 520px;      /* достаточно для 8–12 подпунктов */
-  opacity: 1;
+.post-toc li.has-children:focus-within > ol{
+  max-height:520px;
+  opacity:1;
   transform: translateY(0);
 }
 
-/* ссылка-родитель: курсор/индикатор */
-.post-toc li.has-children > a {
-  position: relative;
-  padding-right: 18px;
+/* ссылки */
+.post-toc a{
+  display:inline-block;
+  line-height:1.55;
+  text-decoration:none;
 }
 
-/* маленькая стрелочка */
-.post-toc li.has-children > a::after {
-  content: "▸";
-  position: absolute;
-  right: 0;
-  top: 0;
-  opacity: .7;
+/* hover/active */
+.post-toc a:hover{ text-decoration: underline; }
+.post-toc a.active{ text-decoration: underline; }
+
+/* индикатор раскрытия */
+.post-toc li.has-children > a{
+  position: relative;
+  padding-right:18px;
+}
+
+.post-toc li.has-children > a::after{
+  content:"▸";
+  position:absolute;
+  right:0;
+  top:0;
+  opacity:.7;
   transform: translateY(1px);
   transition: transform .18s ease, opacity .18s ease;
 }
 
-/* стрелочка вращается при раскрытии */
 .post-toc li.has-children:hover > a::after,
-.post-toc li.has-children:focus-within > a::after {
+.post-toc li.has-children:focus-within > a::after{
   transform: translateY(1px) rotate(90deg);
-  opacity: 1;
+  opacity:1;
 }
 
-/* чуть больше воздуха между верхними пунктами */
-.post-toc > ol > li {
-  margin: 10px 0;
-}
-
-/* подпункты плотнее */
-.post-toc ol ol li {
-  margin: 6px 0;
-}
-
-/* подсветка активного пункта (JS добавит .active) */
-.post-toc a.active {
-  text-decoration: underline;
-}
-
-/* Мобилка: hover нет — раскроем кликом через JS */
-@media (hover: none) {
-  .post-toc ol ol {
-    transition: max-height .22s ease;
+/* мобилка: hover нет — JS будет добавлять .open */
+@media (hover: none){
+  .post-toc li.open > ol{
+    max-height:520px;
+    opacity:1;
+    transform: translateY(0);
+  }
+  .post-toc li.open > a::after{
+    transform: translateY(1px) rotate(90deg);
+    opacity:1;
   }
 }
 
