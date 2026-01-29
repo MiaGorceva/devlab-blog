@@ -709,10 +709,12 @@ initReactions();
     hide();
   });
 
-  // no click-outside close (forces choice)
- // document.getElementById("dl-consent-overlay").addEventListener("click", function(e){
- //   if (e.target === this) {
-      // do nothing
- //   }
- // });
+ document.querySelectorAll('.post-toc > ol > li > a')
+  .forEach(a => {
+    a.addEventListener('click', e => {
+      const sub = a.nextElementSibling;
+      if (sub) sub.classList.toggle('open');
+    });
+  });
+
 })();
