@@ -1354,65 +1354,6 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   opacity:.8;
 }
 
-/* раскрытие: hover + клавиатура */
-.post-toc li.has-children:hover > ol,
-.post-toc li.has-children:focus-within > ol{
-  max-height:520px;
-  opacity:1;
-  transform: translateY(0);
-}
-
-/* ссылки */
-.post-toc a{
-  display:inline-block;
-  line-height:1.55;
-  text-decoration:none;
-}
-
-/* hover/active */
-.post-toc a:hover{ text-decoration: underline; }
-.post-toc a.active{ text-decoration: underline; }
-
-/* индикатор раскрытия */
-.post-toc li.has-children > a{
-  position: relative;
-  padding-right:18px;
-}
-
-.post-toc li.has-children > a::after{
-  content:"▸";
-  position:absolute;
-  right:0;
-  top:0;
-  opacity:.7;
-  transform: translateY(1px);
-  transition: transform .18s ease, opacity .18s ease;
-}
-
-.post-toc li.has-children:hover > a::after,
-.post-toc li.has-children:focus-within > a::after{
-  transform: translateY(1px) rotate(90deg);
-  opacity:1;
-}
-
-/* мобилка: hover нет — JS будет добавлять .open */
-@media (hover: none){
-  .post-toc li.open > ol{
-    max-height:520px;
-    opacity:1;
-    transform: translateY(0);
-  }
-  .post-toc li.open > a::after{
-    transform: translateY(1px) rotate(90deg);
-    opacity:1;
-  }
-}
-
-/* родитель */
-.post-toc li.has-children{
-  position: relative;
-}
-
 /* подменю — выпадающее */
 .post-toc li.has-children > ol{
   display: none;
