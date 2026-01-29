@@ -1354,50 +1354,56 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   opacity:.8;
 }
 
-/* подменю — выпадающее */
-.post-toc li.has-children > ol{
-  display: none;
-  position: absolute;
-  left: 12px;
-  top: calc(100% + 6px);
-  z-index: 50;
-
-  width: min(520px, 56vw);
-  padding: 10px 12px;
-
-  border-radius: 12px;
-  background: rgba(15, 23, 42, .92);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+/* раскрытие: hover + клавиатура */
+.post-toc li.has-children:hover > ol,
+.post-toc li.has-children:focus-within > ol{
+  max-height:520px;
+  opacity:1;
+  transform: translateY(0);
 }
 
-/* раскрытие по hover */
-@media (hover: hover){
-  .post-toc li.has-children:hover > ol{
-    display: block;
-  }
+/* ссылки */
+.post-toc a{
+  display:inline-block;
+  line-height:1.55;
+  text-decoration:none;
 }
 
-/* стрелка-индикатор */
+/* hover/active */
+.post-toc a:hover{ text-decoration: underline; }
+.post-toc a.active{ text-decoration: underline; }
+
+/* индикатор раскрытия */
 .post-toc li.has-children > a{
   position: relative;
-  padding-right: 18px;
+  padding-right:18px;
 }
 
 .post-toc li.has-children > a::after{
-  content: "▸";
-  position: absolute;
-  right: 0;
-  top: 0;
-  opacity: .7;
+  content:"▸";
+  position:absolute;
+  right:0;
+  top:0;
+  opacity:.7;
   transform: translateY(1px);
   transition: transform .18s ease, opacity .18s ease;
 }
 
-.post-toc li.has-children:hover > a::after{
+.post-toc li.has-children:hover > a::after,
+.post-toc li.has-children:focus-within > a::after{
   transform: translateY(1px) rotate(90deg);
-  opacity: 1;
+  opacity:1;
 }
 
-
+/* мобилка: hover нет — JS будет добавлять .open */
+@media (hover: none){
+  .post-toc li.open > ol{
+    max-height:520px;
+    opacity:1;
+    transform: translateY(0);
+  }
+  .post-toc li.open > a::after{
+    transform: translateY(1px) rotate(90deg);
+    opacity:1;
+  }
+}
