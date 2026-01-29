@@ -1305,3 +1305,47 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   #dl-consent-modal .linkrow a:hover{
     border-bottom-color: rgba(72,207,255,.65);
   }
+
+  /* TOC readability + proper hierarchical numbering */
+.post-toc ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  counter-reset: toc;
+}
+
+.post-toc > ol > li {
+  counter-increment: toc;
+  margin: 10px 0;
+}
+
+.post-toc > ol > li > a::before {
+  content: counter(toc) ". ";
+  opacity: 0.9;
+}
+
+.post-toc > ol > li > ol {
+  list-style: none;
+  margin: 8px 0 0 0;
+  padding-left: 18px;
+  counter-reset: toc-sub;
+}
+
+.post-toc > ol > li > ol > li {
+  counter-increment: toc-sub;
+  margin: 6px 0;
+}
+
+.post-toc > ol > li > ol > li > a::before {
+  content: counter(toc) "." counter(toc-sub) " ";
+  opacity: 0.8;
+}
+
+.post-toc a {
+  display: inline-block;
+  line-height: 1.55;
+  text-decoration: none;
+}
+
+/* optional: make long lines nicer */
+.post-toc a:hover { text-decoration: underline; }
