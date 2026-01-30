@@ -1297,140 +1297,31 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
     border-bottom-color: rgba(72,207,255,.65);
   }
 
-/* ===== TOC: нумерация + компактность + hover-раскрытие ===== */
-
+/* ===== TOC universal numbering (no zeros, any depth) ===== */
 .post-toc ol{
-  list-style:none;
-  margin:0;
-  padding-left:0;
+  list-style: none;
+  margin: 0;
+  padding-left: 18px;
+  counter-reset: item;
 }
 
-/* sticky в сайдбаре */
-.post-toc{
-  max-height: calc(100vh - 120px);
-  overflow:auto;
-  padding-right:6px;
+.post-toc li{
+  margin: 10px 0;
+  counter-increment: item;
 }
 
-/* верхний список */
-.post-toc > ol{
-  padding-left:18px;
-  counter-reset: toc;
+.post-toc li > a::before{
+  content: counters(item, ".") ". ";
+  opacity: .9;
 }
 
-.post-toc > ol > li{
-  counter-increment: toc;
-  margin:10px 0;
+/* каждый вложенный список начинает счётчик заново */
+.post-toc li > ol{
+  counter-reset: item;
+  margin: 8px 0 0 0;
+  padding-left: 16px;
 }
 
-/*.post-toc > ol > li > a::before{
-  content: counter(toc) ". ";
-  opacity:.9;
-}
-
-/* вложенные подпункты */
-.post-toc > ol > li > ol{
-  counter-reset: toc-sub;
-  transition:
-    max-height .28s cubic-bezier(.2,.8,.2,1),
-    opacity   .18s ease,
-    transform .18s ease,
-    visibility .18s ease;
-  will-change: max-height, opacity, transform;
-}
-
-/* скрытие вложенных по умолчанию */
-.post-toc ol ol{
-  max-height:0;
-  overflow:hidden;
-  opacity:0;
-  transform: translateY(-4px);
-  transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
-  margin-top:6px;
-  padding-left:16px;
-}
-
-.post-toc ol ol > li{
-  counter-increment: toc-sub;
-  margin:6px 0;
-}
-
-.post-toc ol ol > li > a::before{
-  content: counter(toc) "." counter(toc-sub) " ";
-  opacity:.8;
-}
-
-/* раскрытие: hover + клавиатура */
-.post-toc li.has-children:hover > ol,
-.post-toc li.has-children:focus-within > ol{
-  max-height:520px;
-  opacity:1;
-  transform: translateY(0);
-}
-
-/* ссылки */
-.post-toc a{
-  display:inline-block;
-  line-height:1.55;
-  text-decoration:none;
-}
-
-/* hover/active */
-.post-toc a:hover{ text-decoration: underline; }
-.post-toc a.active{ text-decoration: underline; }
-
-/* индикатор раскрытия */
-.post-toc li.has-children > a{
-  position: relative;
-  padding-right:18px;
-}
-
-.post-toc li.has-children > a::after{
-  content:"▸";
-  position:absolute;
-  right:0;
-  top:0;
-  opacity:.7;
-  transform: translateY(1px);
-  transition: transform .18s ease, opacity .18s ease;
-}
-
-.post-toc li.has-children:hover > a::after,
-.post-toc li.has-children:focus-within > a::after{
-  transform: translateY(1px) rotate(90deg);
-  opacity:1;
-}
-
-/* мобилка: hover нет — JS будет добавлять .open */
-@media (hover: none){
-  .post-toc li.open > ol{
-    max-height:520px;
-    opacity:1;
-    transform: translateY(0);
-  }
-  .post-toc li.open > a::after{
-    transform: translateY(1px) rotate(90deg);
-    opacity:1;
-  }
-}
-
-/* В раскрытом состоянии - тоже плавно */
-.post-toc > ol > li.is-open > ol{
-  max-height: 999px;
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.post-toc li.has-children {
-  padding-bottom: 6px; /* мостик до подменю */
-}
-
-.post-read a + a {
-  margin-left: auto; /* толкаем вторую ссылку вправо */
-}
-
-/* расстояние между ссылками */
-.post-content p > a.post-read + a.post-read {
-  margin-left: 1.2rem; /* сколько надо */
+.post-toc li > ol > li{
+  margin: 6px 0;
 }
