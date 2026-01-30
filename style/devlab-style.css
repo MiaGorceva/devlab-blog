@@ -1429,3 +1429,8 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 .post-read a + a {
   margin-left: auto; /* толкаем вторую ссылку вправо */
 }
+
+/* расстояние между ссылками */
+.post-content p > a.post-read + a.post-read {
+  margin-left: 1.2rem; /* сколько надо */
+}
