@@ -549,7 +549,7 @@ main { flex: 1; padding-bottom: 3rem; }
 
 .post-excerpt { font-size: 0.86rem; color: var(--text-muted); }
 
-.post-read { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--accent); font-size: 0.8rem; }
+.post-read { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--accent);  }
 
 .post-tag { padding: 0.16rem 0.55rem; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.55); font-size: 0.75rem; }
 
