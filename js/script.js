@@ -828,4 +828,13 @@ initReactions();
     li.addEventListener("focusout", () => scheduleClose(li));
   });
 })();
+(() => {
+  const toc = document.getElementById("toc");
+  if (!toc) return;
+
+  toc.querySelectorAll("li").forEach(li => {
+    const sub = li.querySelector(":scope > ol");
+    if (sub) li.classList.add("has-children");
+  });
+})();
 

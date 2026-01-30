@@ -1325,3 +1325,19 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 .post-toc li > ol > li{
   margin: 6px 0;
 }
+/* вложенные пункты скрыты по умолчанию */
+.post-toc li.has-children > ol{
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
+}
+
+/* раскрытие при hover + keyboard */
+.post-toc li.has-children:hover > ol,
+.post-toc li.has-children:focus-within > ol{
+  max-height: 800px; /* можно побольше, чтобы точно хватало */
+  opacity: 1;
+  transform: translateY(0);
+}
