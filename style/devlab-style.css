@@ -1323,7 +1323,7 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   margin:10px 0;
 }
 
-.post-toc > ol > li > a::before{
+/*.post-toc > ol > li > a::before{
   content: counter(toc) ". ";
   opacity:.9;
 }
