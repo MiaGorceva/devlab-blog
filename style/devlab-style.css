@@ -1426,3 +1426,6 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   padding-bottom: 6px; /* мостик до подменю */
 }
 
+.post-read a + a {
+  margin-left: auto; /* толкаем вторую ссылку вправо */
+}
