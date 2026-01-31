@@ -838,3 +838,29 @@ initReactions();
   });
 })();
 
+(() => {
+  const toc = document.getElementById("toc");
+  if (!toc) return;
+
+  const items = toc.querySelectorAll("li.has-children");
+  const timers = new WeakMap();
+
+  items.forEach(li => {
+    const open = () => {
+      const t = timers.get(li);
+      if (t) clearTimeout(t);
+      li.classList.add("is-open");
+    };
+
+    const close = () => {
+      const t = setTimeout(() => li.classList.remove("is-open"), 180);
+      timers.set(li, t);
+    };
+
+    li.addEventListener("mouseenter", open);
+    li.addEventListener("mouseleave", close);
+    li.addEventListener("focusin", open);
+    li.addEventListener("focusout", close);
+  });
+})();
+

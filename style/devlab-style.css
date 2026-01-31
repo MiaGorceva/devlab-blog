@@ -1342,3 +1342,16 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   opacity: 1;
   transform: translateY(0);
 }
+
+/* вложенные подпункты */
+.post-toc ol ol{
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height .28s ease,
+    opacity .20s ease,
+    transform .20s ease;
+  will-change: max-height, opacity, transform;
+}
