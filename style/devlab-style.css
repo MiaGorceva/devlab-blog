@@ -840,25 +840,31 @@ main { flex: 1; padding-bottom: 3rem; }
 
 .post-meta-secondary .post-views .count { font-variant-numeric: tabular-nums; }
 
-/* === Post content: numbered lists === */
-.post-page .post-content ol {
+
+@media (max-width: 720px) {
+  .post-page .post-content ol > li { padding-left: 2rem; }
+  .post-page .post-content ol > li::before { width: 1.5rem; height: 1.5rem; line-height: 1.5rem; }
+}
+
+/* было: .post-page .post-content ol */
+.post-page .post-content ol.steps {
   margin: 0.9rem 0 1.2rem;
   padding-left: 0;
   list-style: none;
   counter-reset: step;
   display: grid;
   gap: 0.55rem;
+  color: var(--text-main);
 }
 
-.post-page .post-content ol > li {
+.post-page .post-content ol.steps > li {
   counter-increment: step;
   position: relative;
   padding-left: 2.2rem;
   line-height: 1.55;
 }
 
-/* ЕДИНСТВЕННОЕ определение маркера: кружок-бейдж */
-.post-page .post-content ol > li::before {
+.post-page .post-content ol.steps > li::before {
   content: counter(step);
   position: absolute;
   left: 0;
@@ -875,12 +881,6 @@ main { flex: 1; padding-bottom: 3rem; }
   font-variant-numeric: tabular-nums;
 }
 
-.post-page .post-content ol strong { color: var(--text-main); }
-
-@media (max-width: 720px) {
-  .post-page .post-content ol > li { padding-left: 2rem; }
-  .post-page .post-content ol > li::before { width: 1.5rem; height: 1.5rem; line-height: 1.5rem; }
-}
 
 /* Diagram / callout helpers */
 .diagram-card {
@@ -1296,6 +1296,7 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   #dl-consent-modal .linkrow a:hover{
     border-bottom-color: rgba(72,207,255,.65);
   }
+
 
 /* ===== TOC universal numbering (no zeros, any depth) ===== */
 .post-toc ol{
