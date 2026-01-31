@@ -1364,3 +1364,10 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   transition: transform .18s ease, opacity .18s ease;
 }
 
+.post-toc li.has-children.is-open > ol {
+  max-height: 600px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
