@@ -1370,4 +1370,14 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   transform: translateY(0);
 }
 
+/* чтобы "↗" не уезжала на отдельную строку */
+.post-read a[target="_blank"]::after {
+  content: "\00a0↗";        /* NBSP + стрелка */
+  display: inline-block;
+  white-space: nowrap;       /* стрелка не переносится */
+  margin-left: 0.1em;        /* можно 0, если NBSP хватает */
+  opacity: .9;
+}
+
+
 
