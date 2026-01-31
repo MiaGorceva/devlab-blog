@@ -1355,3 +1355,12 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
     transform .20s ease;
   will-change: max-height, opacity, transform;
 }
+
+.post-toc a{
+  transition: color .15s ease, text-decoration-color .15s ease;
+}
+
+.post-toc li.has-children > a::after{
+  transition: transform .18s ease, opacity .18s ease;
+}
+
