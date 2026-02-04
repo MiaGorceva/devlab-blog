@@ -1242,30 +1242,6 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
    (без дублей, без "• 1." и без двойных точек)
    ========================================================= */
 
-/* ---------- 1) Контентные списки в статье (НЕ TOC) ---------- */
-.post-page article section.post-content ul:not(.post-toc__list) {
-  list-style: none;          /* убираем нативные диски */
-  margin: 0.75rem 0 1.05rem;
-  padding-left: 0;           /* важно: чтобы не было второй точки */
-}
-
-.post-page article section.post-content ul:not(.post-toc__list) > li {
-  list-style: none;
-  position: relative;
-  padding-left: 1.4rem;      /* место под неоновую точку */
-  margin-bottom: 0.45rem;
-  line-height: 1.5;
-}
-
-.post-page article section.post-content ul:not(.post-toc__list) > li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0.15rem;
-  font-size: 0.9rem;
-  color: var(--accent);
-}
-
 
 /* ---------- 2) TOC: только цифры, без буллетов ---------- */
 /* у тебя TOC сейчас на UL: <ul class="post-toc__list"> */
@@ -1313,6 +1289,86 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   opacity: 1;
   transform: translateY(0);
 }
+
+/* =========================
+   TOC (Contents) — numbers only
+   ========================= */
+
+.post-toc__list,
+.post-toc__list ol{
+  list-style: none;
+  margin: 0;
+  padding-left: 18px;
+  counter-reset: toc;
+}
+
+.post-toc__list > li{
+  counter-increment: toc;
+  margin: 8px 0;
+}
+
+.post-toc__list > li > a::before{
+  content: counter(toc) ". ";
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* вложенные пункты */
+.post-toc__list li > ol{
+  counter-reset: subtoc;
+  margin-top: 6px;
+  padding-left: 18px;
+}
+
+.post-toc__list li > ol > li{
+  counter-increment: subtoc;
+  margin: 6px 0;
+}
+
+.post-toc__list li > ol > li > a::before{
+  content: counter(toc) "." counter(subtoc) " ";
+  color: var(--accent);
+}
+
+/* раскрытие */
+.post-toc__list li.has-children > ol{
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .25s ease, opacity .2s ease;
+}
+
+.post-toc__list li.has-children:hover > ol,
+.post-toc__list li.has-children:focus-within > ol{
+  max-height: 600px;
+  opacity: 1;
+}
+
+/* =========================
+   Content lists — neon bullets
+   ========================= */
+
+.post-page article section.post-content ul{
+  list-style: none;
+  margin: 0.75rem 0 1.05rem;
+  padding-left: 0;
+}
+
+.post-page article section.post-content ul > li{
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.45rem;
+}
+
+.post-page article section.post-content ul > li::before{
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
 
 
 
