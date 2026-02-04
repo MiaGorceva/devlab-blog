@@ -1226,50 +1226,10 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
    ========================================================= */
 
 
-/* ВАЖНО: гасим любые ::before от "контентных буллетов" внутри TOC */
-.post-toc .post-toc__list li::before {
-  content: none;
-}
-
-/* номер перед ссылкой */
-.post-toc .post-toc__list > li > a::before {
-  content: counter(toc) ". ";
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-  opacity: .95;
-}
-
-/* ---------- 3) TOC: раскрытие подпунктов (has-children) ---------- */
-/* у тебя подпункты внутри <li class="has-children"><ul>...</ul></li> */
-.post-toc .post-toc__list li.has-children > ul {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
-}
-
-.post-toc .post-toc__list li.has-children:hover > ul,
-.post-toc .post-toc__list li.has-children:focus-within > ul {
-  max-height: 900px;
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* =========================
    TOC (Contents) — numbers only
    ========================= */
-
-.post-toc__list > li > a::before{
-  content: counter(toc) ". ";
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-}
-
-.post-toc__list li > ol > li > a::before{
-  content: counter(toc) "." counter(subtoc) " ";
-  color: var(--accent);
-}
 
 /* раскрытие */
 .post-toc__list li.has-children > ol{
@@ -1324,11 +1284,75 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   margin: 8px 0;
 }
 
-/* гарантированно убираем кастомные маркеры */
-.post-toc__list li::before,
-.post-toc__list li > a::before{
+/* =========================================================
+   TOC + CONTENT LISTS (FINAL, no duplicates)
+   - TOC (.post-toc__list) = native numbers (decimal) + hover expand
+   - Content UL inside article = neon bullets
+   ========================================================= */
+
+/* ---------- TOC: numbers + expand ---------- */
+.post-toc .post-toc__list{
+  list-style: decimal;
+  margin: 0;
+  padding-left: 1.8rem;
+}
+
+.post-toc .post-toc__list li{
+  margin: 8px 0;
+}
+
+/* nested TOC lists */
+.post-toc .post-toc__list ul{
+  list-style: decimal;
+  margin: 6px 0 0;
+  padding-left: 1.6rem;
+}
+
+/* IMPORTANT: kill any custom ::before markers inside TOC */
+.post-toc .post-toc__list li::before,
+.post-toc .post-toc__list li > a::before{
   content: none;
 }
+
+/* Collapse children by default */
+.post-toc .post-toc__list li.has-children > ul{
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
+}
+
+/* Expand on hover / focus */
+.post-toc .post-toc__list li.has-children:hover > ul,
+.post-toc .post-toc__list li.has-children:focus-within > ul{
+  max-height: 1200px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Content UL: neon bullets (exclude TOC!) ---------- */
+.post-page article section.post-content ul:not(.post-toc__list):not(.post-toc__list ul){
+  list-style: none;
+  margin: 0.75rem 0 1.05rem;
+  padding-left: 0; /* no double markers */
+}
+
+.post-page article section.post-content ul:not(.post-toc__list):not(.post-toc__list ul) > li{
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.45rem;
+}
+
+.post-page article section.post-content ul:not(.post-toc__list):not(.post-toc__list ul) > li::before{
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
 
 
 
