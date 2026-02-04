@@ -791,28 +791,16 @@ main { flex: 1; padding-bottom: 3rem; }
   border-radius: 14px;
 }
 
-
-.post-page article,
-.post-page .post-content { position: relative; z-index: 1; }
-
-.post-page main { overflow: visible; }
-
-.post-page article ol li::before {
-  content: none;
-}
-
-.post-page article li {
+.post-page article section.post-content li {
   margin-bottom: 0.35rem;
   line-height: 1.5;
 }
 
 
-/* Контентные списки: неоновые буллеты */
-.post-page article section.post-content ul{
-  list-style: none;
-  margin: 0.75rem 0 1.05rem 0;
-  padding-left: 1.4rem; /* место под буллет */
-}
+.post-page article,
+.post-page .post-content { position: relative; z-index: 1; }
+
+.post-page main { overflow: visible; }
 
 .post-page article section.post-content ul li{
   position: relative;
@@ -1026,8 +1014,6 @@ main { flex: 1; padding-bottom: 3rem; }
   font-weight: 600;
 }
 
-/* Списки в контенте чуть ровнее */
-.post-page .post-content ul { margin: 0.75rem 0 1.05rem 0; }
 .post-page .post-content li { margin-bottom: 0.45rem; }
 
 /* Мобилка */
@@ -1308,8 +1294,6 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
     border-bottom-color: rgba(72,207,255,.65);
   }
 
-
-//* TOC: нумерация */
 .post-toc ol{
   list-style: none;
   margin: 0;
