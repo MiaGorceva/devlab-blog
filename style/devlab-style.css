@@ -791,6 +791,14 @@ main { flex: 1; padding-bottom: 3rem; }
 .post-page main { overflow: visible; }
 
 
+.post-page article ol {
+  list-style: decimal;
+  padding-left: 1.4rem;
+}
+
+.post-page article ol li::before {
+  content: none;
+}
 /* --- Post content lists & bullets --- */
 .post-page article ul {
   margin: 0.6rem 0 1rem 1.3rem;
