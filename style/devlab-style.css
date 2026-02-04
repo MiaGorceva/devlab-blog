@@ -810,7 +810,7 @@ main { flex: 1; padding-bottom: 3rem; }
 }
 
 .post-page article ul li::before {
- /* content: "•";*/
+  content: "•";
   position: absolute;
   left: 0;
   top: 0.15rem;
