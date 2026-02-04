@@ -313,12 +313,6 @@ body.nav-open .nav-toggle {
 .back { text-decoration: underline; 
   }
 
-.post-page article .post-content p > a.post-read.back {
-  display: block;          /* новая строка */
-  width: fit-content;      /* ширина по тексту */
-  margin-left: auto;       /* прижать вправо */
-  margin-top: .4rem;       /* отступ от текста */
-}
 
 .post-nav-links{
   display:flex;
@@ -791,32 +785,6 @@ main { flex: 1; padding-bottom: 3rem; }
   border-radius: 14px;
 }
 
-.post-page article section.post-content li {
-  margin-bottom: 0.35rem;
-  line-height: 1.5;
-}
-
-
-.post-page article,
-.post-page .post-content { position: relative; z-index: 1; }
-
-.post-page main { overflow: visible; }
-
-.post-page article section.post-content ul li{
-  position: relative;
-  margin-bottom: 0.45rem;
-}
-
-.post-page article section.post-content ul li::before{
-  content: "•";
-  position: absolute;
-  left: -1.2rem;
-  top: 0.15rem;
-  font-size: 0.9rem;
-  color: var(--accent);
-}
-
-
 /* =========================
    10. VIEWS COUNTER
    ========================= */
@@ -1032,32 +1000,6 @@ main { flex: 1; padding-bottom: 3rem; }
     radial-gradient(circle at 80% 100%, rgba(84, 229, 74, 0.06), transparent 45%);
   opacity: 0.8;
   pointer-events: none;
-}
-
-.post-toc__title {
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.post-toc__list {
-  margin: 0;
-  padding-left: 18px;
-  line-height: 1.6;
-}
-
-.post-toc__list li {
-  margin: 6px 0;
-}
-
-/* If you use a class for that box, target it. If not, add one. */
-.post-toc, .in-this-article {
-  margin-top: 18px;
-  margin-bottom: 26px;
-  padding: 18px 18px;
-}
-
-.post-toc li, .in-this-article li {
-  margin: 10px 0;
 }
 
 @media (min-width: 980px) {
@@ -1294,34 +1236,70 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
     border-bottom-color: rgba(72,207,255,.65);
   }
 
-.post-toc ol{
+  /* =========================================================
+   LISTS FIX: контентные UL = неоновые буллеты
+   TOC (.post-toc) = только цифры + раскрытие has-children
+   (без дублей, без "• 1." и без двойных точек)
+   ========================================================= */
+
+/* ---------- 1) Контентные списки в статье (НЕ TOC) ---------- */
+.post-page article section.post-content ul:not(.post-toc__list) {
+  list-style: none;          /* убираем нативные диски */
+  margin: 0.75rem 0 1.05rem;
+  padding-left: 0;           /* важно: чтобы не было второй точки */
+}
+
+.post-page article section.post-content ul:not(.post-toc__list) > li {
+  list-style: none;
+  position: relative;
+  padding-left: 1.4rem;      /* место под неоновую точку */
+  margin-bottom: 0.45rem;
+  line-height: 1.5;
+}
+
+.post-page article section.post-content ul:not(.post-toc__list) > li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+
+/* ---------- 2) TOC: только цифры, без буллетов ---------- */
+/* у тебя TOC сейчас на UL: <ul class="post-toc__list"> */
+.post-toc .post-toc__list,
+.post-toc .post-toc__list ul {
   list-style: none;
   margin: 0;
-  padding-left: 18px;
-  counter-reset: item;
+  padding-left: 0;
+  counter-reset: toc;
 }
 
-.post-toc li{
+/* пункты первого уровня */
+.post-toc .post-toc__list > li {
+  list-style: none;
   margin: 10px 0;
-  counter-increment: item;
+  counter-increment: toc;
 }
 
-.post-toc li > a::before{
-  content: counters(item, ".") ". ";
-  opacity: .9;
+/* ВАЖНО: гасим любые ::before от "контентных буллетов" внутри TOC */
+.post-toc .post-toc__list li::before {
+  content: none;
+}
+
+/* номер перед ссылкой */
+.post-toc .post-toc__list > li > a::before {
+  content: counter(toc) ". ";
   color: var(--accent);
   font-variant-numeric: tabular-nums;
+  opacity: .95;
 }
 
-/* каждый вложенный список начинает счётчик заново */
-.post-toc li > ol{
-  counter-reset: item;
-  margin: 8px 0 0 0;
-  padding-left: 16px;
-}
-
-/* TOC: раскрытие подпунктов по hover */
-.post-toc li.has-children > ol{
+/* ---------- 3) TOC: раскрытие подпунктов (has-children) ---------- */
+/* у тебя подпункты внутри <li class="has-children"><ul>...</ul></li> */
+.post-toc .post-toc__list li.has-children > ul {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -1329,14 +1307,13 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
 }
 
-.post-toc li.has-children:hover > ol,
-.post-toc li.has-children:focus-within > ol{
+.post-toc .post-toc__list li.has-children:hover > ul,
+.post-toc .post-toc__list li.has-children:focus-within > ul {
   max-height: 900px;
   opacity: 1;
   transform: translateY(0);
 }
 
-.post-toc li::before{ content: none; }
 
 
 
