@@ -821,14 +821,24 @@ main { flex: 1; padding-bottom: 3rem; }
   padding-left: 0.9rem;
 }
 
-.post-page article ul li::before {
+ .post-page article section.post-content ul {
+  list-style: none;
+  padding-left: 1.4rem;
+}
+
+.post-page article section.post-content ul li {
+  position: relative;
+}
+
+.post-page article section.post-content ul li::before {
   content: "•";
   position: absolute;
-  left: 0;
+  left: -1.2rem;
   top: 0.15rem;
   font-size: 0.9rem;
   color: var(--accent);
 }
+
 
 /* =========================
    10. VIEWS COUNTER
@@ -1382,23 +1392,6 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   transform: translateY(0);
 }
 
-.post-page article section.post-content ul {
-  list-style: none;
-  padding-left: 1.4rem;
-}
-
-.post-page article section.post-content ul li {
-  position: relative;
-}
-
-.post-page article section.post-content ul li::before {
-  content: "•";
-  position: absolute;
-  left: -1.2rem;
-  top: 0.15rem;
-  font-size: 0.9rem;
-  color: var(--accent);
-}
 
 
 
