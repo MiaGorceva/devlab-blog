@@ -311,11 +311,14 @@ body.nav-open .nav-toggle {
 
 
 .back { text-decoration: underline; 
-  display: block;
-    width: fit-content;
-    margin-left: auto;
-    margin-top: .4rem;
   }
+
+.post-page article .post-content p > a.post-read.back {
+  display: block;          /* новая строка */
+  width: fit-content;      /* ширина по тексту */
+  margin-left: auto;       /* прижать вправо */
+  margin-top: .4rem;       /* отступ от текста */
+}
 
 .post-nav-links{
   display:flex;
@@ -821,7 +824,8 @@ main { flex: 1; padding-bottom: 3rem; }
   padding-left: 0.9rem;
 }
 
- .post-page article section.post-content ul {
+/* Буллеты только внутри секций статьи */
+.post-page article section.post-content ul {
   list-style: none;
   padding-left: 1.4rem;
 }
