@@ -311,6 +311,10 @@ body.nav-open .nav-toggle {
 
 
 .back { text-decoration: underline; 
+  display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-top: .4rem;
   }
 
 .post-nav-links{
