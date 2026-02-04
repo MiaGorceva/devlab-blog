@@ -1312,81 +1312,51 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   }
 
 
-.post-toc ul,
-.post-toc ol{
+/* =========================
+   TOC (post-toc) — numbering + no bullets
+   Works for UL or OL, any depth
+   ========================= */
+
+.post-page article .post-toc ul,
+.post-page article .post-toc ol{
   list-style: none;
   margin: 0;
-  padding-left: 18px;
-  counter-reset: item;
+  padding-left: 0;
+  counter-reset: toc;
 }
 
-.post-toc li > ul,
-.post-toc li > ol{
-  counter-reset: item;
-  margin: 8px 0 0 0;
-  padding-left: 16px;
+.post-page article .post-toc li{
+  margin: 10px 0;
+  counter-increment: toc;
+  position: relative;
+  padding-left: 2.1rem; /* место под "1." */
 }
 
-
-.post-toc li > a::before{
-  content: counters(item, ".") ". ";
-  opacity: .9;
+/* убираем любые •, которые могли прийти из общих правил */
+.post-page article .post-toc li::before{
+  content: none;
 }
 
-/* каждый вложенный список начинает счётчик заново */
-.post-toc li > ol{
-  counter-reset: item;
-  margin: 8px 0 0 0;
-  padding-left: 16px;
+/* номер перед ссылкой */
+.post-page article .post-toc li > a::before{
+  content: counters(toc, ".") ". ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.8rem;
+  text-align: right;
+  opacity: .85;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
 }
 
-.post-toc li > ol > li{
-  margin: 6px 0;
+/* вложенные списки: новый уровень счётчика */
+.post-page article .post-toc li > ul,
+.post-page article .post-toc li > ol{
+  margin-top: 8px;
+  padding-left: 0;
+  counter-reset: toc;
 }
-/* вложенные пункты скрыты по умолчанию */
-.post-toc li.has-children > ol{
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
-}
-
-/* раскрытие при hover + keyboard */
-.post-toc li.has-children:hover > ol,
-.post-toc li.has-children:focus-within > ol{
-  max-height: 800px; /* можно побольше, чтобы точно хватало */
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* вложенные подпункты */
-.post-toc ol ol{
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition:
-    max-height .28s ease,
-    opacity .20s ease,
-    transform .20s ease;
-  will-change: max-height, opacity, transform;
-}
-
-.post-toc a{
-  transition: color .15s ease, text-decoration-color .15s ease;
-}
-
-.post-toc li.has-children > a::after{
-  transition: transform .18s ease, opacity .18s ease;
-}
-
-.post-toc li.has-children.is-open > ol {
-  max-height: 600px;
-  opacity: 1;
-  transform: translateY(0);
-}
-
 
 
 
