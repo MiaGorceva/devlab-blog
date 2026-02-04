@@ -812,17 +812,20 @@ main { flex: 1; padding-bottom: 3rem; }
   line-height: 1.5;
 }
 
-/* Буллеты только внутри секций статьи */
-.post-page article section.post-content ul {
+
+/* Контентные списки: неоновые буллеты */
+.post-page article section.post-content ul{
   list-style: none;
-  padding-left: 1.4rem;
+  margin: 0.75rem 0 1.05rem 0;
+  padding-left: 1.4rem; /* место под буллет */
 }
 
-.post-page article section.post-content ul li {
+.post-page article section.post-content ul li{
   position: relative;
+  margin-bottom: 0.45rem;
 }
 
-.post-page article section.post-content > :not(.post-toc) ul li::before {
+.post-page article section.post-content ul li::before{
   content: "•";
   position: absolute;
   left: -1.2rem;
@@ -1312,51 +1315,50 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   }
 
 
-/* =========================
-   TOC (post-toc) — numbering + no bullets
-   Works for UL or OL, any depth
-   ========================= */
-
-.post-page article .post-toc ul,
-.post-page article .post-toc ol{
+//* TOC: нумерация */
+.post-toc ol{
   list-style: none;
   margin: 0;
-  padding-left: 0;
-  counter-reset: toc;
+  padding-left: 18px;
+  counter-reset: item;
 }
 
-.post-page article .post-toc li{
+.post-toc li{
   margin: 10px 0;
-  counter-increment: toc;
-  position: relative;
-  padding-left: 2.1rem; /* место под "1." */
+  counter-increment: item;
 }
 
-/* убираем любые •, которые могли прийти из общих правил */
-.post-page article .post-toc li::before{
-  content: none;
-}
-
-/* номер перед ссылкой */
-.post-page article .post-toc li > a::before{
-  content: counters(toc, ".") ". ";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1.8rem;
-  text-align: right;
-  opacity: .85;
+.post-toc li > a::before{
+  content: counters(item, ".") ". ";
+  opacity: .9;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
 
-/* вложенные списки: новый уровень счётчика */
-.post-page article .post-toc li > ul,
-.post-page article .post-toc li > ol{
-  margin-top: 8px;
-  padding-left: 0;
-  counter-reset: toc;
+/* каждый вложенный список начинает счётчик заново */
+.post-toc li > ol{
+  counter-reset: item;
+  margin: 8px 0 0 0;
+  padding-left: 16px;
 }
+
+/* TOC: раскрытие подпунктов по hover */
+.post-toc li.has-children > ol{
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
+}
+
+.post-toc li.has-children:hover > ol,
+.post-toc li.has-children:focus-within > ol{
+  max-height: 900px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.post-toc li::before{ content: none; }
 
 
 
