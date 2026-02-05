@@ -1232,7 +1232,6 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 /* FIX: перебиваем глобальный .post-read (inline-flex) только в TOC */
 .post-toc a.post-read{
   display: block !important;
-  gap: 0 !important;
   align-items: initial !important;
   text-decoration: none;
   color: var(--accent);
