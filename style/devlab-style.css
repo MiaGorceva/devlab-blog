@@ -1358,5 +1358,74 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   opacity: 1;
   transform: translateY(0);
 }
+/* =========================
+   TOC: 2.1 / 2.2 numbering (pure CSS)
+   ========================= */
+
+/* убираем нативные маркеры только в TOC */
+.post-toc ol { list-style: none; margin: 0; padding: 0; }
+.post-toc li::marker { content: none; }
+
+/* counters for first level */
+.post-toc > ol { counter-reset: toc1; }
+
+/* level 1 item */
+.post-toc > ol > li{
+  counter-increment: toc1;
+  counter-reset: toc2;
+  position: relative;
+  padding-left: 2.6rem;
+  margin: .55rem 0;
+}
+
+/* "2." */
+.post-toc > ol > li::before{
+  content: counter(toc1) ".";
+  position: absolute;
+  left: 0;
+  top: .1rem;
+  width: 2.2rem;
+  text-align: right;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* nested list */
+.post-toc > ol > li > ol{
+  margin-top: .35rem;
+  padding-left: 0; /* мы сами делаем отступы */
+}
+
+/* level 2 item */
+.post-toc > ol > li > ol > li{
+  counter-increment: toc2;
+  position: relative;
+  padding-left: 3.4rem;
+  margin: .4rem 0;
+}
+
+/* "2.1" */
+.post-toc > ol > li > ol > li::before{
+  content: counter(toc1) "." counter(toc2);
+  position: absolute;
+  left: 0;
+  top: .05rem;
+  width: 3.0rem;
+  text-align: right;
+  color: rgba(72,207,255,.9);
+  font-variant-numeric: tabular-nums;
+}
+
+/* links */
+.post-toc a.post-read{ color: var(--accent); text-decoration:none; }
+.post-toc > ol > li > ol > li > a.post-read{ color: var(--text-muted); }
+.post-toc a.post-read:hover{ color: var(--text-main); }
+
+/* optional arrow for parents */
+.post-toc li.has-children > a{ position: relative; padding-right: 1.1rem; }
+.post-toc li.has-children > a::after{
+  content:"▾"; position:absolute; right:0; top:.1rem;
+  color: rgba(72,207,255,.8); opacity:.8;
+}
 
 
