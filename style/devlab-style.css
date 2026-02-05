@@ -1312,7 +1312,7 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 }
 
 /* сами кружочки */
-.post-page .post-content .callout li::marker{
+.post-page .post-content ul li::marker{
   color: var(--accent);
   text-shadow:
     0 0 8px rgba(72,207,255,.55),
@@ -1321,7 +1321,7 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 }
 
 /* отступ между маркером и текстом */
-.post-page .post-content .callout ul li{
+.post-page .post-content ul li{
   padding-left: .15rem;
   margin: .45rem 0;
 }
@@ -1338,4 +1338,25 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 .post-toc li::before{
   content: none !important;
 }
+
+/* ===== TOC smooth accordion (hover / focus-within) ===== */
+
+.post-toc li.has-children > ol {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height .35s ease,
+    opacity .2s ease,
+    transform .2s ease;
+}
+
+.post-toc li.has-children:hover > ol,
+.post-toc li.has-children:focus-within > ol {
+  max-height: 1000px; /* достаточно для любого TOC */
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
