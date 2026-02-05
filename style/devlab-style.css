@@ -1397,4 +1397,72 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   transform: translateY(0);
 }
 
+/* =========================================================
+   TOC — 2.1 / 2.2 numbering (FINAL, works with inline-flex)
+   ========================================================= */
+
+/* убираем нативные цифры */
+.post-toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* counters */
+.post-toc > ol { counter-reset: toc1; }
+
+.post-toc > ol > li {
+  counter-increment: toc1;
+  counter-reset: toc2;
+  margin: .55rem 0;
+}
+
+/* ВАЖНО: делаем ссылку relative */
+.post-toc > ol > li > a.post-read {
+  position: relative;
+  padding-left: 2.6rem;
+}
+
+/* 1. 2. 3. */
+.post-toc > ol > li > a.post-read::before {
+  content: counter(toc1) ".";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2.2rem;
+  text-align: right;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* nested list */
+.post-toc > ol > li > ol {
+  margin-top: .35rem;
+}
+
+/* second level */
+.post-toc > ol > li > ol > li {
+  counter-increment: toc2;
+  margin: .35rem 0;
+}
+
+.post-toc > ol > li > ol > li > a.post-read {
+  position: relative;
+  padding-left: 3.6rem;
+  color: var(--text-muted);
+}
+
+/* 2.1 / 2.2 */
+.post-toc > ol > li > ol > li > a.post-read::before {
+  content: counter(toc1) "." counter(toc2);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3.0rem;
+  text-align: right;
+  color: rgba(72,207,255,.9);
+  font-variant-numeric: tabular-nums;
+}
+
+
 
