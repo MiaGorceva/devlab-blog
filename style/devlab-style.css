@@ -1218,45 +1218,82 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   #dl-consent-modal .linkrow a:hover{
     border-bottom-color: rgba(72,207,255,.65);
   }
+/* =========================================================
+   TOC: hierarchical numbering + hover open/close
+   Works with:
+   <nav class="post-toc"><ol> <li class="has-children"><a>..</a><ol>...</ol></li>...</ol></nav>
+   ========================================================= */
 
-  /* =========================
-   LISTS: one source of truth
-   ========================= */
+/* базовый ресет только для TOC */
+.post-toc ol { margin: 0; padding: 0; list-style: none; }
 
-/* --- Base: don't nuke all lists globally (у тебя * {margin:0; padding:0}) ---
-   Вернём базовые отступы только в контенте и в TOC, чтобы маркеры были видны.
-*/
+/* включаем счётчики */
+.post-toc > ol { counter-reset: toc1; }
 
-/* ===== TOC: numbers only (native markers) ===== */
-.post-toc .post-toc__list,
-.post-toc .post-toc__list ol,
-.post-toc .post-toc__list ul {
-  list-style: decimal;
-  margin: 0.6rem 0;
-  padding-left: 1.8rem;
+/* пункты 1 уровня */
+.post-toc > ol > li {
+  counter-increment: toc1;
+  counter-reset: toc2;
+  position: relative;
+  margin: 10px 0;
+  padding-left: 2.4rem; /* место под "1." */
 }
 
-/* nested levels a bit tighter */
-.post-toc .post-toc__list ol,
-.post-toc .post-toc__list ul {
-  padding-left: 1.6rem;
-  margin-top: 0.35rem;
+/* "1." */
+.post-toc > ol > li::before {
+  content: counter(toc1) ".";
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  width: 2rem;
+  text-align: right;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.95;
 }
 
-/* kill any custom markers inside TOC */
-.post-toc .post-toc__list li::before,
-.post-toc .post-toc__list li > a::before {
-  content: none !important;
+/* подпункты (2 уровень) */
+.post-toc > ol > li > ol {
+  counter-reset: toc2;
+  margin-top: 8px;
+  padding-left: 0; /* мы сами делаем отступы */
 }
 
-/* spacing */
-.post-toc .post-toc__list li {
-  margin: 0.35rem 0;
+/* элемент 2 уровня */
+.post-toc > ol > li > ol > li {
+  counter-increment: toc2;
+  position: relative;
+  margin: 8px 0;
+  padding-left: 3.2rem; /* место под "1.1" */
 }
 
-/* collapse/expand children (если у тебя дети как UL — оставляй UL, если OL — поменяй селекторы) */
-.post-toc .post-toc__list li.has-children > ul,
-.post-toc .post-toc__list li.has-children > ol {
+/* "1.1" */
+.post-toc > ol > li > ol > li::before {
+  content: counter(toc1) "." counter(toc2);
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  width: 2.8rem;
+  text-align: right;
+  color: rgba(72,207,255,0.95);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.9;
+}
+
+/* ссылки в TOC */
+.post-toc a.post-read {
+  display: inline-block;
+  color: var(--text-muted);
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.post-toc a.post-read:hover {
+  color: var(--text-main);
+}
+
+/* --- раскрытие подменю --- */
+.post-toc li.has-children > ol {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -1264,63 +1301,46 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
 }
 
-.post-toc .post-toc__list li.has-children:hover > ul,
-.post-toc .post-toc__list li.has-children:focus-within > ul,
-.post-toc .post-toc__list li.has-children:hover > ol,
-.post-toc .post-toc__list li.has-children:focus-within > ol {
-  max-height: 1200px;
+/* открылось на hover / focus-within (тап на мобиле тоже) */
+.post-toc li.has-children:hover > ol,
+.post-toc li.has-children:focus-within > ol {
+  max-height: 1400px;
   opacity: 1;
   transform: translateY(0);
 }
 
-
-/* ===== Content lists: bullets when NOT numbered ===== */
-/* UL in content = neon bullets */
-.post-page .post-content ul {
-  list-style: none;
-  margin: 0.75rem 0 1.05rem;
-  padding-left: 0;
-}
-
-.post-page .post-content ul > li {
+/* визуальный индикатор "есть дети" (стрелка) */
+.post-toc li.has-children > a {
   position: relative;
-  padding-left: 1.4rem;
-  margin: 0.35rem 0;
+  padding-right: 1.2rem;
 }
 
-.post-page .post-content ul > li::before {
-  content: "•";
+.post-toc li.has-children > a::after {
+  content: "▾";
   position: absolute;
-  left: 0;
-  top: 0.15rem;
-  font-size: 0.95rem;
+  right: 0;
+  top: 0.05rem;
+  color: rgba(148,163,184,0.8);
+  transition: transform .18s ease, color .18s ease;
+}
+
+.post-toc li.has-children:hover > a::after,
+.post-toc li.has-children:focus-within > a::after {
+  transform: rotate(-180deg);
   color: var(--accent);
 }
 
-/* nested UL inside content */
-.post-page .post-content ul ul {
-  margin-top: 0.45rem;
+/* подсветка активной ссылки (если ты добавляешь .is-active) */
+.post-toc a.post-read.is-active {
+  color: var(--text-main);
+  text-decoration: underline;
+  text-decoration-color: rgba(84,229,74,.75);
+  text-underline-offset: 3px;
 }
 
-/* OL in content = keep native numbers (если надо нумерация) */
-.post-page .post-content ol {
-  list-style: decimal;
-  margin: 0.75rem 0 1.05rem;
-  padding-left: 1.8rem;
+/* на очень узких экранах чуть больше воздуха */
+@media (max-width: 520px) {
+  .post-toc > ol > li { padding-left: 2.2rem; }
+  .post-toc > ol > li > ol > li { padding-left: 3.0rem; }
 }
 
-.post-page .post-content ol > li {
-  margin: 0.35rem 0;
-}
-
-/* IMPORTANT: exclude TOC from content rules just in case TOC находится внутри .post-content */
-.post-page .post-content .post-toc__list,
-.post-page .post-content .post-toc__list ul,
-.post-page .post-content .post-toc__list ol {
-  list-style: decimal !important;
-  padding-left: 1.8rem !important;
-}
-
-.post-page .post-content .post-toc__list li::before {
-  content: none !important;
-}
