@@ -1357,14 +1357,3 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 .post-toc li::before{
   content: none !important;
 }
-
-.post-toc > ol > li > a.post-read{
-  display: grid;
-  grid-template-columns: 2.6rem 1fr; /* номер | текст */
-  column-gap: .6rem;
-}
-.post-toc > ol > li > ol > li > a.post-read{
-  display: grid;
-  grid-template-columns: 3.4rem 1fr; /* 1.1 | текст */
-  column-gap: .6rem;
-}
