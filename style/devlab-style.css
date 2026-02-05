@@ -1312,7 +1312,7 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 }
 
 /* сами кружочки */
-.post-page .post-content ul li::marker{
+.post-page .post-content .callout li::marker{
   color: var(--accent);
   text-shadow:
     0 0 8px rgba(72,207,255,.55),
@@ -1321,7 +1321,7 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 }
 
 /* отступ между маркером и текстом */
-.post-page .post-content ul li{
+.post-page .post-content .callout ul li{
   padding-left: .15rem;
   margin: .45rem 0;
 }
@@ -1333,10 +1333,6 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 .post-toc ul,
 .post-toc ol{
   list-style-position: outside;
-}
-
-.post-toc li::marker{
-  /* маркеры TOC управляются отдельным блоком */
 }
 
 .post-toc li::before{
