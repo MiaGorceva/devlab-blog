@@ -1224,8 +1224,8 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
    <nav class="post-toc"><ol> <li class="has-children"><a>..</a><ol>...</ol></li>...</ol></nav>
    ========================================================= */
 
-/* базовый ресет только для TOC */
-.post-toc ol { margin: 0; padding: 0; list-style: none; }
+/* базовый ресет только для TOC 
+.post-toc ol { margin: 0; padding: 0; list-style: none; }*/
 
 /* включаем счётчики */
 .post-toc > ol { counter-reset: toc1; }
@@ -1343,4 +1343,37 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   .post-toc > ol > li { padding-left: 2.2rem; }
   .post-toc > ol > li > ol > li { padding-left: 3.0rem; }
 }
+
+/* ===== Content UL: neon blue bullets + proper indent ===== */
+.post-page .post-content ul {
+  list-style: disc;
+  list-style-position: outside;
+  padding-left: 1.35rem;         /* отступ всего списка */
+  margin: 0.85rem 0 1.1rem;
+}
+
+.post-page .post-content ul li {
+  margin: 0.45rem 0;
+  padding-left: 0.25rem;         /* расстояние от маркера до текста */
+}
+
+/* сам маркер (буллет) */
+.post-page .post-content ul li::marker {
+  color: var(--accent);
+  text-shadow:
+    0 0 10px rgba(72,207,255,.45),
+    0 0 18px rgba(72,207,255,.25);
+}
+
+/* вложенные UL — чуть больше воздуха */
+.post-page .post-content ul ul {
+  margin-top: 0.55rem;
+  padding-left: 1.25rem;
+}
+
+/* если где-то раньше ты рисовал буллеты через ::before — отключаем */
+.post-page .post-content ul > li::before {
+  content: none !important;
+}
+
 
