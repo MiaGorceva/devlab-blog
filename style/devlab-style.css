@@ -1219,183 +1219,90 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
     border-bottom-color: rgba(72,207,255,.65);
   }
 
-/* =========================================================
-   TOC: keep native numbering, no custom bullets, hover раскрытие
-   Works with your HTML: nav.post-toc > ol > li.has-children > a + ol
+  /* =========================================================
+   TOC FINAL: 2.1 / 2.2 + smooth раскрытие + без разъезда
    ========================================================= */
 
-/* 1) TOC: вернуть нативную нумерацию и отступы */
-.post-toc > ol{
-  list-style: decimal;
-  list-style-position: outside;
-  padding-left: 1.6rem;
-  margin: 0.6rem 0 0;
-}
+.post-toc ol{ list-style: none; margin:0; padding:0; }
+.post-toc li::marker{ content:none; }
 
-/* вложенная нумерация (1.1, 1.2...) */
-.post-toc > ol > li > ol{
-  list-style: decimal;
-  list-style-position: outside;
-  padding-left: 1.8rem;
-  margin: 0.45rem 0 0;
-}
+/* counters */
+.post-toc > ol{ counter-reset: toc1; }
 
-/* 2) ВАЖНО: отключить любые кастомные маркеры внутри TOC,
-      которые ты рисуешь для контентных UL через li::before */
-.post-toc li::before,
-.post-toc li > a::before{
-  content: none !important;
-}
-
-/* 3) Нумерацию/маркеры сделать "приятными" (неон) */
-.post-toc li::marker{
+/* FIX: перебиваем глобальный .post-read (inline-flex) только в TOC */
+.post-toc a.post-read{
+  display: block !important;
+  gap: 0 !important;
+  align-items: initial !important;
+  text-decoration: none;
   color: var(--accent);
-  text-shadow:
-    0 0 10px rgba(72,207,255,.35),
-    0 0 18px rgba(72,207,255,.18);
+  line-height: 1.35;
+}
+
+/* level 1 */
+.post-toc > ol > li{
+  counter-increment: toc1;
+  counter-reset: toc2;
+  margin: .55rem 0;
+}
+
+.post-toc > ol > li > a.post-read{
+  display: grid !important;
+  grid-template-columns: 2.4rem 1fr 1.2rem;
+  column-gap: .7rem;
+  align-items: baseline;
+}
+
+.post-toc > ol > li > a.post-read::before{
+  content: counter(toc1) ".";
+  text-align: right;
+  color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
 
-/* расстояние от номера до текста */
-.post-toc li{
-  margin: 0.45rem 0;
-  padding-left: 0.25rem; /* gap между marker и текстом */
-}
-
-/* ссылки */
-.post-toc a.post-read{
-  color: var(--accent);
-  text-decoration: none;
-}
-.post-toc a.post-read:hover{ color: var(--text-main); }
-
-/* 4) Hover раскрытие без "дыр" — подсписок скрыт полностью */
-.post-toc li.has-children > ol{
-  display: none;
-}
-.post-toc li.has-children:hover > ol,
-.post-toc li.has-children:focus-within > ol{
-  display: block;
-}
-
-/* стрелка-индикатор только для has-children */
-.post-toc li.has-children > a{
-  position: relative;
-  padding-right: 1.1rem;
-}
-.post-toc li.has-children > a::after{
+.post-toc > ol > li.has-children > a.post-read::after{
   content:"▾";
-  position:absolute;
-  right: 0;
-  top: 0.1rem;
-  font-size: .85em;
+  justify-self: end;
   color: rgba(72,207,255,.8);
-  opacity: .8;
-  transition: transform .16s ease, opacity .16s ease;
-}
-.post-toc li.has-children:hover > a::after,
-.post-toc li.has-children:focus-within > a::after{
-  transform: rotate(-180deg);
-  opacity: 1;
+  opacity: .85;
 }
 
-/* =========================================================
-   CONTENT UL: neon bullets (isolated from TOC)
-   ========================================================= */
-
-/* обычные списки в тексте статьи 
-.post-page .post-content ul{
-  list-style: disc;
-  list-style-position: outside;
-  padding-left: 1.4rem;
-  margin: 0.8rem 0 1rem;
-}
-
-/* сами кружочки 
-.post-page .post-content ul li::marker{
-  color: var(--accent);
-  text-shadow:
-    0 0 8px rgba(72,207,255,.55),
-    0 0 14px rgba(72,207,255,.35);
-  font-size: .95em;*/
-}
-
-/* отступ между маркером и текстом 
-.post-page .post-content ul li{
-  padding-left: .15rem;
-  margin: .45rem 0;
-}*/
-
-/* =========================
-   GLOBAL content lists (article-wide), exclude TOC
-   ========================= */
-
-/* отключаем любые старые "рисованные буллеты" в статье */
-.post-page article :where(ul,ol) > li::before{
-  content: none !important;
-}
-
-/* UL bullets everywhere in article (callout included), but NOT inside TOC */
-.post-page article :where(ul):not(.post-toc ul):not(.post-toc ol):not(.post-toc ul ul):not(.post-toc ol ol){
-  list-style: disc;
-  list-style-position: outside;
-  padding-left: 1.4rem;
-  margin: .8rem 0 1rem;
-}
-
-/* neon bullets */
-.post-page article :where(ul):not(.post-toc ul):not(.post-toc ol):not(.post-toc ul ul):not(.post-toc ol ol) > li::marker{
-  color: var(--accent);
-  text-shadow: 0 0 8px rgba(72,207,255,.55), 0 0 14px rgba(72,207,255,.35);
-  font-size: .95em;
-}
-
-/* OL numbers everywhere in article, but NOT inside TOC (если в тексте есть нумерованные списки) */
-.post-page article :where(ol):not(.post-toc ol):not(.post-toc ul):not(.post-toc ol ol):not(.post-toc ul ul){
-  list-style: decimal;
-  list-style-position: outside;
-  padding-left: 1.6rem;
-  margin: .8rem 0 1rem;
-}
-
-/* spacing */
-.post-page article :where(ul,ol):not(.post-toc ul):not(.post-toc ol) > li{
-  margin: .45rem 0;
-  padding-left: .15rem;
-}
-
-/* =========================================================
-   SAFETY: TOC must never inherit content bullets
-   ========================================================= */
-
-.post-toc ul,
-.post-toc ol{
-  list-style-position: outside;
-}
-
-.post-toc li::before{
-  content: none !important;
-}
-
-/* ===== TOC smooth accordion (hover / focus-within) ===== */
-
-.post-toc li.has-children > ol {
+/* level 2 list (плавно раскрывается) */
+.post-toc > ol > li > ol{
+  margin-top: .35rem;
   max-height: 0;
   overflow: hidden;
   opacity: 0;
   transform: translateY(-4px);
-  transition:
-    max-height .35s ease,
-    opacity .2s ease,
-    transform .2s ease;
+  transition: max-height .35s ease, opacity .2s ease, transform .2s ease;
 }
 
-.post-toc li.has-children:hover > ol,
-.post-toc li.has-children:focus-within > ol {
-  max-height: 1000px; /* достаточно для любого TOC */
+.post-toc > ol > li:hover > ol,
+.post-toc > ol > li:focus-within > ol{
+  max-height: 1200px;
   opacity: 1;
   transform: translateY(0);
 }
 
+/* level 2 items */
+.post-toc > ol > li > ol > li{
+  counter-increment: toc2;
+  margin: .35rem 0;
+}
 
+.post-toc > ol > li > ol > li > a.post-read{
+  display: grid !important;
+  grid-template-columns: 3.2rem 1fr;
+  column-gap: .7rem;
+  align-items: baseline;
+  color: var(--text-muted);
+}
 
+.post-toc > ol > li > ol > li > a.post-read::before{
+  content: counter(toc1) "." counter(toc2);
+  text-align: right;
+  color: rgba(72,207,255,.9);
+  font-variant-numeric: tabular-nums;
+}
+
+.post-toc a.post-read:hover{ color: var(--text-main); }
