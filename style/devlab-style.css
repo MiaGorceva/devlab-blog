@@ -1299,3 +1299,47 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   opacity: 1;
 }
 
+/* =========================================================
+   CONTENT UL: neon bullets (isolated from TOC)
+   ========================================================= */
+
+/* обычные списки в тексте статьи */
+.post-page .post-content ul{
+  list-style: disc;
+  list-style-position: outside;
+  padding-left: 1.4rem;
+  margin: 0.8rem 0 1rem;
+}
+
+/* сами кружочки */
+.post-page .post-content ul li::marker{
+  color: var(--accent);
+  text-shadow:
+    0 0 8px rgba(72,207,255,.55),
+    0 0 14px rgba(72,207,255,.35);
+  font-size: .95em;
+}
+
+/* отступ между маркером и текстом */
+.post-page .post-content ul li{
+  padding-left: .15rem;
+  margin: .45rem 0;
+}
+
+/* =========================================================
+   SAFETY: TOC must never inherit content bullets
+   ========================================================= */
+
+.post-toc ul,
+.post-toc ol{
+  list-style-position: outside;
+}
+
+.post-toc li::marker{
+  /* маркеры TOC управляются отдельным блоком */
+}
+
+.post-toc li::before{
+  content: none !important;
+}
+
