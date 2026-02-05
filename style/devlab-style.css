@@ -1219,126 +1219,66 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
     border-bottom-color: rgba(72,207,255,.65);
   }
 
- /* =========================================================
-   TOC Accordion (click to toggle)
-   - in-flow раскрытие (не absolute)
-   - no double markers
-   - nested numbering 1 / 1.1
-   ========================================================= */
+/* ===== TOC: details accordion (NO JS) ===== */
+.post-toc ol { list-style: none; margin: 0; padding: 0; }
+.post-toc li::marker { content: none; }
 
-.post-toc ol { list-style: none !important; margin: 0; padding: 0; }
-.post-toc li::marker { content: none !important; }
-
-.post-toc > ol { counter-reset: toc1; }
-
-/* Level 1 row */
-.post-toc > ol > li{
-  counter-increment: toc1;
-  counter-reset: toc2;
-  position: relative;
+.post-toc details { width: 100%; }
+.post-toc summary {
+  list-style: none;
+  cursor: pointer;
   display: grid;
-  grid-template-columns: 2.4rem 1fr 1.4rem;
-  align-items: baseline;
+  grid-template-columns: 2.4rem 1fr 1.2rem;
   column-gap: .65rem;
+  align-items: baseline;
   padding: .2rem 0;
-  margin: .55rem 0;
 }
+.post-toc summary::-webkit-details-marker { display: none; }
 
-/* 1. */
-.post-toc > ol > li::before{
+/* numbering via counters */
+.post-toc > ol { counter-reset: toc1; }
+.post-toc > ol > li { counter-increment: toc1; counter-reset: toc2; margin: .55rem 0; }
+.post-toc > ol > li > details > summary::before{
   content: counter(toc1) ".";
-  grid-column: 1;
   text-align: right;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
   text-shadow: 0 0 10px rgba(72,207,255,.30);
-  opacity: .95;
 }
 
-/* top link */
-.post-toc > ol > li > a.post-read{
-  grid-column: 2;
-  color: var(--accent);
-  text-decoration: none;
-  line-height: 1.35;
-}
-
-.post-toc > ol > li > a.post-read:hover{ color: var(--text-main); }
-
-/* arrow placeholder */
-.post-toc > ol > li.has-children > a.post-read::after{
-  content: "▸";
-  grid-column: 3;
-  margin-left: .35rem;
-  display: inline-block;
-  opacity: .75;
+/* arrow */
+.post-toc summary::after{
+  content:"▸";
+  opacity:.75;
   color: rgba(72,207,255,.85);
-  transform-origin: 50% 55%;
-  transition: transform .16s ease, opacity .16s ease;
+  transition: transform .16s ease;
 }
+.post-toc details[open] summary::after{ transform: rotate(90deg); opacity: 1; }
 
-/* when open (set by JS: .is-open) */
-.post-toc > ol > li.has-children.is-open > a.post-read::after{
-  transform: rotate(90deg);
-  opacity: 1;
-}
+/* link */
+.post-toc summary a.post-read{ color: var(--accent); text-decoration:none; line-height:1.35; }
+.post-toc summary a.post-read:hover{ color: var(--text-main); }
 
-/* ===== children block (in-flow, smooth, no gaps) ===== */
-.post-toc > ol > li.has-children > ol{
-  /* grid row trick = smooth without max-height jitter */
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: grid-template-rows .22s ease, opacity .18s ease, transform .18s ease;
-
-  /* IMPORTANT: no margin when closed => no empty gaps */
-  margin: 0;
+/* children list: smooth, no gaps */
+.post-toc details > ol{
+  margin: .35rem 0 0;
   padding-left: 0;
 }
-
-.post-toc > ol > li.has-children > ol > *{
-  overflow: hidden;
-}
-
-/* open state */
-.post-toc > ol > li.has-children.is-open > ol{
-  grid-template-rows: 1fr;
-  opacity: 1;
-  transform: translateY(0);
-  margin-top: .35rem; /* появляется только когда открыто */
-}
-
-/* Level 2 items */
-.post-toc > ol > li.has-children > ol > li{
+.post-toc details > ol > li{
   counter-increment: toc2;
   display: grid;
   grid-template-columns: 3.2rem 1fr;
   column-gap: .6rem;
-  align-items: baseline;
   padding: .28rem 0;
 }
-
-/* 1.1 */
-.post-toc > ol > li.has-children > ol > li::before{
+.post-toc details > ol > li::before{
   content: counter(toc1) "." counter(toc2);
   text-align: right;
   color: rgba(72,207,255,.92);
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 10px rgba(72,207,255,.20);
 }
-
-/* child links */
-.post-toc > ol > li.has-children > ol > li > a.post-read{
+.post-toc details > ol > li > a.post-read{
   color: var(--text-muted);
-  text-decoration: none;
+  text-decoration:none;
 }
-.post-toc > ol > li.has-children > ol > li > a.post-read:hover{
-  color: var(--text-main);
-}
-/* content bullets (pretty neon), TOC doesn't affect */
-.post-page .post-content ul { list-style: disc; padding-left: 1.35rem; }
-.post-page .post-content ul li::marker {
-  color: var(--accent);
-  text-shadow: 0 0 10px rgba(72,207,255,.45);
-}
+.post-toc details > ol > li > a.post-read:hover{ color: var(--text-main); }
