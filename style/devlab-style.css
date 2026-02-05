@@ -1219,66 +1219,83 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
     border-bottom-color: rgba(72,207,255,.65);
   }
 
-/* ===== TOC: details accordion (NO JS) ===== */
-.post-toc ol { list-style: none; margin: 0; padding: 0; }
-.post-toc li::marker { content: none; }
+/* =========================================================
+   TOC: keep native numbering, no custom bullets, hover раскрытие
+   Works with your HTML: nav.post-toc > ol > li.has-children > a + ol
+   ========================================================= */
 
-.post-toc details { width: 100%; }
-.post-toc summary {
-  list-style: none;
-  cursor: pointer;
-  display: grid;
-  grid-template-columns: 2.4rem 1fr 1.2rem;
-  column-gap: .65rem;
-  align-items: baseline;
-  padding: .2rem 0;
+/* 1) TOC: вернуть нативную нумерацию и отступы */
+.post-toc > ol{
+  list-style: decimal;
+  list-style-position: outside;
+  padding-left: 1.6rem;
+  margin: 0.6rem 0 0;
 }
-.post-toc summary::-webkit-details-marker { display: none; }
 
-/* numbering via counters */
-.post-toc > ol { counter-reset: toc1; }
-.post-toc > ol > li { counter-increment: toc1; counter-reset: toc2; margin: .55rem 0; }
-.post-toc > ol > li > details > summary::before{
-  content: counter(toc1) ".";
-  text-align: right;
+/* вложенная нумерация (1.1, 1.2...) */
+.post-toc > ol > li > ol{
+  list-style: decimal;
+  list-style-position: outside;
+  padding-left: 1.8rem;
+  margin: 0.45rem 0 0;
+}
+
+/* 2) ВАЖНО: отключить любые кастомные маркеры внутри TOC,
+      которые ты рисуешь для контентных UL через li::before */
+.post-toc li::before,
+.post-toc li > a::before{
+  content: none !important;
+}
+
+/* 3) Нумерацию/маркеры сделать "приятными" (неон) */
+.post-toc li::marker{
   color: var(--accent);
-  font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 10px rgba(72,207,255,.30);
-}
-
-/* arrow */
-.post-toc summary::after{
-  content:"▸";
-  opacity:.75;
-  color: rgba(72,207,255,.85);
-  transition: transform .16s ease;
-}
-.post-toc details[open] summary::after{ transform: rotate(90deg); opacity: 1; }
-
-/* link */
-.post-toc summary a.post-read{ color: var(--accent); text-decoration:none; line-height:1.35; }
-.post-toc summary a.post-read:hover{ color: var(--text-main); }
-
-/* children list: smooth, no gaps */
-.post-toc details > ol{
-  margin: .35rem 0 0;
-  padding-left: 0;
-}
-.post-toc details > ol > li{
-  counter-increment: toc2;
-  display: grid;
-  grid-template-columns: 3.2rem 1fr;
-  column-gap: .6rem;
-  padding: .28rem 0;
-}
-.post-toc details > ol > li::before{
-  content: counter(toc1) "." counter(toc2);
-  text-align: right;
-  color: rgba(72,207,255,.92);
+  text-shadow:
+    0 0 10px rgba(72,207,255,.35),
+    0 0 18px rgba(72,207,255,.18);
   font-variant-numeric: tabular-nums;
 }
-.post-toc details > ol > li > a.post-read{
-  color: var(--text-muted);
-  text-decoration:none;
+
+/* расстояние от номера до текста */
+.post-toc li{
+  margin: 0.45rem 0;
+  padding-left: 0.25rem; /* gap между marker и текстом */
 }
-.post-toc details > ol > li > a.post-read:hover{ color: var(--text-main); }
+
+/* ссылки */
+.post-toc a.post-read{
+  color: var(--accent);
+  text-decoration: none;
+}
+.post-toc a.post-read:hover{ color: var(--text-main); }
+
+/* 4) Hover раскрытие без "дыр" — подсписок скрыт полностью */
+.post-toc li.has-children > ol{
+  display: none;
+}
+.post-toc li.has-children:hover > ol,
+.post-toc li.has-children:focus-within > ol{
+  display: block;
+}
+
+/* стрелка-индикатор только для has-children */
+.post-toc li.has-children > a{
+  position: relative;
+  padding-right: 1.1rem;
+}
+.post-toc li.has-children > a::after{
+  content:"▾";
+  position:absolute;
+  right: 0;
+  top: 0.1rem;
+  font-size: .85em;
+  color: rgba(72,207,255,.8);
+  opacity: .8;
+  transition: transform .16s ease, opacity .16s ease;
+}
+.post-toc li.has-children:hover > a::after,
+.post-toc li.has-children:focus-within > a::after{
+  transform: rotate(-180deg);
+  opacity: 1;
+}
+
