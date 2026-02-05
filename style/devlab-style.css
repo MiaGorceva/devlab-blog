@@ -1306,3 +1306,65 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 }
 
 .post-toc a.post-read:hover{ color: var(--text-main); }
+
+/* =========================
+   GLOBAL content lists (article-wide), exclude TOC
+   ========================= */
+
+/* отключаем любые старые "рисованные буллеты" в статье */
+.post-page article :where(ul,ol) > li::before{
+  content: none !important;
+}
+
+/* UL bullets everywhere in article (callout included), but NOT inside TOC */
+.post-page article :where(ul):not(.post-toc ul):not(.post-toc ol):not(.post-toc ul ul):not(.post-toc ol ol){
+  list-style: disc;
+  list-style-position: outside;
+  padding-left: 1.4rem;
+  margin: .8rem 0 1rem;
+}
+
+/* neon bullets */
+.post-page article :where(ul):not(.post-toc ul):not(.post-toc ol):not(.post-toc ul ul):not(.post-toc ol ol) > li::marker{
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(72,207,255,.55), 0 0 14px rgba(72,207,255,.35);
+  font-size: .95em;
+}
+
+/* OL numbers everywhere in article, but NOT inside TOC (если в тексте есть нумерованные списки) */
+.post-page article :where(ol):not(.post-toc ol):not(.post-toc ul):not(.post-toc ol ol):not(.post-toc ul ul){
+  list-style: decimal;
+  list-style-position: outside;
+  padding-left: 1.6rem;
+  margin: .8rem 0 1rem;
+}
+
+/* spacing */
+.post-page article :where(ul,ol):not(.post-toc ul):not(.post-toc ol) > li{
+  margin: .45rem 0;
+  padding-left: .15rem;
+}
+
+/* =========================================================
+   SAFETY: TOC must never inherit content bullets
+   ========================================================= */
+
+.post-toc ul,
+.post-toc ol{
+  list-style-position: outside;
+}
+
+.post-toc li::before{
+  content: none !important;
+}
+
+.post-toc > ol > li > a.post-read{
+  display: grid;
+  grid-template-columns: 2.6rem 1fr; /* номер | текст */
+  column-gap: .6rem;
+}
+.post-toc > ol > li > ol > li > a.post-read{
+  display: grid;
+  grid-template-columns: 3.4rem 1fr; /* 1.1 | текст */
+  column-gap: .6rem;
+}
