@@ -1220,107 +1220,96 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   }
 
  /* =========================================================
-   TOC (Spis treści) — nice aligned numbering + dropdown children
-   NO empty gaps, NO double markers, smooth open
-   Structure:
-   <nav class="post-toc"><ol><li class="has-children"><a>..</a><ol>...</ol></li>...</ol></nav>
+   TOC Accordion (click to toggle)
+   - in-flow раскрытие (не absolute)
+   - no double markers
+   - nested numbering 1 / 1.1
    ========================================================= */
 
 .post-toc ol { list-style: none !important; margin: 0; padding: 0; }
 .post-toc li::marker { content: none !important; }
 
-/* counters */
 .post-toc > ol { counter-reset: toc1; }
 
-/* --- Level 1 item as grid: [number][text][arrow] --- */
+/* Level 1 row */
 .post-toc > ol > li{
   counter-increment: toc1;
   counter-reset: toc2;
   position: relative;
   display: grid;
-  grid-template-columns: 2.4rem 1fr 1.2rem;
+  grid-template-columns: 2.4rem 1fr 1.4rem;
   align-items: baseline;
   column-gap: .65rem;
   padding: .2rem 0;
-  margin: .45rem 0;
+  margin: .55rem 0;
 }
 
-/* number "1." */
+/* 1. */
 .post-toc > ol > li::before{
   content: counter(toc1) ".";
   grid-column: 1;
   text-align: right;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 10px rgba(72,207,255,.35);
+  text-shadow: 0 0 10px rgba(72,207,255,.30);
   opacity: .95;
 }
 
-/* link */
-.post-toc > ol > li > a{
+/* top link */
+.post-toc > ol > li > a.post-read{
   grid-column: 2;
   color: var(--accent);
   text-decoration: none;
   line-height: 1.35;
 }
 
-/* arrow (only when has children) */
-.post-toc > ol > li.has-children > a::after{
-  content: "▾";
+.post-toc > ol > li > a.post-read:hover{ color: var(--text-main); }
+
+/* arrow placeholder */
+.post-toc > ol > li.has-children > a.post-read::after{
+  content: "▸";
   grid-column: 3;
   margin-left: .35rem;
-  color: rgba(72,207,255,.8);
-  font-size: .85em;
   display: inline-block;
+  opacity: .75;
+  color: rgba(72,207,255,.85);
   transform-origin: 50% 55%;
   transition: transform .16s ease, opacity .16s ease;
-  opacity: .85;
 }
 
-/* rotate arrow on open */
-.post-toc > ol > li.has-children:hover > a::after,
-.post-toc > ol > li.has-children:focus-within > a::after{
-  transform: rotate(-180deg);
+/* when open (set by JS: .is-open) */
+.post-toc > ol > li.has-children.is-open > a.post-read::after{
+  transform: rotate(90deg);
   opacity: 1;
 }
 
-/* =========================================================
-   DROPDOWN children: absolute overlay => NO empty gaps
-   ========================================================= */
-
-.post-toc > ol > li.has-children { padding-bottom: .2rem; }
-
+/* ===== children block (in-flow, smooth, no gaps) ===== */
 .post-toc > ol > li.has-children > ol{
-  position: absolute;
-  left: calc(2.4rem + .65rem);   /* старт под текстом (после номера) */
-  top: 100%;
-  width: min(720px, 100%);
-  margin-top: .55rem;
-
-  /* card look */
-  padding: .55rem .75rem;
-  border-radius: 14px;
-  background: rgba(15,23,42,.92);
-  border: 1px solid rgba(72,207,255,.18);
-  box-shadow: 0 14px 34px rgba(0,0,0,.55);
-
-  /* hidden by default */
+  /* grid row trick = smooth without max-height jitter */
+  display: grid;
+  grid-template-rows: 0fr;
   opacity: 0;
-  transform: translateY(-6px);
-  pointer-events: none;
-  transition: opacity .16s ease, transform .16s ease;
-  z-index: 20;
+  transform: translateY(-4px);
+  transition: grid-template-rows .22s ease, opacity .18s ease, transform .18s ease;
+
+  /* IMPORTANT: no margin when closed => no empty gaps */
+  margin: 0;
+  padding-left: 0;
 }
 
-/* show on hover/focus */
-.post-toc > ol > li.has-children:hover > ol,
-.post-toc > ol > li.has-children:focus-within > ol{
+.post-toc > ol > li.has-children > ol > *{
+  overflow: hidden;
+}
+
+/* open state */
+.post-toc > ol > li.has-children.is-open > ol{
+  grid-template-rows: 1fr;
   opacity: 1;
   transform: translateY(0);
-  pointer-events: auto;
+  margin-top: .35rem; /* появляется только когда открыто */
 }
 
-/* --- Level 2 numbering: 1.1 / 1.2 ... --- */
+/* Level 2 items */
 .post-toc > ol > li.has-children > ol > li{
   counter-increment: toc2;
   display: grid;
@@ -1328,43 +1317,28 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   column-gap: .6rem;
   align-items: baseline;
   padding: .28rem 0;
-  margin: 0;
 }
 
+/* 1.1 */
 .post-toc > ol > li.has-children > ol > li::before{
   content: counter(toc1) "." counter(toc2);
   text-align: right;
   color: rgba(72,207,255,.92);
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 10px rgba(72,207,255,.25);
-  opacity: .95;
+  text-shadow: 0 0 10px rgba(72,207,255,.20);
 }
 
-.post-toc > ol > li.has-children > ol > li > a{
+/* child links */
+.post-toc > ol > li.has-children > ol > li > a.post-read{
   color: var(--text-muted);
   text-decoration: none;
 }
-.post-toc > ol > li.has-children > ol > li > a:hover{
+.post-toc > ol > li.has-children > ol > li > a.post-read:hover{
   color: var(--text-main);
 }
-
-/* active link (если ставишь класс) */
-.post-toc a.post-read.is-active{
-  color: var(--text-main);
-  text-decoration: underline;
-  text-decoration-color: rgba(84,229,74,.75);
-  text-underline-offset: 3px;
-}
-
-/* mobile: dropdown becomes normal flow (so it's usable without hover) */
-@media (max-width: 720px){
-  .post-toc > ol > li.has-children > ol{
-    position: static;
-    width: auto;
-    margin: .55rem 0 0;
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-    box-shadow: none;
-  }
+/* content bullets (pretty neon), TOC doesn't affect */
+.post-page .post-content ul { list-style: disc; padding-left: 1.35rem; }
+.post-page .post-content ul li::marker {
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(72,207,255,.45);
 }

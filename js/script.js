@@ -864,3 +864,19 @@ initReactions();
   });
 })();
 
+  (function () {
+    const toc = document.querySelector('.post-toc');
+    if (!toc) return;
+
+    toc.querySelectorAll('li.has-children > a.post-read').forEach(a => {
+      a.addEventListener('click', (e) => {
+        // если у пункта есть вложенный список — используем клик для toggle
+        const li = a.parentElement;
+        const child = li.querySelector(':scope > ol');
+        if (!child) return;
+
+        e.preventDefault(); // не прыгаем к #якорю при раскрытии
+        li.classList.toggle('is-open');
+      });
+    });
+  })();
