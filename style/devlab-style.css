@@ -1218,98 +1218,89 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   #dl-consent-modal .linkrow a:hover{
     border-bottom-color: rgba(72,207,255,.65);
   }
-/* =========================================================
-   TOC: hierarchical numbering + hover open/close
-   Works with:
-   <nav class="post-toc"><ol> <li class="has-children"><a>..</a><ol>...</ol></li>...</ol></nav>
-   ========================================================= */
 
- базовый ресет только для TOC 
-.post-toc ol { margin: 0; padding: 0; list-style: none; }
+  /* =========================
+   TOC — single numbering source (NO ::marker)
+   ========================= */
 
-/* включаем счётчики */
-.post-toc > ol { counter-reset: toc1; }
+/* полностью отключаем нативные маркеры */
+.post-toc ol {
+  list-style: none !important;
+  margin: 0;
+  padding: 0;
+}
 
-/* пункты 1 уровня */
+/* счётчики */
+.post-toc > ol {
+  counter-reset: toc1;
+}
+
+/* уровень 1 */
 .post-toc > ol > li {
   counter-increment: toc1;
   counter-reset: toc2;
   position: relative;
   margin: 10px 0;
-  padding-left: 2.4rem; /* место под "1." */
+  padding-left: 2.6rem;
 }
 
-/* "1." */
+/* 1. */
 .post-toc > ol > li::before {
   content: counter(toc1) ".";
   position: absolute;
   left: 0;
   top: 0.1rem;
-  width: 2rem;
+  width: 2.2rem;
   text-align: right;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
-  opacity: 0.95;
 }
 
-/* подпункты (2 уровень) */
+/* уровень 2 */
 .post-toc > ol > li > ol {
-  counter-reset: toc2;
   margin-top: 8px;
-  padding-left: 0; /* мы сами делаем отступы */
 }
 
-/* элемент 2 уровня */
 .post-toc > ol > li > ol > li {
   counter-increment: toc2;
   position: relative;
   margin: 8px 0;
-  padding-left: 3.2rem; /* место под "1.1" */
+  padding-left: 3.4rem;
 }
 
-/* "1.1" */
+/* 1.1 */
 .post-toc > ol > li > ol > li::before {
   content: counter(toc1) "." counter(toc2);
   position: absolute;
   left: 0;
   top: 0.05rem;
-  width: 2.8rem;
+  width: 3rem;
   text-align: right;
-  color: rgba(72,207,255,0.95);
+  color: rgba(72,207,255,.9);
   font-variant-numeric: tabular-nums;
-  opacity: 0.9;
 }
 
-/* ссылки в TOC */
-.post-toc a.post-read {
-  display: inline-block;
-  color: var(--text-muted);
-  line-height: 1.35;
-  text-decoration: none;
-}
-
-.post-toc a.post-read:hover {
-  color: var(--text-main);
-}
-
-/* --- раскрытие подменю --- */
+/* ===== раскрытие без дерганий (grid) ===== */
 .post-toc li.has-children > ol {
-  max-height: 0;
-  overflow: hidden;
+  display: grid;
+  grid-template-rows: 0fr;
   opacity: 0;
-  transform: translateY(-4px);
-  transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
+  transform: translateY(-6px);
+  transition: grid-template-rows .22s ease, opacity .18s ease, transform .18s ease;
 }
 
-/* открылось на hover / focus-within (тап на мобиле тоже) */
+.post-toc li.has-children > ol > * {
+  overflow: hidden;
+}
+
 .post-toc li.has-children:hover > ol,
 .post-toc li.has-children:focus-within > ol {
-  max-height: 1400px;
+  grid-template-rows: 1fr;
   opacity: 1;
   transform: translateY(0);
 }
 
-/* визуальный индикатор "есть дети" (стрелка) */
+/* стрелка */
 .post-toc li.has-children > a {
   position: relative;
   padding-right: 1.2rem;
@@ -1320,7 +1311,7 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   position: absolute;
   right: 0;
   top: 0.05rem;
-  color: rgba(148,163,184,0.8);
+  color: rgba(148,163,184,.7);
   transition: transform .18s ease, color .18s ease;
 }
 
@@ -1330,50 +1321,12 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   color: var(--accent);
 }
 
-/* подсветка активной ссылки (если ты добавляешь .is-active) */
-.post-toc a.post-read.is-active {
-  color: var(--text-main);
-  text-decoration: underline;
-  text-decoration-color: rgba(84,229,74,.75);
-  text-underline-offset: 3px;
+/* страховка: убить любые ::marker */
+.post-toc li::marker {
+  content: none;
 }
 
-/* на очень узких экранах чуть больше воздуха */
-@media (max-width: 520px) {
-  .post-toc > ol > li { padding-left: 2.2rem; }
-  .post-toc > ol > li > ol > li { padding-left: 3.0rem; }
-}
+.post-page .post-content ul li::marker { font-size: 1.05em; }
 
-/* ===== Content UL: neon blue bullets + proper indent ===== */
-.post-page .post-content ul {
-  list-style: disc;
-  list-style-position: outside;
-  padding-left: 1.35rem;         /* отступ всего списка */
-  margin: 0.85rem 0 1.1rem;
-}
-
-.post-page .post-content ul li {
-  margin: 0.45rem 0;
-  padding-left: 0.25rem;         /* расстояние от маркера до текста */
-}
-
-/* сам маркер (буллет) */
-.post-page .post-content ul li::marker {
-  color: var(--accent);
-  text-shadow:
-    0 0 10px rgba(72,207,255,.45),
-    0 0 18px rgba(72,207,255,.25);
-}
-
-/* вложенные UL — чуть больше воздуха */
-.post-page .post-content ul ul {
-  margin-top: 0.55rem;
-  padding-left: 1.25rem;
-}
-
-/* если где-то раньше ты рисовал буллеты через ::before — отключаем */
-.post-page .post-content ul > li::before {
-  content: none !important;
-}
 
 
