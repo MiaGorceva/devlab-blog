@@ -1219,103 +1219,44 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
     border-bottom-color: rgba(72,207,255,.65);
   }
 
-  /* =========================================================
-   LISTS FIX: контентные UL = неоновые буллеты
-   TOC (.post-toc) = только цифры + раскрытие has-children
-   (без дублей, без "• 1." и без двойных точек)
-   ========================================================= */
-
-
-
-/* =========================
-   TOC (Contents) — numbers only
+  /* =========================
+   LISTS: one source of truth
    ========================= */
 
-/* раскрытие */
-.post-toc__list li.has-children > ol{
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height .25s ease, opacity .2s ease;
-}
+/* --- Base: don't nuke all lists globally (у тебя * {margin:0; padding:0}) ---
+   Вернём базовые отступы только в контенте и в TOC, чтобы маркеры были видны.
+*/
 
-.post-toc__list li.has-children:hover > ol,
-.post-toc__list li.has-children:focus-within > ol{
-  max-height: 600px;
-  opacity: 1;
-}
-
-/* =========================
-   Content lists — neon bullets
-   ========================= */
-
-.post-page article section.post-content ul{
-  list-style: none;
-  margin: 0.75rem 0 1.05rem;
-  padding-left: 0;
-}
-
-.post-page article section.post-content ul > li{
-  position: relative;
-  padding-left: 1.4rem;
-  margin-bottom: 0.45rem;
-}
-
-.post-page article section.post-content ul > li::before{
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0.15rem;
-  font-size: 0.9rem;
-  color: var(--accent);
-}
-
-/* =========================
-   TOC — CLEAN & STABLE
-   ========================= */
-
-.post-toc__list{
+/* ===== TOC: numbers only (native markers) ===== */
+.post-toc .post-toc__list,
+.post-toc .post-toc__list ol,
+.post-toc .post-toc__list ul {
   list-style: decimal;
-  margin: 0;
+  margin: 0.6rem 0;
   padding-left: 1.8rem;
 }
 
-.post-toc__list li{
-  margin: 8px 0;
-}
-
-/* =========================================================
-   TOC + CONTENT LISTS (FINAL, no duplicates)
-   - TOC (.post-toc__list) = native numbers (decimal) + hover expand
-   - Content UL inside article = neon bullets
-   ========================================================= */
-
-/* ---------- TOC: numbers + expand ---------- */
-.post-toc .post-toc__list{
-  list-style: decimal;
-  margin: 0;
-  padding-left: 1.8rem;
-}
-
-.post-toc .post-toc__list li{
-  margin: 8px 0;
-}
-
-/* nested TOC lists */
-.post-toc .post-toc__list ul{
-  list-style: decimal;
-  margin: 6px 0 0;
+/* nested levels a bit tighter */
+.post-toc .post-toc__list ol,
+.post-toc .post-toc__list ul {
   padding-left: 1.6rem;
+  margin-top: 0.35rem;
 }
 
-/* IMPORTANT: kill any custom ::before markers inside TOC */
+/* kill any custom markers inside TOC */
 .post-toc .post-toc__list li::before,
-.post-toc .post-toc__list li > a::before{
-  content: none;
+.post-toc .post-toc__list li > a::before {
+  content: none !important;
 }
 
-/* Collapse children by default */
-.post-toc .post-toc__list li.has-children > ul{
+/* spacing */
+.post-toc .post-toc__list li {
+  margin: 0.35rem 0;
+}
+
+/* collapse/expand children (если у тебя дети как UL — оставляй UL, если OL — поменяй селекторы) */
+.post-toc .post-toc__list li.has-children > ul,
+.post-toc .post-toc__list li.has-children > ol {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -1323,37 +1264,63 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   transition: max-height .22s ease, opacity .18s ease, transform .18s ease;
 }
 
-/* Expand on hover / focus */
 .post-toc .post-toc__list li.has-children:hover > ul,
-.post-toc .post-toc__list li.has-children:focus-within > ul{
+.post-toc .post-toc__list li.has-children:focus-within > ul,
+.post-toc .post-toc__list li.has-children:hover > ol,
+.post-toc .post-toc__list li.has-children:focus-within > ol {
   max-height: 1200px;
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ---------- Content UL: neon bullets (exclude TOC!) ---------- */
-.post-page article section.post-content ul:not(.post-toc__list):not(.post-toc__list ul){
+
+/* ===== Content lists: bullets when NOT numbered ===== */
+/* UL in content = neon bullets */
+.post-page .post-content ul {
   list-style: none;
   margin: 0.75rem 0 1.05rem;
-  padding-left: 0; /* no double markers */
+  padding-left: 0;
 }
 
-.post-page article section.post-content ul:not(.post-toc__list):not(.post-toc__list ul) > li{
+.post-page .post-content ul > li {
   position: relative;
   padding-left: 1.4rem;
-  margin-bottom: 0.45rem;
+  margin: 0.35rem 0;
 }
 
-.post-page article section.post-content ul:not(.post-toc__list):not(.post-toc__list ul) > li::before{
+.post-page .post-content ul > li::before {
   content: "•";
   position: absolute;
   left: 0;
   top: 0.15rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--accent);
 }
 
+/* nested UL inside content */
+.post-page .post-content ul ul {
+  margin-top: 0.45rem;
+}
 
+/* OL in content = keep native numbers (если надо нумерация) */
+.post-page .post-content ol {
+  list-style: decimal;
+  margin: 0.75rem 0 1.05rem;
+  padding-left: 1.8rem;
+}
 
+.post-page .post-content ol > li {
+  margin: 0.35rem 0;
+}
 
+/* IMPORTANT: exclude TOC from content rules just in case TOC находится внутри .post-content */
+.post-page .post-content .post-toc__list,
+.post-page .post-content .post-toc__list ul,
+.post-page .post-content .post-toc__list ol {
+  list-style: decimal !important;
+  padding-left: 1.8rem !important;
+}
 
+.post-page .post-content .post-toc__list li::before {
+  content: none !important;
+}
