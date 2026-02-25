@@ -1356,3 +1356,188 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 .post-toc li::before{
   content: none !important;
 }
+
+/* ===============================
+   DevLab Tables (match homepage style)
+   =============================== */
+
+.post-content .dev-table-wrap {
+  margin: 22px 0 30px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.post-content table.dev-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 620px; /* keep readable on mobile; wrap will scroll */
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.post-content table.dev-table th,
+.post-content table.dev-table td {
+  padding: 14px 16px;
+  vertical-align: top;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.post-content table.dev-table th {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.03);
+}
+
+.post-content table.dev-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.post-content table.dev-table tbody tr:nth-child(odd) td {
+  background: rgba(255,255,255,0.015);
+}
+
+.post-content table.dev-table td strong {
+  color: rgba(255,255,255,0.92);
+}
+
+.post-content table.dev-table td .muted {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+}
+
+/* Light pages safety (if your blog is light) */
+@media (prefers-color-scheme: light) {
+  .post-content table.dev-table {
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+  }
+  .post-content table.dev-table th {
+    color: #57606a;
+    background: #f6f8fa;
+    border-bottom: 1px solid #d0d7de;
+  }
+  .post-content table.dev-table th,
+  .post-content table.dev-table td {
+    border-bottom: 1px solid #d0d7de;
+  }
+  .post-content table.dev-table tbody tr:nth-child(odd) td {
+    background: #fbfcfd;
+  }
+}
+
+/* ===============================
+   Code Block: Enterprise Dark (single style)
+   =============================== */
+
+.code-block {
+  position: relative;
+  padding: 22px 24px;
+  border-radius: 14px;
+  overflow-x: auto;
+  margin: 26px 0;
+  font-size: 14px;
+  line-height: 1.65;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  white-space: pre;
+}
+
+.code-block code { display: block; }
+
+.code-enterprise {
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+.code-enterprise::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(90deg, #38bdf8, #6366f1, #22c55e);
+}
+
+.code-block[data-lang]::after {
+  content: attr(data-lang);
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+/* ===============================
+   Image Carousel (CSS-only, with dots)
+   =============================== */
+
+.img-carousel {
+  margin: 18px 0 28px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 16px;
+}
+
+.img-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 86%;
+  gap: 14px;
+  padding: 10px;
+}
+
+.img-slide {
+  scroll-snap-align: start;
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.08);
+}
+
+.img-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.img-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.img-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.25);
+}
+
+@media (min-width: 900px) {
+  .img-track { grid-auto-columns: 56%; }
+}
+@media (min-width: 1200px) {
+  .img-track { grid-auto-columns: 46%; }
+}
+
+.img-carousel::-webkit-scrollbar { height: 8px; }
+.img-carousel::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+}
