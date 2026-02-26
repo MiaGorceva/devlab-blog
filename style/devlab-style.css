@@ -1504,8 +1504,8 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 }
 
 .img-slide img {
-  width: 100%;
-  height: auto;
+  width: 375px;
+  height: 250px;
   display: block;
 }
 
