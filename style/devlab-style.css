@@ -1393,18 +1393,18 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 
 /* зебра — но тёмная, а не “белая пыль” */
 .post-content table.dev-table tbody tr:nth-child(odd) td{
-  background: rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.85);
 }
 .post-content table.dev-table tbody tr:nth-child(even) td{
   background: transparent; /* чтобы не “молоко” */
 }
 
 .post-content table.dev-table td strong {
-  color: rgba(255,255,255,0.92);
+  color: rgba(255,255,255,0.03);
 }
 
 .post-content table.dev-table td .muted {
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.75);
   font-size: 13px;
 }
 
@@ -1477,16 +1477,15 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
 }
 
 .img-slide{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;   /* чтобы ничего не обрезалось */
-  display: block;
+ aspect-ratio: 3 / 2;
+  display: grid;
+  place-items: center;
 }
 
 .img-slide img{
   width: 100%;
   height: 100%;
-  object-fit: cover;         /* заполняет без уродства */
+  object-fit: contain;
   display: block;
 }
 
