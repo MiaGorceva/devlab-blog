@@ -1476,17 +1476,23 @@ background: rgba(5, 10, 20, 0.88); /* почти opaque */
   padding: 10px;
 }
 
+/* carousel frame */
 .img-slide{
- aspect-ratio: 3 / 2;
-  display: grid;
-  place-items: center;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 10px;              /* даёт красивый отступ */
 }
 
+/* image fit inside frame */
 .img-slide img{
   width: 100%;
-  height: 100%;
+  height: 100% !important;
   object-fit: contain;
   display: block;
+  background: #fff;           /* чтобы белые картинки не выглядели "дырой" */
+  border-radius: 12px;
 }
 
 .img-dots {
