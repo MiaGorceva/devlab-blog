@@ -689,6 +689,7 @@ main { flex: 1; padding-bottom: 3rem; }
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   gap: 1.5rem;
   font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .post-footer-extended + .sidebar-block,
