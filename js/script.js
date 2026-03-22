@@ -258,37 +258,44 @@ function initReactions() {
   const buttons = Array.from(document.querySelectorAll("button[data-vote]"));
   if (!buttons.length) return;
 
-  // Load counts (JSONP)
-  fetchJSONP(REACTIONS_ENDPOINT, { post_id: postId }).then((data) => {
-    if (data) setReactionCounts(data);
-  });
-
-  // Vote (JSONP)
+  // 1) Always attach click handlers first
   buttons.forEach((btn) => {
     btn.addEventListener("click", async () => {
       const vote = btn.getAttribute("data-vote");
       if (!vote) return;
 
-
       const key = `voted:${postId}`;
       if (localStorage.getItem(key)) return;
 
-      // optimistic UI
       const current = {
         like: Number(document.querySelector('[data-count="like"]')?.textContent || 0),
         dislike: Number(document.querySelector('[data-count="dislike"]')?.textContent || 0),
       };
+
       if (vote === "like") current.like += 1;
       if (vote === "dislike") current.dislike += 1;
       setReactionCounts(current);
 
-      const res = await fetchJSONP(REACTIONS_ENDPOINT, { post_id: postId, vote });
-      if (res && res.ok) {
-        localStorage.setItem(key, vote); // store what they picked
-        setReactionCounts(res);
+      try {
+        const res = await fetchJSONP(REACTIONS_ENDPOINT, { post_id: postId, vote });
+        if (res && res.ok) {
+          localStorage.setItem(key, vote);
+          setReactionCounts(res);
+        }
+      } catch (err) {
+        console.error("Reaction vote failed:", err);
       }
     });
   });
+
+  // 2) Load counts separately and safely
+  fetchJSONP(REACTIONS_ENDPOINT, { post_id: postId })
+    .then((data) => {
+      if (data) setReactionCounts(data);
+    })
+    .catch((err) => {
+      console.error("Reaction counts failed:", err);
+    });
 }
 
 initReactions();
