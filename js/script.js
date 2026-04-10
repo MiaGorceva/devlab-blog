@@ -1,4 +1,5 @@
 // js/script.js
+
 (() => {
   "use strict";
 
@@ -871,3 +872,43 @@ initReactions();
   });
 })();
 
+(function () {
+  const KEY = "dl_cookie_consent";
+  const banner = document.getElementById("dl-consent");
+  const acceptBtn = document.getElementById("dl-consent-accept");
+  const rejectBtn = document.getElementById("dl-consent-reject");
+
+  if (!banner || !acceptBtn || !rejectBtn) return;
+
+  const saved = localStorage.getItem(KEY);
+
+  function updateConsent(granted) {
+    if (typeof gtag !== "function") return;
+
+    gtag("consent", "update", {
+      analytics_storage: granted ? "granted" : "denied",
+      ad_storage: "denied",              // важно: у тебя нет рекламы
+      ad_user_data: "denied",
+      ad_personalization: "denied"
+    });
+  }
+
+  // показать баннер если ещё нет выбора
+  if (!saved) {
+    banner.hidden = false;
+  } else {
+    updateConsent(saved === "accepted");
+  }
+
+  acceptBtn.addEventListener("click", function () {
+    localStorage.setItem(KEY, "accepted");
+    updateConsent(true);
+    banner.hidden = true;
+  });
+
+  rejectBtn.addEventListener("click", function () {
+    localStorage.setItem(KEY, "rejected");
+    updateConsent(false);
+    banner.hidden = true;
+  });
+})();
