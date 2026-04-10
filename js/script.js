@@ -874,41 +874,62 @@ initReactions();
 
 (function () {
   const KEY = "dl_cookie_consent";
-  const banner = document.getElementById("dl-consent");
-  const acceptBtn = document.getElementById("dl-consent-accept");
-  const rejectBtn = document.getElementById("dl-consent-reject");
-
-  if (!banner || !acceptBtn || !rejectBtn) return;
 
   const saved = localStorage.getItem(KEY);
+
+  // если уже был выбор → просто применяем и выходим
+  if (saved) {
+    if (typeof gtag === "function") {
+      gtag("consent", "update", {
+        analytics_storage: saved === "accepted" ? "granted" : "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied"
+      });
+    }
+    return; // 🔥 КЛЮЧЕВОЕ — баннер даже не создаётся
+  }
+
+  // создаём баннер только если нет выбора
+  const banner = document.createElement("div");
+  banner.id = "dl-consent";
+  banner.className = "dl-consent";
+
+  banner.innerHTML = `
+    <div class="dl-consent__inner">
+      <div class="dl-consent__text">
+        <strong>Cookies</strong>
+        <p>used only for basic analytics</p>
+      </div>
+      <div class="dl-consent__actions">
+        <button id="dl-consent-accept" class="btn btn-primary">OK</button>
+        <button id="dl-consent-reject" class="btn btn-outline">No</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(banner);
 
   function updateConsent(granted) {
     if (typeof gtag !== "function") return;
 
     gtag("consent", "update", {
       analytics_storage: granted ? "granted" : "denied",
-      ad_storage: "denied",              // важно: у тебя нет рекламы
+      ad_storage: "denied",
       ad_user_data: "denied",
       ad_personalization: "denied"
     });
   }
 
-  // показать баннер если ещё нет выбора
-  if (!saved) {
-    banner.hidden = false;
-  } else {
-    updateConsent(saved === "accepted");
-  }
-
-  acceptBtn.addEventListener("click", function () {
+  banner.querySelector("#dl-consent-accept").onclick = () => {
     localStorage.setItem(KEY, "accepted");
     updateConsent(true);
-    banner.hidden = true;
-  });
+    banner.remove(); // удаляем из DOM полностью
+  };
 
-  rejectBtn.addEventListener("click", function () {
+  banner.querySelector("#dl-consent-reject").onclick = () => {
     localStorage.setItem(KEY, "rejected");
     updateConsent(false);
-    banner.hidden = true;
-  });
+    banner.remove();
+  };
 })();
