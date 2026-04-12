@@ -736,33 +736,6 @@ initReactions();
   });
 })();
 
-  // inject copy
-  const lang = detectLang();
-  const t = I18N[lang] || I18N.en;
-
-  document.getElementById("dl-c-title").textContent = t.title;
-  document.getElementById("dl-c-text").textContent = t.text;
-  document.getElementById("dl-c-analytics").textContent = t.yes;
-  document.getElementById("dl-c-reject").textContent = t.no;
-
-  // enforce choice
-  const saved = localStorage.getItem(KEY);
-  if (!saved) show();
-  else {
-    if (saved === "analytics") setAnalyticsGranted();
-    else setDenied();
-  }
-
-  document.getElementById("dl-c-analytics").addEventListener("click", function(){
-    setAnalyticsGranted();
-    hide();
-  });
-
-  document.getElementById("dl-c-reject").addEventListener("click", function(){
-    setDenied();
-    hide();
-  });
-
   (function () {
   const toc = document.getElementById("toc");
   if (!toc) return;
