@@ -641,54 +641,100 @@ initReactions();
   }
 
   const I18N = {
-   en: {
-    title: "Anonymous analytics (no ads, no personalization).",
-    text: "We use anonymous analytics to improve articles ONLY.",
-    yes: "Analytics only",
-    no: "Reject"
-  },
-  pl: {
-    title: "Anonimowa analityka (bez reklam, bez personalizacji).",
-    text: "Używamy anonimowej analityki WYŁĄCZNIE do ulepszania artykułów.",
-    yes: "Tylko analityka",
-    no: "Odrzuć"
-  },
-  ru: {
-    title: "Анонимная аналитика (без рекламы, без персонализации).",
-    text: "Мы используем анонимную аналитику ТОЛЬКО для улучшения статей.",
-    yes: "Только аналитика",
-    no: "Отклонить"
-  },
-  uk: {
-    title: "Анонімна аналітика (без реклами, без персоналізації).",
-    text: "Ми використовуємо анонімну аналітику ЛИШЕ для покращення статей.",
-    yes: "Лише аналітика",
-    no: "Відхилити"
-  },
-};
+    en: {
+      title: "Anonymous analytics (no ads, no personalization).",
+      text: "We use anonymous analytics ONLY to improve articles.",
+      yes: "Analytics only",
+      no: "Reject"
+    },
+    pl: {
+      title: "Anonimowa analityka (bez reklam, bez personalizacji).",
+      text: "Używamy anonimowej analityki WYŁĄCZNIE do ulepszania artykułów.",
+      yes: "Tylko analityka",
+      no: "Odrzuć"
+    },
+    ru: {
+      title: "Анонимная аналитика (без рекламы, без персонализации).",
+      text: "Мы используем анонимную аналитику ТОЛЬКО для улучшения статей.",
+      yes: "Только аналитика",
+      no: "Отклонить"
+    },
+    uk: {
+      title: "Анонімна аналітика (без реклами, без персоналізації).",
+      text: "Ми використовуємо анонімну аналітику ЛИШЕ для покращення статей.",
+      yes: "Лише аналітика",
+      no: "Відхилити"
+    }
+  };
 
-  function show(){ document.getElementById("dl-consent-overlay").style.display = "block"; }
-  function hide(){ document.getElementById("dl-consent-overlay").style.display = "none"; }
+  const overlay = document.getElementById("dl-consent-overlay");
+  const titleEl = document.getElementById("dl-c-title");
+  const textEl = document.getElementById("dl-c-text");
+  const yesBtn = document.getElementById("dl-c-analytics");
+  const noBtn = document.getElementById("dl-c-reject");
 
-  function setAnalyticsGranted(){
-    gtag('consent', 'update', {
-      analytics_storage: 'granted',
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied'
-    });
+  if (!overlay || !titleEl || !textEl || !yesBtn || !noBtn) return;
+
+  function show() {
+    overlay.style.display = "block";
+  }
+
+  function hide() {
+    overlay.style.display = "none";
+  }
+
+  function setAnalyticsGranted() {
+    if (typeof gtag === "function") {
+      gtag("consent", "update", {
+        analytics_storage: "granted",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied"
+      });
+    }
     localStorage.setItem(KEY, "analytics");
   }
 
-  function setDenied(){
-    gtag('consent', 'update', {
-      analytics_storage: 'denied',
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied'
-    });
+  function setDenied() {
+    if (typeof gtag === "function") {
+      gtag("consent", "update", {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied"
+      });
+    }
     localStorage.setItem(KEY, "denied");
   }
+
+  const lang = detectLang();
+  const t = I18N[lang] || I18N.en;
+
+  titleEl.textContent = t.title;
+  textEl.textContent = t.text;
+  yesBtn.textContent = t.yes;
+  noBtn.textContent = t.no;
+
+  const saved = localStorage.getItem(KEY);
+
+  if (!saved) {
+    show();
+  } else {
+    if (saved === "analytics") setAnalyticsGranted();
+    else setDenied();
+    hide();
+  }
+
+  yesBtn.addEventListener("click", function(){
+    setAnalyticsGranted();
+    hide();
+  });
+
+  noBtn.addEventListener("click", function(){
+    setDenied();
+    hide();
+  });
+})();
 
   // inject copy
   const lang = detectLang();
@@ -870,66 +916,4 @@ initReactions();
     li.addEventListener("focusin", open);
     li.addEventListener("focusout", close);
   });
-})();
-
-(function () {
-  const KEY = "dl_cookie_consent";
-
-  const saved = localStorage.getItem(KEY);
-
-  // если уже был выбор → просто применяем и выходим
-  if (saved) {
-    if (typeof gtag === "function") {
-      gtag("consent", "update", {
-        analytics_storage: saved === "accepted" ? "granted" : "denied",
-        ad_storage: "denied",
-        ad_user_data: "denied",
-        ad_personalization: "denied"
-      });
-    }
-    return; // 🔥 КЛЮЧЕВОЕ — баннер даже не создаётся
-  }
-
-  // создаём баннер только если нет выбора
-  const banner = document.createElement("div");
-  banner.id = "dl-consent";
-  banner.className = "dl-consent";
-
-  banner.innerHTML = `
-    <div class="dl-consent__inner">
-      <div class="dl-consent__text">
-        <strong>Cookies</strong>
-        <p>used only for basic analytics</p>
-      </div>
-      <div class="dl-consent__actions">
-        <button id="dl-consent-accept" class="btn btn-primary">OK</button>
-        <button id="dl-consent-reject" class="btn btn-outline">No</button>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(banner);
-
-  function updateConsent(granted) {
-    if (typeof gtag !== "function") return;
-
-    gtag("consent", "update", {
-      analytics_storage: granted ? "granted" : "denied",
-      ad_storage: "denied",
-      ad_user_data: "denied",
-      ad_personalization: "denied"
-    });
-  }
-
-  banner.querySelector("#dl-consent-accept").onclick = () => {
-    localStorage.setItem(KEY, "accepted");
-    updateConsent(true);
-    banner.remove(); // удаляем из DOM полностью
-  };
-
-  banner.querySelector("#dl-consent-reject").onclick = () => {
-    localStorage.setItem(KEY, "rejected");
-    updateConsent(false);
-    banner.remove();
-  };
 })();
