@@ -642,27 +642,30 @@ initReactions();
 
   const I18N = {
     en: {
-      title: "Anonymous analytics (no ads, no personalization).",
-      text: "We use anonymous analytics ONLY to improve articles.",
-      yes: "Analytics only",
+      title: "Anonymous analytics",
+      text: "We use cookies for analytics and to measure site performance — only to improve articles.",
+      yes: "Accept",
       no: "Reject"
     },
-    pl: {
-      title: "Anonimowa analityka (bez reklam, bez personalizacji).",
-      text: "Używamy anonimowej analityki WYŁĄCZNIE do ulepszania artykułów.",
-      yes: "Tylko analityka",
-      no: "Odrzuć"
-    },
+
     ru: {
-      title: "Анонимная аналитика (без рекламы, без персонализации).",
-      text: "Мы используем анонимную аналитику ТОЛЬКО для улучшения статей.",
-      yes: "Только аналитика",
+      title: "Анонимная аналитика",
+      text: "Мы используем cookies для аналитики и оценки работы сайта — только для улучшения статей.",
+      yes: "Принять",
       no: "Отклонить"
     },
+
+    pl: {
+      title: "Anonimowa analityka",
+      text: "Używamy cookies do analityki i pomiaru działania strony — wyłącznie w celu ulepszania artykułów.",
+      yes: "Akceptuj",
+      no: "Odrzuć"
+    },
+
     uk: {
-      title: "Анонімна аналітика (без реклами, без персоналізації).",
-      text: "Ми використовуємо анонімну аналітику ЛИШЕ для покращення статей.",
-      yes: "Лише аналітика",
+      title: "Анонімна аналітика",
+      text: "Ми використовуємо cookies для аналітики та оцінки роботи сайту — лише для покращення статей.",
+      yes: "Прийняти",
       no: "Відхилити"
     }
   };
@@ -687,9 +690,9 @@ initReactions();
     if (typeof gtag === "function") {
       gtag("consent", "update", {
         analytics_storage: "granted",
-        ad_storage: "denied",
-        ad_user_data: "denied",
-        ad_personalization: "denied"
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted" 
       });
     }
     localStorage.setItem(KEY, "analytics");
