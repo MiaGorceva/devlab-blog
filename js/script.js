@@ -844,8 +844,6 @@ initReactions();
   });
 })();
 
-})();
-
 // ===== Smooth hover: delayed close to avoid flicker (desktop) =====
 (() => {
   const toc = document.getElementById("toc");
