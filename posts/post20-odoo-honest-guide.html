@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Чесно про Odoo: що open-source ERP робить добре — і де кусається архітектура – DevLab Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Розбір практика без маркетингу: що Odoo робить добре, де вона тихо починає коштувати дорого при зміні бізнес-правила, Community проти Enterprise, Odoo проти SAP і 1С — і коли краще підходить декларативна low-code платформа."
+  />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="https://uk.devlab.blog/img/devlab-logo.svg">
+  <link rel="alternate icon" type="image/png" sizes="32x32" href="https://uk.devlab.blog/img/devlab-favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://uk.devlab.blog/img/devlab-favicon-180.png">
+
+  <!-- Consent Mode (set BEFORE GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent','default',{
+      analytics_storage:'denied',
+      ad_storage:'denied',
+      ad_user_data:'denied',
+      ad_personalization:'denied',
+      functionality_storage:'granted',
+      security_storage:'granted'
+    });
+  </script>
+
+  <!-- Main blog styles -->
+  <link rel="stylesheet" href="https://uk.devlab.blog/style/devlab-style.css">
+
+  <!-- Main blog scripts (year + search + views counter) -->
+  <script src="https://uk.devlab.blog/js/script.js" defer></script>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://uk.devlab.blog/posts/post20-odoo-honest-guide.html"
+    },
+    "headline": "Чесно про Odoo: що open-source ERP робить добре — і де кусається архітектура",
+    "description": "Розбір практика без маркетингу: що Odoo робить добре, де вона тихо починає коштувати дорого при зміні бізнес-правила, Community проти Enterprise, Odoo проти SAP і 1С — і коли краще підходить декларативна low-code платформа.",
+    "author": { "@type": "Organization", "name": "DevLab Blog" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DevLab",
+      "logo": { "@type": "ImageObject", "url": "https://uk.devlab.blog/img/devlab-logo.svg" }
+    },
+    "datePublished": "2026-07-24",
+    "dateModified": "2026-07-24"
+  }
+  </script>
+
+  <link rel="canonical" href="https://uk.devlab.blog/posts/post20-odoo-honest-guide.html">
+
+  <meta name="keywords" content="Odoo, Odoo ERP, Odoo CRM, Odoo проти SAP, Odoo Community проти Enterprise, open-source ERP, low-code ERP, декларативна платформа, lsFusion, порівняння ERP">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="DevLab Blog">
+  <meta property="og:title" content="Чесно про Odoo: що open-source ERP робить добре — і де кусається архітектура – DevLab Blog">
+  <meta property="og:description" content="Розбір практика без маркетингу: що Odoo робить добре, де вона тихо починає коштувати дорого при зміні бізнес-правила, Community проти Enterprise, Odoo проти SAP і 1С — і коли краще підходить декларативна low-code платформа.">
+  <meta property="og:url" content="https://uk.devlab.blog/posts/post20-odoo-honest-guide.html">
+  <meta property="og:image" content="https://uk.devlab.blog/img/post20-odoo-honest-guide.webp">
+  <meta property="article:published_time" content="2026-07-24">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Чесно про Odoo: що open-source ERP робить добре — і де кусається архітектура – DevLab Blog">
+  <meta name="twitter:description" content="Розбір практика без маркетингу: що Odoo робить добре, де вона тихо починає коштувати дорого при зміні бізнес-правила, Community проти Enterprise, Odoo проти SAP і 1С — і коли краще підходить декларативна low-code платформа.">
+  <meta name="twitter:image" content="https://uk.devlab.blog/img/post20-odoo-honest-guide.webp">
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WTZDV4K6');</script>
+  <!-- End Google Tag Manager -->
+</head>
+
+<body class="post-page">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTZDV4K6"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="page">
+    <!-- HEADER -->
+    <header>
+      <div class="wrapper">
+        <nav class="nav">
+          <a href="/" class="nav-brand">
+            <div class="nav-logo" aria-hidden="true">
+              <img src="https://uk.devlab.blog/img/devlab-logo.svg" alt="DevLab Blog logo">
+            </div>
+            <div class="nav-meta">
+              <div class="nav-meta-title">DevLab Blog</div>
+              <div class="nav-meta-sub">Open-source ERP &amp; automation notes</div>
+            </div>
+          </a>
+
+          <div class="nav-group">
+            <div class="nav-links">
+              <a href="/#posts">Статті</a>
+              <a href="/#categories">Категорії</a>
+              <a href="/#about">Про блог</a>
+              <a href="https://devlab.blog" target="_blank" rel="noopener noreferrer">Головний сайт</a>
+            </div>
+            <div class="nav-lang">
+              <a href="https://en.devlab.blog/">EN</a>
+              <a href="https://pl.devlab.blog/">PL</a>
+              <a href="https://ru.devlab.blog/">RU</a>
+              <a href="https://uk.devlab.blog/" class="active">UA</a>
+            </div>
+          </div>
+
+          <div class="nav-cta">
+            <a href="/#posts" class="btn btn-outline">Усі статті</a>
+            <a href="/#about" class="btn btn-primary">Що це?</a>
+          </div>
+
+          <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <div class="wrapper">
+        <div class="main-grid">
+          <!-- ARTICLE -->
+<article id="post20-odoo-honest-open-source-erp">
+
+  <div class="section-title">
+    <span>Стаття</span>
+    <small><a class="back" href="/">← До всіх статей</a></small>
+  </div>
+
+  <header>
+    <div class="post-meta">
+      <span>ERP · Odoo · Open-source</span>
+      <span>·</span>
+      <span>Приблизно 10–12 хв читання</span>
+      <span>·</span>
+      <span>Розбір практика (без маркетингу)</span>
+    </div>
+  </header>
+
+  <nav class="post-toc" id="toc">
+    <h2>Зміст</h2>
+    <ol>
+      <li class="has-children">
+        <a class="post-read" href="#intro">Вступ</a>
+        <ol>
+          <li><a class="post-read" href="#intro-why-odoo">Чому всі раз за разом приходять до Odoo</a></li>
+          <li><a class="post-read" href="#intro-two-odoos">Дві Odoo, про які вас не попереджають</a></li>
+        </ol>
+      </li>
+      <li class="has-children">
+        <a class="post-read" href="#what-it-is">Що таке Odoo насправді</a>
+        <ol>
+          <li><a class="post-read" href="#modules">Модулі, а не один моноліт</a></li>
+          <li><a class="post-read" href="#odoo-crm">Де в усьому цьому Odoo CRM</a></li>
+        </ol>
+      </li>
+      <li class="has-children">
+        <a class="post-read" href="#good">Що Odoo робить по-справжньому добре</a>
+        <ol>
+          <li><a class="post-read" href="#good-breadth">Широта охоплення за свої гроші</a></li>
+          <li><a class="post-read" href="#good-speed">Швидкість до робочого пілота</a></li>
+        </ol>
+      </li>
+      <li class="has-children">
+        <a class="post-read" href="#bites">Де Odoo кусається</a>
+        <ol>
+          <li><a class="post-read" href="#bite-upgrades">Кастомізація проти «податку на апгрейд»</a></li>
+          <li><a class="post-read" href="#bite-where-logic-lives">Глибший укус: де живе ваша логіка</a></li>
+          <li><a class="post-read" href="#bite-tco">Реальна повна вартість</a></li>
+        </ol>
+      </li>
+      <li><a class="post-read" href="#vs-sap">Odoo проти SAP проти 1С — в одній чесній таблиці</a></li>
+      <li><a class="post-read" href="#alternative">Коли Odoo перестає підходити: декларативна альтернатива</a></li>
+      <li><a class="post-read" href="#verdict">То чи варто її використовувати?</a></li>
+    </ol>
+  </nav>
+
+  <section class="post-content">
+    <h1 class="hero-title">Чесно про Odoo</h1>
+    <p class="post-subtitle">
+      Odoo — це ERP, яку всі вносять у шортлист і яку ніхто до кінця не пояснює. Це справді
+      хороший софт, який ще й тихо виставить вам рахунок, до якого ви не готувалися — і рахунок
+      цей не про ліцензію. Він про те, що стається першого разу, коли бізнес просить змінити одне
+      правило. Це та версія, яку консультант розповідає після третього келиха.
+    </p>
+
+    <div class="callout" role="note">
+      <strong>Для кого це</strong>
+      <p>
+        Засновники, керівники операцій та IT-менеджери, які вирішують, чи підходить Odoo компанії
+        на 10–500 осіб. Без афіліацій і реферальних посилань — лише компроміси, зокрема
+        архітектурний, який більшість оглядів оминає.
+      </p>
+    </div>
+  </section>
+
+  <hr>
+
+  <section class="post-content">
+
+    <h2 id="intro-why-odoo">Чому всі раз за разом приходять до Odoo</h2>
+    <p>
+      Пошукайте «недорога ERP» — і будь-яка дорога рано чи пізно приведе до Odoo. І на це є
+      причина: вона покриває абсурдно багато — продажі, CRM, склад, облік, виробництво, HR,
+      e-commerce, конструктор сайтів — під одним логіном, а вхідна ціна або «безкоштовно», або
+      «дивовижно дешево». Для компанії, що росте й тоне в таблицях та розрізнених інструментах,
+      такий меседж заходить на ура.
+    </p>
+    <p>
+      Підступ у тому, що «Odoo — це дешево» правдиве рівно так само, як правдиве «цуценя —
+      безкоштовне». Ціна на ціннику — найменше число, з яким ви матимете справу. Зрозуміти
+      <em>чому</em> — і є весь сенс цієї статті.
+    </p>
+
+    <h2 id="intro-two-odoos">Дві Odoo, про які вас не попереджають</h2>
+    <p>
+      Odoo не одна. Їх дві, і плутанина між ними — найчастіша й найдорожча помилка покупців.
+    </p>
+    <ul>
+      <li><strong>Odoo Community</strong> — open-source, по-справжньому безкоштовна редакція. Потужна, але без глибини обліку, без studio-кастомізації та без багатьох «очевидних» функцій.</li>
+      <li><strong>Odoo Enterprise</strong> — платна редакція, за користувача і за застосунок. Саме цю Odoo ви бачили у вилизаному демо. Демо — це не Community.</li>
+    </ul>
+
+    <div class="callout" role="note">
+      <strong>Важливо</strong>
+      <p>
+        Майже кожен відгук в інтернеті «Odoo чудова / Odoo жах» насправді — відгук про те,
+        <em>якою редакцією користувався автор</em>. Визначте Community чи Enterprise, перш ніж
+        повірити хоч одній думці — включно з цією.
+      </p>
+    </div>
+
+    <hr>
+
+    <h2 id="modules">Модулі, а не один моноліт</h2>
+    <p>
+      Головна ідея Odoo — модульність. Ви не ставите «Odoo»; ви вмикаєте застосунки — Продажі,
+      Склад, Облік, Виробництво — і вони поділяють одну базу даних та одну модель даних. Увімкніть
+      разом Склад і Продажі — і підтверджене замовлення зможе зарезервувати товар без жодної
+      інтеграції. Саме цей спільний кор і є джерелом магії, а згодом — і болю.
+    </p>
+
+    <h2 id="odoo-crm">Де в усьому цьому Odoo CRM</h2>
+    <p>
+      Багато компаній знайомляться з Odoo через її CRM, а не через ERP. Це адекватний інструмент
+      для воронки та лідів, який ще й сидить на тій самій базі, що й ваші замовлення, рахунки та
+      склад — тож виграна угода може перетекти прямо у пропозицію та доставку. У цьому й чесна
+      привабливість Odoo CRM: це рідко найкраща CRM, яку можна купити, але, можливо, найбільш
+      <em>зв'язана</em> з тих, що у вас будуть, бо це не окремий острів, який треба
+      синхронізувати.
+    </p>
+
+    <hr>
+
+    <h2 id="good-breadth">Широта охоплення за свої гроші</h2>
+    <p>
+      Жоден масовий конкурент не дає маленькій компанії стільки площі так дешево. Отримати
+      співставне покриття з best-of-breed SaaS — CRM, WMS, обліковий пакет, e-commerce — це п'ять
+      підписок і п'ять інтеграцій, за якими треба наглядати. Odoo згортає їх в одну систему з
+      єдиним джерелом правди. Для компанії на 30 осіб одна ця консолідація вже може виправдати
+      перехід.
+    </p>
+
+    <h2 id="good-speed">Швидкість до робочого пілота</h2>
+    <p>
+      Правдоподібний пілот Odoo можна підняти за дні, а не за квартали. Ця швидкість реальна і це
+      справжня перевага над важкими ERP, де «давайте просто спробуємо» — шестизначне речення.
+      Користуйтеся цим — але прочитайте наступний розділ, перш ніж прийняти швидкий пілот за
+      завершену систему.
+    </p>
+
+    <div class="callout" role="note">
+      <strong>Практичний висновок</strong>
+      <p>
+        Сильні сторони Odoo — широта і швидкість до пілота. Якщо ваш біль — «забагато розрізнених
+        інструментів», то це рівно те завдання, під яке Odoo й заточена. Питання в тому, що
+        станеться того дня, коли ваш процес перестане виглядати стандартним.
+      </p>
+    </div>
+
+    <hr>
+
+    <h2 id="bite-upgrades">Кастомізація проти «податку на апгрейд»</h2>
+    <p>
+      Ось частина, яку демо пропускає. Odoo легко кастомізувати й важко <em>зберігати</em>
+      кастомізованою. Будь-яке серйозне впровадження обростає власними модулями та правками. Потім
+      щороку виходить нова версія Odoo, а ваші доробки не мігрують самі. Що сильніше ви гнули Odoo
+      під себе, то дорожчий кожен апгрейд — аж поки частина компаній просто не перестає оновлюватися
+      й не замерзає на застарілій версії.
+    </p>
+    <p>
+      Це не баг Odoo; це фізика кастомізації будь-якої ERP. Але щорічний реліз-цикл Odoo робить так,
+      що рахунок приходить частіше й помітніше, ніж у більшості.
+    </p>
+
+    <h2 id="bite-where-logic-lives">Глибший укус: де живе ваша логіка</h2>
+    <p>
+      «Податок на апгрейд» — це симптом. Причина сидить рівнем нижче, і це та сама причина, що
+      робить 1С, SAP і Dynamics дорогими в момент зміни: <strong>бізнес-правило рідко живе в одному
+      місці.</strong> В Odoo по-справжньому нестандартне правило зазвичай розмазується по
+      ORM-моделях, обчислюваних полях, кількох SQL-в'ю та кількох cron-задачах, що перераховують
+      агрегати. Кожне окремо розумне. Разом вони означають, що «змінити логіку знижки» чи «додати
+      один виняток у резервування товару» — вже не правка, а міні-проєкт, що зачіпає модель, форму,
+      звіт і фонову задачу, і перевіряється вручну.
+    </p>
+    <p>
+      Це й є чесний тест для будь-якої ERP, Odoo включно: попросіть показати <em>одне</em> правило й
+      <em>усі</em> місця, де воно реалізоване. Якщо відповідь — «код плюс обчислюване поле плюс в'ю
+      плюс cron», то вартість вашої наступної зміни вже непередбачувана. Ми детально розбираємо цю
+      діагностику у статті
+      <a href="/posts/post16-erp-architecture-doesnt-break-compare-1c-sap-dynamics-odoo.html">«ERP, яка не перетворюється на дорогий гальмо»</a>.
+    </p>
+
+    <h2 id="bite-tco">Реальна повна вартість</h2>
+    <p>
+      Складіть те, що «безкоштовно» насправді містить, коли ви вже у продакшені:
+    </p>
+    <ul>
+      <li>Ліцензії Enterprise, якщо потрібні функції з демо (за користувача, за застосунок, щорічно).</li>
+      <li>Партнер із впровадження — мало хто чисто впроваджує облік і виробництво самотужки.</li>
+      <li>Хостинг і супровід (Odoo.sh або ваше операційне навантаження при self-hosted).</li>
+      <li>«Податок на апгрейд» із розділу вище — повторюваний усе життя системи.</li>
+    </ul>
+    <p>
+      Ніщо з цього не робить Odoo поганою угодою. Це робить її <em>звичайною</em> ERP-угодою в
+      open-source-худі. Закладіть у бюджет реальне число — і будете задоволені; закладіть
+      «безкоштовно» — відчуєте, що вас підставили.
+    </p>
+
+    <div class="callout" role="note">
+      <strong>Важливо</strong>
+      <p>
+        Практичне правило: якою б не була цифра в ліцензійній пропозиції, повна вартість першого
+        року зазвичай кратна їй, коли врахуєте партнера, хостинг і міграцію даних. Питайте будь-якого
+        партнера Odoo вартість «усе включено», а не рядок ліцензії.
+      </p>
+    </div>
+
+    <hr>
+
+    <h2 id="vs-sap">Odoo проти SAP проти 1С — в одній чесній таблиці</h2>
+    <p>
+      Покупці зазвичай порівнюють Odoo із SAP Business One чи 1С. Коротко:
+    </p>
+    <ul>
+      <li><strong>Odoo</strong> — найбільша широта функцій на долар, найшвидший пілот, найдружніша до внутрішніх доробок. Найслабша — у безболісних апгрейдах і в утриманні нестандартного правила в одному місці.</li>
+      <li><strong>SAP Business One</strong> — глибша фінансова строгість і зріла партнерська екосистема, важча й дорожча, менш приємна у кастомізації. Варіант «за це нікого не звільнять» для середнього бізнесу.</li>
+      <li><strong>1С</strong> — украй сильна там, де вимога — її регіональний облік і локалізація; за межами цих ринків — інший світ. Потужна, але власні архітектурні обмеження проявляються в момент, коли змінюються бізнес-правила — тему ми розбираємо в нашому <a href="/posts/post16-erp-architecture-doesnt-break-compare-1c-sap-dynamics-odoo.html">розборі архітектури ERP</a>.</li>
+    </ul>
+    <p>
+      Переможця в абстракції немає. Є лише переможець під <em>ваше</em> обмеження: широта-на-долар
+      (Odoo), фінансова глибина (SAP) чи регіональний комплаєнс (1С). А якщо ваше реальне обмеження
+      — процес, що постійно змінюється, чесна відповідь — жоден із трьох. Читайте далі.
+    </p>
+
+    <hr>
+
+    <h2 id="alternative">Коли Odoo перестає підходити: декларативна альтернатива</h2>
+    <p>
+      Усе сказане вище припускає, що ваш процес достатньо близький до форми стандартної ERP. Багато
+      компаній — ні: їхня перевага <em>і є</em> незвичний процес, і він постійно еволюціонує. Для них
+      «податок на апгрейд» і проблема розмазаної логіки — не рідкісні незручності, а вся вартість
+      володіння. Це той випадок, коли відповідь — інша архітектура, а не інша ERP.
+    </p>
+    <p>
+      Альтернатива — це <strong>low-code, декларативна платформа</strong> — підхід, на якому DevLab
+      будує з <strong>lsFusion</strong> — де дані, обчислення й контроль живуть в одній моделі, а не
+      розмазані по коду, формах, запитах і cron-задачах. Практична різниця різка: правило описане в
+      одному місці, платформа сама вирішує, як його виконати, і вартість наступної зміни — те, що
+      можна передбачити, а не розслідувати. Оскільки логіка компактна й декларативна, а не похована в
+      історії реалізації, вона ще й читабельна — вашою командою й дедалі частіше ШІ, навченим на
+      ваших власних правилах.
+    </p>
+    <p>
+      Це не «Odoo погана, ми хороші». Odoo чудово підходить компанії, якій потрібна широка зв'язана
+      функціональність на стандартному процесі. Декларативний підхід виграє саме тоді, коли
+      fit-to-process і дешева, безпечна зміна — це те, що ви насправді купуєте. Якщо це про вас,
+      почніть звідси:
+    </p>
+    <ul>
+      <li><a href="/posts/post16-erp-architecture-doesnt-break-compare-1c-sap-dynamics-odoo.html">ERP, яка не перетворюється на дорогий гальмо</a> — чому зміна дорожчає і як це перевірити на пілоті.</li>
+      <li><a href="/posts/post7-why-open-source-erp-stacks-real-alternative.html">Open-source ERP-стеки як реальна альтернатива</a> — що компанії насправді використовують.</li>
+      <li><a href="/posts/post6-low-code-platforms-principles-benefits.html">Low-code платформи: принципи та переваги</a> — що дає декларативний підхід.</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="verdict">То чи варто її використовувати?</h2>
+    <p>
+      Використовуйте Odoo, якщо ваш біль — фрагментація (забагато інструментів, немає єдиного джерела
+      правди), ваш процес близький до стандартного, і у вас є (або з'явиться) той, хто нею володіє.
+      Заходьте з відкритими очима щодо Community проти Enterprise, закладайте вартість «усе включено»,
+      а не рядок ліцензії, і визначте свою філософію «кастомізація проти апгрейду» <em>до</em> того,
+      як почнете її гнути, а не після.
+    </p>
+    <p>
+      Дивіться повз Odoo, якщо ваша конкурентна перевага — нестандартний процес, що постійно
+      змінюється; якщо потрібні глибокі сертифіковані «з коробки» фінанси з нульовою кастомізацією;
+      або якщо нею на вашому боці ніхто не володітиме. У першому випадку особливо «дешева» ERP стає
+      дорогою — а декларативна платформа виявляється дешевшою відповіддю на все життя системи.
+    </p>
+
+    <div class="callout" role="note">
+      <strong>Практичний висновок</strong>
+      <p>
+        Odoo — по-справжньому хороша ERP з чесним набором компромісів. За реалістичної ціни та штату
+        на стандартному процесі це одна з найкращих за співвідношенням ціна/якість систем на ринку.
+        З цінником «безкоштовно» або зігнута під незвичний процес — це пастка. Софт ніколи не був
+        ризиком; ризик — план і архітектура навколо нього.
+      </p>
+    </div>
+
+              <hr>
+            <h2 id="feedback">Швидкий фідбек</h2>
+            <div class="callout">
+              <strong>Було корисно?</strong>
+              <p>Короткий сигнал допомагає нам обирати наступні теми.</p>
+              <div class="hero-actions">
+                <button class="btn btn-primary" type="button" data-vote="like">👍 Так <span class="count" data-count="like">—</span></button>
+                <button class="btn btn-outline" type="button" data-vote="dislike">👎 Не дуже <span class="count" data-count="dislike">—</span></button>
+              </div>
+              <p class="sidebar-text">Без коментарів і акаунтів.</p>
+            </div>
+            <h2 id="related-posts">Читати далі</h2>
+            <div class="callout">
+              <strong>Продовжити:</strong>
+              <ul>
+                <li><a href="https://uk.devlab.blog/posts/post16-erp-architecture-doesnt-break-compare-1c-sap-dynamics-odoo.html" target="_blank" rel="noopener noreferrer">ERP, яка не перетворюється на дорогий гальмо — 1С / SAP / Dynamics / Odoo ↗</a></li>
+                <li><a href="https://uk.devlab.blog/posts/post7-why-open-source-erp-stacks-real-alternative.html" target="_blank" rel="noopener noreferrer">Чому open-source ERP-стеки — реальна альтернатива ↗</a></li>
+                <li><a href="https://uk.devlab.blog/posts/post6-low-code-platforms-principles-benefits.html" target="_blank" rel="noopener noreferrer">Low-code платформи: принципи та переваги ↗</a></li>
+              </ul>
+            </div>
+          </section>
+
+            <footer class="post-footer-extended">
+              <div class="post-footer-meta">
+                <div class="post-meta-tags">
+                  <span class="post-tag">ERP</span>
+                  <span class="post-tag">Odoo</span>
+                  <span class="post-tag">Open-source</span>
+                  <span class="post-tag">Low-code</span>
+                  <span class="post-tag">Декларативність</span>
+                  <span class="post-tag">Vendor lock-in</span>
+                  <span class="post-tag">lsFusion</span>
+                  <span class="post-tag">TCO</span>
+                </div>
+                <div class="post-meta-secondary">
+                  <span>Опубліковано: 24 лип 2026</span>
+                  <span>·</span>
+                  <span>Приблизно 10–12 хв читання</span>
+                  <span>·</span>
+                  <span class="post-views">Перегляди: <span class="count">—</span></span>
+                </div>
+              </div>
+            </footer>
+
+            <!-- Inline newsletter -->
+            <section class="sidebar-block">
+              <p class="sidebar-text">Без спаму — лише рідкі нотатки про ERP, автоматизацію та нові статті.</p>
+              <form class="newsletter-form" action="https://formsubmit.co/info@devlab.blog" method="POST">
+                <input type="hidden" name="_next" value="https://uk.devlab.blog/thank-you.html">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="text" name="_honey" style="display:none">
+                <input type="email" name="email" class="field" placeholder="Ваш email" required>
+                <button class="btn btn-primary" type="submit">Підписатися</button>
+                <p class="newsletter-note">Ви отримаєте лист підтвердження.<br>Працює через FormSubmit.</p>
+              </form>
+            </section>
+
+            <div class="post-nav-links">
+              <a class="back" href="/#posts" style="margin-left: 0;">← Назад до всіх статей</a>
+              <a class="back" href="/#categories" style="margin-right: 0;">Категорії →</a>
+            </div>
+        </article>
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+          <section class="sidebar-block">
+            <h3 class="sidebar-title" id="topic-question-title">Запропонувати тему</h3>
+            <p class="sidebar-text">
+              Маєте запитання або ідею для наступної статті?
+              <a class="post-read" href="mailto:info@devlab.blog?subject=Ідея%20або%20питання%20для%20DevLab%20Blog">
+                Написати нам →
+              </a>
+            </p>
+          </section>
+
+          <section class="sidebar-block">
+            <h3 class="sidebar-title">Про блог</h3>
+            <p class="sidebar-text">
+              DevLab Blog — нотатки про open-source ERP, модульні підходи, інтеграції та практику автоматизації.
+              Пишемо про те, що ламається в реальних впровадженнях, і як ухвалювати технологічні рішення без “релігії”.
+            </p>
+          </section>
+
+          <section class="sidebar-block">
+            <h3 class="sidebar-title">Ще</h3>
+            <p class="sidebar-text">
+              Поверніться на головну сторінку або оберіть категорію:
+            </p>
+            <ul>
+              <li><a href="/">Усі статті</a></li>
+              <li><a href="/#categories">Категорії</a></li>
+              <li><a href="https://devlab.blog" target="_blank" rel="noopener noreferrer">Головний сайт DevLab</a></li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrapper footer-grid">
+      <div>
+        <div class="footer-links">
+          <a href="/">Статті</a>
+          <a href="/#categories">Категорії</a>
+          <a href="/#about">Про блог</a>
+          <a href="https://devlab.blog" target="_blank" rel="noopener noreferrer">Головний сайт</a>
+        </div>
+        <p class="footer-meta">
+          DevLab Blog — нотатки про open-source ERP, модульні архітектури та автоматизацію.
+        </p>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; <span id="year"></span> DevLab Blog</p>
+      </div>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
