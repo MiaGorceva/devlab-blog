@@ -53,11 +53,11 @@
       "logo": { "@type": "ImageObject", "url": "https://uk.devlab.blog/img/devlab-logo.svg" }
     },
     "datePublished": "2026-01-22",
-    "dateModified": "2026-01-22"
+    "dateModified": "2026-07-31"
   }
   </script>
 
-  <link rel="canonical" href="https://uk.devlab.blog/posts/post16-erp-change-friendly-architecture-compare.html">
+  <link rel="canonical" href="https://uk.devlab.blog/posts/post16-erp-architecture-doesnt-break-compare-1c-sap-dynamics-odoo.html">
 
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -119,7 +119,7 @@
       <div class="wrapper">
         <div class="main-grid">
           <!-- ARTICLE -->
-          <article id="post16-erp-change-friendly-architecture-compare">
+          <article id="post16-erp-architecture-doesnt-break-compare-1c-sap-dynamics-odoo">
             <div class="section-title">
               <span>Стаття</span>
               <small><a class="back" href="/">← Назад до всіх статей</a></small>
@@ -159,6 +159,41 @@
             </header>
 
             <!-- ===================================================== -->
+              <div class="callout">
+                <strong>Оновлення 2026 — вердикт в одній таблиці, потім довга чесна версія.</strong>
+                <p>
+                  Від першої публікації це порівняння загострили дві речі. Розробка за допомогою AI сильно підняла цінність
+                  <em>читабельної, декларативної</em> логіки — AI допоможе лише з правилами, які реально бачить. А обов’язкові e-фактури, як польський
+                  <a href="/posts/post14-ksef-2026-limit-10000-checklist.html">KSeF ↗</a>, перетворили питання «скільки коштує змінити правило?» на реальне питання compliance, а не теорію.
+                </p>
+              </div>
+
+              <p><strong>Де кожен ERP перетворюється на гальмо — в один рядок:</strong></p>
+
+              <div class="dev-table-wrap">
+                <table class="dev-table">
+                  <thead>
+                    <tr><th>Система</th><th>Архітектурне гальмо</th><th>Ціна нестандартної зміни правила</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><strong>1C</strong></td><td>Логіка розмазана між конфігурацією і кодом; сильна регіональна прив’язка</td><td>Передбачувано всередині своєї моделі, дорого — щойно виходиш за неї</td></tr>
+                    <tr><td><strong>SAP</strong></td><td>Глибина і суворість, але зміна йде крізь важкі шари й governance</td><td>Висока — консультанти й процес є частиною кожної зміни</td></tr>
+                    <tr><td><strong>Dynamics</strong></td><td>Модель розширень плюс хмарний цикл оновлень, який ви не контролюєте</td><td>Середня–висока; кастомізації воюють із потягом оновлень</td></tr>
+                    <tr><td><strong>Odoo</strong></td><td>Одне правило розтікається по моделях, обчислюваних полях, представленнях і cron</td><td>Зростає з кожною кастомізацією — щорічний «податок на апгрейд»</td></tr>
+                    <tr><td><strong>Декларативний (lsFusion)</strong></td><td>Дані, обчислення й керування в одній моделі</td><td>Описано один раз, в одному місці — ціна, яку можна передбачити</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p>
+                Це вердикт. Решта — докази: модель даних, шар запитів, виконання, форми, мова та фізична модель —
+                плюс конкретний тест для демо. Пов’язане: <a href="/posts/post13-open-source-erp-low-code.html">ландшафт open-source ERP ↗</a>,
+                порівняння на рівні коду <a href="/posts/post17-2026-02-06-erpnext-vs-mycompany-lsfusion-smb-tco.html">ERPNext vs MyCompany ↗</a> та
+                <a href="/posts/post20-odoo-honest-guide.html">чесний розбір Odoo ↗</a>.
+              </p>
+
+              <hr>
+
             <nav class="post-toc" id="toc">
               <h2>Зміст</h2>
               <ol>
@@ -2017,6 +2052,8 @@
 
               <div class="post-meta-secondary">
                 <span>Опубліковано: 22 січ 2026</span>
+                  <span>·</span>
+                  <span>Оновлено: 31 лип 2026</span>
                 <span>·</span>
                 <span>Приблизно 10–12 хв читання</span>
                 <span>·</span>
