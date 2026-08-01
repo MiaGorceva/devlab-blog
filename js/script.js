@@ -5,6 +5,19 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     /* =========================
+       0) Make sure our custom events reach GA4.
+       GA4 is loaded via GTM here, with no direct gtag config, so a plain
+       gtag('event', ...) is not delivered to the property. Register the
+       measurement ID directly with send_page_view:false (GTM already sends
+       page_views) so events like feedback_helpful are actually collected.
+       ========================= */
+    try {
+      if (typeof gtag === "function") {
+        gtag("config", "G-PR3METHHBR", { send_page_view: false });
+      }
+    } catch (e) {}
+
+    /* =========================
        1) Footer year
        ========================= */
     const yearEl = document.getElementById("year");
