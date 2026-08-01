@@ -268,6 +268,18 @@ function initReactions() {
       const key = `voted:${postId}`;
       if (localStorage.getItem(key)) return;
 
+      // Analytics: fire a conversion-worthy event for the vote.
+      // "like" = reader explicitly found the post helpful (a meaningful grant conversion).
+      try {
+        const evName = vote === "like" ? "feedback_helpful" : "feedback_not_helpful";
+        if (typeof gtag === "function") {
+          gtag("event", evName, { post_id: postId, method: "vote_widget" });
+        }
+        if (window.dataLayer) {
+          window.dataLayer.push({ event: evName, post_id: postId });
+        }
+      } catch (e) { /* analytics must never block the vote */ }
+
       const current = {
         like: Number(document.querySelector('[data-count="like"]')?.textContent || 0),
         dislike: Number(document.querySelector('[data-count="dislike"]')?.textContent || 0),
