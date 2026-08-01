@@ -267,6 +267,9 @@ function initReactions() {
 
       const key = `voted:${postId}`;
       if (localStorage.getItem(key)) return;
+      // Lock immediately: one vote per reader, regardless of the server response.
+      // (Otherwise repeat clicks fire the analytics event again and inflate counts.)
+      localStorage.setItem(key, vote);
 
       // Analytics: fire a conversion-worthy event for the vote.
       // "like" = reader explicitly found the post helpful (a meaningful grant conversion).
