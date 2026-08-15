@@ -296,14 +296,23 @@ function initReactions() {
         }
       } catch (e) { /* analytics must never block the vote */ }
 
-      const current = {
-        like: Number(document.querySelector('[data-count="like"]')?.textContent || 0),
-        dislike: Number(document.querySelector('[data-count="dislike"]')?.textContent || 0),
+      // Read the counts already on screen. Returns null when they haven't loaded
+      // yet (placeholder "—"), so we never do Number("—") -> NaN.
+      const readCount = (k) => {
+        const n = parseInt(document.querySelector(`[data-count="${k}"]`)?.textContent, 10);
+        return Number.isFinite(n) ? n : null;
       };
+      const curLike = readCount("like");
+      const curDislike = readCount("dislike");
 
-      if (vote === "like") current.like += 1;
-      if (vote === "dislike") current.dislike += 1;
-      setReactionCounts(current);
+      // Optimistic bump only when real counts are already displayed — otherwise
+      // wait for the server response (avoids flashing NaN or a wrong "1").
+      if (curLike !== null && curDislike !== null) {
+        setReactionCounts({
+          like: curLike + (vote === "like" ? 1 : 0),
+          dislike: curDislike + (vote === "dislike" ? 1 : 0),
+        });
+      }
 
       try {
         const res = await fetchJSONP(REACTIONS_ENDPOINT, { post_id: postId, vote });
@@ -317,14 +326,19 @@ function initReactions() {
     });
   });
 
-  // 2) Load counts separately and safely
-  fetchJSONP(REACTIONS_ENDPOINT, { post_id: postId })
-    .then((data) => {
-      if (data) setReactionCounts(data);
-    })
-    .catch((err) => {
-      console.error("Reaction counts failed:", err);
-    });
+  // 2) Load counts separately and safely. The JSONP endpoint can intermittently
+  //    302 / rate-limit and resolve null, which would otherwise leave the "—"
+  //    placeholder on screen. Retry a few times before giving up.
+  (function loadCounts(attempt) {
+    fetchJSONP(REACTIONS_ENDPOINT, { post_id: postId })
+      .then((data) => {
+        if (data) { setReactionCounts(data); return; }
+        if (attempt < 4) setTimeout(() => loadCounts(attempt + 1), 700 * attempt);
+      })
+      .catch(() => {
+        if (attempt < 4) setTimeout(() => loadCounts(attempt + 1), 700 * attempt);
+      });
+  })(1);
 }
 
 initReactions();
