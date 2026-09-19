@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Безкоштовна програма для фактур KSeF: які є варіанти (державні та open-source) – DevLab Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Чи можна виставляти фактури в KSeF безкоштовно? Огляд безкоштовних варіантів: державний застосунок Aplikacja Podatnika KSeF, e-mikrofirma та open-source рішення — кому підходять і де їхні межі."
+  />
+
+  <link rel="icon" type="image/svg+xml" href="https://uk.devlab.blog/img/devlab-logo.svg">
+  <link rel="alternate icon" type="image/png" sizes="32x32" href="https://uk.devlab.blog/img/devlab-favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://uk.devlab.blog/img/devlab-favicon-180.png">
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{
+    analytics_storage:'denied', ad_storage:'denied', ad_user_data:'denied',
+    ad_personalization:'denied', functionality_storage:'granted', security_storage:'granted'
+  });
+</script>
+
+  <link rel="preconnect" href="https://uk.devlab.blog">
+  <link rel="dns-prefetch" href="https://uk.devlab.blog">
+  <link rel="stylesheet" href="https://uk.devlab.blog/style/devlab-style.css">
+  <script src="https://uk.devlab.blog/js/script.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Безкоштовна програма для фактур KSeF: які є варіанти (державні та open-source)",
+    "description": "Чи можна виставляти фактури в KSeF безкоштовно? Огляд безкоштовних варіантів: Aplikacja Podatnika KSeF, e-mikrofirma та open-source рішення.",
+    "author": { "@type": "Organization", "name": "DevLab Blog" },
+    "publisher": { "@type": "Organization", "name": "DevLab", "logo": { "@type": "ImageObject", "url": "https://uk.devlab.blog/img/devlab-logo.svg" } },
+    "mainEntityOfPage": "https://uk.devlab.blog/posts/post22-darmowy-program-do-faktur-ksef.html",
+    "datePublished": "2026-09-18",
+    "dateModified": "2026-09-18"
+  }
+  </script>
+  <link rel="canonical" href="https://uk.devlab.blog/posts/post22-darmowy-program-do-faktur-ksef.html">
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WTZDV4K6');</script>
+</head>
+
+<body class="post-page">
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTZDV4K6"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <div class="page">
+    <header>
+      <div class="wrapper">
+        <nav class="nav">
+          <a href="/" class="nav-brand">
+            <div class="nav-logo" aria-hidden="true">
+              <img src="https://uk.devlab.blog/img/devlab-logo.svg" alt="DevLab Blog logo">
+            </div>
+            <div class="nav-meta">
+              <div class="nav-meta-title">DevLab Blog</div>
+              <div class="nav-meta-sub">Нотатки про open-source ERP та автоматизацію</div>
+            </div>
+          </a>
+          <div class="nav-group">
+            <div class="nav-links">
+              <a href="/#posts">Статті</a>
+              <a href="/#categories">Категорії</a>
+              <a href="/#about">Про блог</a>
+              <a href="https://devlab.blog" target="_blank" rel="noopener noreferrer">Основний сайт</a>
+            </div>
+            <div class="nav-lang">
+              <a href="https://en.devlab.blog/">EN</a>
+              <a href="https://pl.devlab.blog/">PL</a>
+              <a href="https://ru.devlab.blog/">RU</a>
+              <a href="/" class="active">UA</a>
+            </div>
+          </div>
+          <div class="nav-cta">
+            <a href="/#posts" class="btn btn-outline">Переглянути статті</a>
+            <a href="/#about" class="btn btn-primary">Що це?</a>
+          </div>
+          <button class="nav-toggle" aria-label="Перемкнути навігацію">☰</button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrapper">
+        <div class="main-grid">
+          <article>
+            <div class="section-title">
+              <span>Стаття</span>
+              <small><a href="/">← Повернутися до всіх статей</a></small>
+            </div>
+
+            <header>
+              <div class="post-meta">
+                <span>Регуляторика · KSeF</span>
+                <span>&middot;</span>
+                <span>Близько 8 хв читання</span>
+              </div>
+              <h1 class="hero-title">
+                Безкоштовна програма для фактур KSeF: які є варіанти
+              </h1>
+              <p class="hero-text">
+                Разом із KSeF постачальники почали продавати платні «модулі е-фактур». Але перш ніж платити —
+                варто знати, що виставити фактуру в KSeF можна й <strong>безкоштовно</strong>. Ось чесний огляд
+                безкоштовних шляхів: державні інструменти, їхні межі та open-source рішення для компаній, яким
+                державного застосунку вже замало.
+              </p>
+              <figure class="post-hero">
+                <img src="https://uk.devlab.blog/img/post12-ksef-low-code-poland.webp" alt="Безкоштовні програми для фактур KSeF у Польщі">
+              </figure>
+            </header>
+
+            <section class="post-content">
+              <h2>1. Чи справді потрібна платна програма для KSeF?</h2>
+              <p>
+                KSeF (Krajowy System e-Faktur) — це національна платформа Польщі для виставлення та отримання
+                структурованих XML-фактур. Сам доступ до KSeF безкоштовний — його надає Міністерство фінансів.
+                Платними бувають уже <em>програми</em>, що додають згори власний інтерфейс, інтеграції та автоматизацію.
+              </p>
+              <p>
+                Багатьом компаніям — особливо мікро та малим — безкоштовних інструментів цілком достатньо. Нижче
+                показуємо, коли це так, а коли варто взяти щось більше (теж безкоштовно).
+              </p>
+              <p class="callout">
+                Потрібен правовий контекст — терміни, виняток 10&nbsp;000&nbsp;зл, штрафи та коди помилок? Ми зібрали
+                це в окремому посібнику:
+                <a href="/posts/post14-ksef-2026-limit-10000-checklist.html">KSeF у 2026: графік і практична підготовка ↗</a>.
+              </p>
+
+              <h2>2. Безкоштовні державні інструменти</h2>
+              <p>
+                Міністерство фінансів надає кілька безкоштовних способів виставляти фактури в KSeF — без жодної
+                ліцензійної плати:
+              </p>
+              <ul>
+                <li>
+                  <strong>Aplikacja Podatnika KSeF</strong> — офіційний безкоштовний застосунок (вебовий і мобільний)
+                  для виставлення, отримання та перегляду фактур. Вхід зокрема через Profil Zaufany. Добре для старту
+                  та невеликої кількості документів.
+                </li>
+                <li>
+                  <strong>e-mikrofirma</strong> (в e-Urząd Skarbowy) — безкоштовний інструмент для найменших фірм,
+                  пов'язаний із розрахунками та обліком.
+                </li>
+                <li>
+                  <strong>KSeF API</strong> — безкоштовний інтерфейс для інтеграції, якщо хочете з'єднати KSeF зі
+                  своєю системою. Сам по собі це не «програма», а шлюз до автоматизації.
+                </li>
+              </ul>
+              <p>
+                Якщо ви виставляєте кілька–десяток фактур на місяць і вам не потрібна інтеграція зі складом чи
+                бухгалтерією — <strong>державного застосунку, найпевніше, вистачить, і ви не заплатите нічого.</strong>
+              </p>
+
+              <h2>3. Де закінчуються безкоштовні державні інструменти</h2>
+              <p>Інструменти МФ чудові для старту, але мають межі. Вони починають заважати, коли:</p>
+              <ul>
+                <li>фактур багато, і ручне введення забирає реальний час;</li>
+                <li>потрібні фактури на основі замовлень, складу, договорів чи e-commerce — а не «з нуля»;</li>
+                <li>коригування, аванси та статуси доводиться вести масово, а не по одній;</li>
+                <li>хочете, щоб фактура створювалася автоматично після події у вашій системі;</li>
+                <li>потрібні власні процеси погодження, ролі та звітність.</li>
+              </ul>
+              <p>
+                Саме тоді зазвичай і виникає питання про «програму для фактур». І тут корисно знати, що альтернатива
+                платним пакетам — це не лише державний застосунок. Є ще <strong>безкоштовні open-source рішення</strong>,
+                які поєднують зручність програми з нульовою ліцензійною платою.
+              </p>
+
+              <h2>4. Open-source варіанти: безкоштовно, але з інтеграцією</h2>
+              <p>
+                Open-source (відкрите) ПЗ можна використовувати без ліцензійних платежів — самостійно або з партнером.
+                У контексті KSeF нас цікавлять рішення, що вміють:
+              </p>
+              <ul>
+                <li>генерувати структуровану фактуру й надсилати її до KSeF;</li>
+                <li>отримувати підтвердження та відстежувати статуси й помилки;</li>
+                <li>пов'язувати фактури з рештою компанії — продажами, складом, бухгалтерією;</li>
+                <li>зростати разом із компанією, без заміни системи щороку.</li>
+              </ul>
+              <p>
+                Такі рішення сьогодні будують на декларативних low-code платформах (наприклад, класу lsFusion),
+                де логіку описано правилами, а технічна інтеграція з KSeF схована в конекторах — завдяки чому
+                адаптація до змін схеми МФ триває години, а не тижні.
+              </p>
+
+              <div class="callout">
+                <strong>Кілька реальних open-source варіантів — із плюсами й мінусами (опційно, без зобов'язань):</strong>
+                <ul>
+                  <li>
+                    <a href="https://demo.lsfusion.org/mycompany" target="_blank" rel="noopener noreferrer">MyCompany</a>
+                    — безкоштовна open-source ERP (Apache-2.0) на платформі lsFusion.
+                    <br><strong>Плюс:</strong> це повноцінна ERP — фактури пов'язані з продажами, складом і бухгалтерією, автоматизація процесів; публічне демо включає виставлення фактур.
+                    <strong>Мінус:</strong> як платформа зазвичай потребує налаштування під власні процеси (самостійно чи з партнером) — поріг входу вищий, ніж у простого застосунку.
+                  </li>
+                  <li>
+                    <a href="https://www.dolibarr.org" target="_blank" rel="noopener noreferrer">Dolibarr</a>
+                    — зріла відкрита ERP/CRM з великою спільнотою.
+                    <br><strong>Плюс:</strong> багато готових модулів, перевірена в тисячах фірм.
+                    <strong>Мінус:</strong> підтримка польського KSeF зазвичай через сторонні модулі, не «з коробки».
+                  </li>
+                  <li>
+                    <a href="https://www.invoiceninja.com" target="_blank" rel="noopener noreferrer">Invoice Ninja</a>
+                    — легкий open-source застосунок для фактурування.
+                    <br><strong>Плюс:</strong> простий і швидкий на старті, зосереджений на фактурах і платежах.
+                    <strong>Мінус:</strong> це не повноцінна ERP; без функцій, специфічних для KSeF.
+                  </li>
+                </ul>
+                <p class="sidebar-text">
+                  Обсяг підтримки KSeF різниться між інструментами — варто перевірити в кожному. Це лише приклади; вибір залежить від масштабу та процесів вашої компанії.
+                </p>
+              </div>
+
+              <h2>5. Як обрати — короткий чек-лист</h2>
+              <ul>
+                <li><strong>Мало фактур, усе просто?</strong> → безкоштовний Aplikacja Podatnika KSeF.</li>
+                <li><strong>Найменша фірма, зв'язок із розрахунками?</strong> → e-mikrofirma.</li>
+                <li><strong>Багато фактур, інтеграція зі складом/ERP, автоматизація?</strong> → програма (платна чи open-source).</li>
+                <li><strong>Хочете уникнути ліцензійної плати, але з інтеграцією?</strong> → open-source рішення.</li>
+                <li><strong>Маєте власну систему?</strong> → інтеграція через KSeF API.</li>
+              </ul>
+
+              <h2>6. Підсумок</h2>
+              <p>
+                «Безкоштовна програма для фактур KSeF» — не міф. Багатьом компаніям вистачить безкоштовних державних
+                інструментів, а там, де потрібна інтеграція та автоматизація — без ліцензійних плат допомагає
+                open-source. Перш ніж підписувати договір на платний модуль, перевірте, чи не вирішує задачу
+                безкоштовний шлях у вашому масштабі.
+              </p>
+            </section>
+
+             <h2 id="feedback">Швидкий відгук</h2>
+              <div class="callout">
+                <strong>Чи було корисно?</strong>
+                <p>Короткий сигнал допомагає нам обирати наступні теми.</p>
+                <div class="hero-actions">
+                  <button class="btn btn-primary" type="button" data-vote="like">👍 Корисно <span class="count" data-count="like">—</span></button>
+                  <button class="btn btn-outline" type="button" data-vote="dislike">👎 Не дуже <span class="count" data-count="dislike">—</span></button>
+                </div>
+                <p class="sidebar-text">Без коментарів і акаунтів.</p>
+              </div>
+
+            <h2 id="related-posts">Схожі статті</h2>
+              <div class="callout">
+                <strong>Читати далі:</strong>
+                <p>Більше практичних нотаток про KSeF та е-фактурування.</p>
+                <ul>
+                  <li><a href="/posts/post23-jak-wystawic-fakture-ksef.html">Як виставити фактуру в KSeF — крок за кроком ↗</a></li>
+                  <li><a href="/posts/post14-ksef-2026-limit-10000-checklist.html">KSeF у 2026: графік, виняток 10 000 зл і підготовка ↗</a></li>
+                  <li><a href="/posts/post12-ksef-low-code.html">KSeF + low-code: підготовка до е-фактур з мінімальними витратами ↗</a></li>
+                </ul>
+              </div>
+
+          <div class="post-nav-links">
+            <a class="post-read" href="/#posts" >← Повернутися до всіх постів</a>
+            <a class="post-read" href="/#categories" > Переглянути всі категорії →</a>
+          </div>
+
+            <footer class="post-footer-extended">
+              <div class="post-footer-meta">
+                <div class="post-meta-tags">
+                  <span class="post-tag">KSeF</span>
+                  <span class="post-tag">Е-фактурування</span>
+                  <span class="post-tag">Фактури</span>
+                  <span class="post-tag">Open-source</span>
+                  <span class="post-tag">Польща</span>
+                </div>
+                <div class="post-meta-secondary">
+                  <span>Опубліковано: 18 вер 2026</span>
+                  <span>·</span>
+                  <span>Близько 8 хв читання</span>
+                  <span>·</span>
+                  <span class="post-views">Перегляди: <span class="count">—</span></span>
+                </div>
+              </div>
+            </footer>
+
+        <section class="sidebar-block">
+            <p class="sidebar-text">
+              Без спаму – лише періодичні нотатки про дизайн ERP, експерименти з автоматизацією та нові статті.
+            </p>
+            <form class="newsletter-form" action="https://formsubmit.co/info@devlab.blog" method="POST">
+              <input type="hidden" name="_next" value="https://uk.devlab.blog/thank-you.html">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="text" name="_honey" style="display:none">
+              <input type="email" name="email" class="field" placeholder="Ваша електронна пошта" required>
+              <button class="btn btn-primary" type="submit">Підписатися</button>
+              <p class="newsletter-note">Ви отримаєте лист із підтвердженням.<br>Безпечно через FormSubmit.</p>
+            </form>
+          </section>
+
+          </article>
+
+          <aside class="sidebar">
+            <section class="sidebar-block">
+              <h3 class="sidebar-title" id="topic-question-title">Запропонувати тему</h3>
+              <p class="sidebar-text">
+                Маєте питання чи ідею для майбутньої статті?
+                <a class="post-read" href="mailto:info@devlab.blog?subject=Питання%20або%20ідея%20для%20DevLab%20Blog">Напишіть нам →</a>
+              </p>
+            </section>
+            <section class="sidebar-block">
+              <h3 class="sidebar-title">Про блог</h3>
+              <p class="sidebar-text">
+                DevLab Blog зосереджений на open-source ERP, декларативних платформах і low-code автоматизації:
+                як адаптувати системи під вимоги на кшталт KSeF, не перетворюючи ІТ на нескінченний проєкт.
+              </p>
+            </section>
+            <section class="sidebar-block">
+              <h3 class="sidebar-title">Більше для вивчення</h3>
+              <ul class="sidebar-list">
+                <li><a href="/">Усі статті блогу</a></li>
+                <li><a href="/#categories">Перегляд за категоріями</a></li>
+                <li><a href="https://devlab.blog" target="_blank" rel="noopener noreferrer">Основний сайт DevLab</a></li>
+              </ul>
+            </section>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrapper footer-grid">
+        <div>
+          <div class="footer-links">
+            <a href="/">Статті</a>
+            <a href="/#categories">Категорії</a>
+            <a href="/#about">Про блог</a>
+            <a href="https://devlab.blog" target="_blank" rel="noopener noreferrer">Основний сайт</a>
+          </div>
+          <p class="footer-meta">DevLab Blog – нотатки про open-source ERP, low-code та автоматизацію в реальних компаніях.</p>
+        </div>
+        <div class="footer-meta"><p>&copy; <span id="year"></span> DevLab Blog</p></div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
